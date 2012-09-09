@@ -1,0 +1,53 @@
+/*#######################################################################################*/
+body{
+font-family: Tahoma;
+font-size: 12px;
+background-color: #000000;
+color: #A4A4A4;
+background-image:url('../images/nav/mainbggrad.png');
+background-repeat:repeat-x;
+margin:0;
+padding:0;
+}
+
+a:link {text-decoration: none; color: #FFFFFF; }
+a:visited {text-decoration: none; color: #FFFFFF; }
+a:active {text-decoration: none; color: #FFFFFF; }
+
+table {
+spacing:0px;
+padding:0px;
+border: 0px;
+border-collapse:collapse;
+}
+
+a {
+    cursor: pointer;
+}
+
+.ajaxForm{
+    background: black;
+    overflow: auto;
+    border: 1px solid white;
+    position: absolute;
+    top: 50px;
+    left: 15%;
+    right: 15%;
+    bottom: 25%;
+}
+
+#ajaxFormHead{
+    border: 1px solid white;
+    background: #0099CC;
+    height: 25px;
+    margin-bottom: 2em;
+    font-weight: bold;
+}
+
+#ajaxFormClose{
+    background-color: white;
+    float: right;
+    color: #FFF;
+    border: 1px solid black;
+    padding: 2px;
+}
