@@ -493,25 +493,19 @@ flush();
 ?>
   </div>
 </div>
-
 <script type="text/javascript">
-
 	$(function() {
-
 		$("#ehtabs").tabs();
     <?
 mysql_data_seek($resultg, 0);
 for($i=0; $i<$rowsg; $i++) {
   $valuesg = mysql_fetch_row($resultg);
-  echo "		$(\"#tabsgroup$valuesg[0]\").tabs();
+  echo "		$(\"#tabsgroup$valuesg[1]\").tabs();
 \n";
   }
     ?>
 	});
-
 </script>
-
-
 <?
   }
 else {
