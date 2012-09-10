@@ -13,7 +13,7 @@ if($_GET['db']=="hf") {
   echo "<p>Beginning Hammer's Fist Data import<br>";
   $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_fist", $newmysql_link);
-
+/*
   //Begin Import: HF_Operations
   $query = "SELECT Operation_ID, Name, StartDate, EndDate, Admin_ID, Description FROM HF_Operations";
   $result = mysql_query($query, $newmysql_link);
@@ -41,13 +41,14 @@ if($_GET['db']=="hf") {
     }
   echo "HF_Operations Transferred.<br>";
   //End Import HF_Operations
-/*
+*/
   //Begin Import: HF_Operations_Participants
   $query = "SELECT Operation_ID, Member_ID, Score FROM HF_Operations_Participants";
   $result = mysql_query($query, $newmysql_link);
   $rows = mysql_num_rows($result);
   for($i = 0; $i < $rows; $i++) {
     $values = mysql_fetch_row($result);
+    mysql_select_db($db_name, $mysql_link);
     $query1 = "SELECT NewValue FROM EH_ConvertInfo WHERE Group_ID=$groupid AND `Table`='Member' AND OriginalValue=$values[1]";
     $result1 = mysql_query($query1, $mysql_link);
     $rows1 = mysql_num_rows($result1);
@@ -68,7 +69,7 @@ if($_GET['db']=="hf") {
     }
   echo "HF_Operations_Participants Transferred.<br>";
   //End Import HF_Operations_Participants
-*/
+
   }
 if($_GET['db']=="tc") {
   echo "<p>Beginning TIE Corps Data import</p>\n";
