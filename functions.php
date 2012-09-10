@@ -719,17 +719,15 @@ if(!isset($mysql_link)) {
     $unitsep = $values[8];
     }
   $query = "select EH_Members.Member_ID, EH_Members.Name, EH_Members_Ranks.Rank_ID, EH_Members_Units.Unit_ID, EH_Members_Units.UnitPosition From EH_Members, EH_Members_Ranks, EH_Members_Units WHERE EH_Members.Member_ID=$pin AND EH_Members.Member_ID=EH_Members_Ranks.Member_ID AND EH_Members_Ranks.Group_ID=$group AND EH_Members_Units.Member_ID=EH_Members.Member_ID AND EH_Members_Units.Group_ID=$group";
-//  $query = "select EH_Members.Member_ID, EH_Members.Name, EH_Members_Ranks.Rank_ID From EH_Members, EH_Members_Ranks WHERE EH_Members.Member_ID=$pin AND EH_Members.Member_ID=EH_Members_Ranks.Member_ID AND EH_Members_Ranks.Group_ID=$group";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   if($rows) {
     $values = mysql_fetch_row($result);
     $rankid=$values[2];
     $unitid=$values[3];
-    $unitpos = $values[4];
+    $unitpos=$values[4];
     $idline = str_replace("@R@", RankAbbr($rankid, 1), $idline);
     $idline = str_replace("@N@", stripslashes($values[1]), $idline);
-    $idline = str_replace("@U@", UnitsIDLine($unitid, $unitpos, $unitsep, $pripos), $idline);
     $pos = "";
     $query1 = "select Position_ID, isGroupPrimary FROM EH_Members_Positions WHERE Member_ID=$pin AND Group_ID=$group";
     $result1 = mysql_query($query1, $mysql_link);
@@ -743,6 +741,7 @@ if(!isset($mysql_link)) {
         $pripos = $values1[0];
       }
     $idline = str_replace("@P@", PositionAbbrIDLine($pos, $possep, 1), $idline);
+    $idline = str_replace("@U@", UnitsIDLine($unitid, $unitpos, $unitsep, $pripos), $idline);
     if($isprigroup || $group ==2) {
       $query1 = "SELECT SA_ID, Value FROM EH_Members_Special_Areas WHERE Member_ID=$pin Order By SA_ID";
       $result1 = mysql_query($query1, $mysql_link);
