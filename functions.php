@@ -700,45 +700,6 @@ if(!isset($mysql_link)) {
   return $cht;
 }
 
-
-function Platforms($pin) {
-  global $db_host, $db_name, $db_username, $db_password, $mysql_link;
-if(!isset($mysql_link)) {
-    $mysql_link = mysql_connect($db_host, $db_username, $db_password);
-    mysql_select_db($db_name, $mysql_link);
-    }
-  $plt="";
-  $query = "select EH_Platforms.Name From EH_Platforms, EH_Members_Platforms WHERE EH_Platforms.Platform_ID=EH_Members_Platforms.Platform_ID AND EH_Members_Platforms.Member_ID=$pin Order By EH_Platforms.Name";
-  $result = mysql_query($query, $mysql_link);
-  $rows = mysql_num_rows($result);
-  for($i=0; $i<$rows; $i++) {
-    $values = mysql_fetch_row($result);
-    $plt .= "&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values[0])."<br />\n";
-    }
-  if($plt=="")
-    $plt = "&nbsp;&nbsp;&nbsp;&nbsp;No Platforms Selected";
-  return $plt;
-}
-
-function Skills($pin) {
-  global $db_host, $db_name, $db_username, $db_password, $mysql_link;
-if(!isset($mysql_link)) {
-    $mysql_link = mysql_connect($db_host, $db_username, $db_password);
-    mysql_select_db($db_name, $mysql_link);
-    }
-  $plt="";
-  $query = "select EH_Skills.Name, EH_Members_Skills.SkillLevel From EH_Skills, EH_Members_Skills WHERE EH_Skills.Skill_ID=EH_Members_Skills.Skill_ID AND EH_Members_Skills.Member_ID=$pin Order By EH_Skills.Name";
-  $result = mysql_query($query, $mysql_link);
-  $rows = mysql_num_rows($result);
-  for($i=0; $i<$rows; $i++) {
-    $values = mysql_fetch_row($result);
-    $plt .= "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values[0])." At Level: $values[1]<br />\n";
-    }
-  if($plt=="")
-    $plt = "&nbsp;&nbsp;&nbsp;&nbsp;No Skills Selected";
-  return $plt;
-}
-
 function IDLine($pin, $group, $isprigroup) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
 if(!isset($mysql_link)) {

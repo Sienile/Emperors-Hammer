@@ -327,11 +327,31 @@ flush();
 ?>
   <div id="tabsPlt">
 <p><b><?=stripslashes($values[1])?>'s Platforms</b></p>
-    <p><?=Platforms($values[0])?></p>
+    <p><?
+  $query1 = "select EH_Platforms.Name From EH_Platforms, EH_Members_Platforms WHERE EH_Platforms.Platform_ID=EH_Members_Platforms.Platform_ID AND EH_Members_Platforms.Member_ID=$values[0] Order By EH_Platforms.Name";
+  $result1 = mysql_query($query1, $mysql_link);
+  $rows1 = mysql_num_rows($result1);
+  for($i=0; $i<$rows1; $i++) {
+    $values1 = mysql_fetch_row($result1);
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values1[0])."<br />\n";
+    }
+  if($rows1==0)
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;No Platforms Selected";
+?></p>
   </div>
   <div id="tabsSkill">
 <p><b><?=stripslashes($values[1])?>'s Skills</b></p>
-    <p><?=Skills($values[0])?></p>
+    <p><?
+  $query1 = "select EH_Skills.Name, EH_Members_Skills.SkillLevel From EH_Skills, EH_Members_Skills WHERE EH_Skills.Skill_ID=EH_Members_Skills.Skill_ID AND EH_Members_Skills.Member_ID=$pin Order By EH_Skills.Name";
+  $result1 = mysql_query($query1, $mysql_link);
+  $rows1 = mysql_num_rows($result1);
+  for($i=0; $i<$rows1; $i++) {
+    $values1 = mysql_fetch_row($result1);
+    $plt .= "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values1[0])." At Level: $values1[1]<br />\n";
+    }
+  if($rows1==0)
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;No Skills Selected";
+?></p>
   </div>
   <div id="tabsFic">
 <p><b><?=stripslashes($values[1])?>'s Fiction</b></p>
