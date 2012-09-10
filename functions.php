@@ -718,20 +718,18 @@ if(!isset($mysql_link)) {
     $possep = $values[7];
     $unitsep = $values[8];
     }
-  $query = "select Member_ID, Name From EH_Members WHERE Member_ID=$pin";
+  $query = "select EH_Members.Member_ID, EH_Members.Name, EH_Members_Ranks.Rank_ID, EH_Members_Units.Unit_ID, EH_Members_Units.UnitPosition From EH_Members, EH_Members_Ranks, EH_Members_Units WHERE EH_Members.Member_ID=$pin AND EH_Members.Member_ID=EH_Members_Ranks.Member_ID AND EH_Members_Ranks.Group_ID=$group AND EH_Members_Units.Member_ID=EH_Members.Member_ID AND EH_Members_Units.Group_ID=$group";
+//  $query = "select EH_Members.Member_ID, EH_Members.Name, EH_Members_Ranks.Rank_ID From EH_Members, EH_Members_Ranks WHERE EH_Members.Member_ID=$pin AND EH_Members.Member_ID=EH_Members_Ranks.Member_ID AND EH_Members_Ranks.Group_ID=$group";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   if($rows) {
     $values = mysql_fetch_row($result);
-    $query1 = "select Rank_ID From EH_Members_Ranks WHERE Member_ID=$pin AND Group_ID=$group";
-    $result1 = mysql_query($query1, $mysql_link);
-    $rows1 = mysql_num_rows($result1);
-    if($rows1) {
-      $values1 = mysql_fetch_row($result1);
-      $rankid=$values1[0];
-      }
+    $rankid=$values[2];
+    $unitid=$values[3];
+    $unitpos = $values[4];
     $idline = str_replace("@R@", RankAbbr($rankid, 1), $idline);
     $idline = str_replace("@N@", stripslashes($values[1]), $idline);
+    $idline = str_replace("@U@", UnitsIDLine($unitid, $unitpos, $unitsep, $pripos), $idline);
     $pos = "";
     $query1 = "select Position_ID, isGroupPrimary FROM EH_Members_Positions WHERE Member_ID=$pin AND Group_ID=$group";
     $result1 = mysql_query($query1, $mysql_link);
@@ -745,24 +743,22 @@ if(!isset($mysql_link)) {
         $pripos = $values1[0];
       }
     $idline = str_replace("@P@", PositionAbbrIDLine($pos, $possep, 1), $idline);
-    $query1 = "select Unit_ID, UnitPosition From EH_Members_Units WHERE Member_ID=$pin AND Group_ID=$group";
-    $result1 = mysql_query($query1, $mysql_link);
-    $rows1 = mysql_num_rows($result1);
-    if($rows1) {
-      $values1 = mysql_fetch_row($result1);
-      $unitid=$values1[0];
-      $unitpos = $values1[1];
-      }
-    $idline = str_replace("@U@", UnitsIDLine($unitid, $unitpos, $unitsep, $pripos), $idline);
     if($isprigroup || $group ==2) {
-      $query1 = "select Value From EH_Members_Special_Areas WHERE Member_ID=$pin AND SA_ID=1";
+      $query1 = "SELECT SA_ID, Value FROM EH_Members_Special_Areas WHERE Member_ID=$pin Order By SA_ID";
       $result1 = mysql_query($query1, $mysql_link);
       $rows1 = mysql_num_rows($result1);
-      $fchgpts=0;
-      if($rows1) {
+      for($i=0; $i<$rows1; $i++) {
         $values1 = mysql_fetch_row($result1);
-        $fchgpts = $values1[0];
+        $sa[$values1[0]] = stripslashes($values1[1]);
         }
+      if($sa[1])
+        $fchgpts = $sa[1];
+      else
+        $fchgpts = 0;
+      if($sa[2])
+        $cr=$sa[2];
+      else
+        $cr=0;
       if($fchgpts) {
         $fchgabbr = FCHGAbbr($fchgpts, 1);
         $idline = str_replace("@F@", "$fchgabbr", $idline);
@@ -770,16 +766,8 @@ if(!isset($mysql_link)) {
       else {
         $idline = str_replace("[@F@]", "", $idline);
         }
-      $query1 = "select Value From EH_Members_Special_Areas WHERE Member_ID=$pin AND SA_ID=2";
-      $result1 = mysql_query($query1, $mysql_link);
-      $rows1 = mysql_num_rows($result1);
-      $crpts=0;
-      if($rows1) {
-        $values1 = mysql_fetch_row($result1);
-        $crpts = $values1[0];
-        }
-      if($crpts) {
-        $combatrating = CombatRating($crpts);
+      if($cr) {
+        $combatrating = CombatRating($cr);
         $idline = str_replace("@C@", "$combatrating", $idline);
         }
       else {
