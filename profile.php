@@ -51,7 +51,7 @@ if($rows) {
   <ul>
     <li><a href="#tabsMain">Main</a></li>
     <?
-$queryg = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate, EH_Members_Ranks.Rank_ID, EH_Members_Ranks.PromotionDate, EH_Members_Units.Unit_ID, EH_Members_Units.UnitPosition FROM EH_Groups, EH_Members_Groups, EH_Members_Ranks, EH_Members_Units WHERE EH_Members_Groups.Group_ID = EH_Groups.Group_ID AND EH_Members_Groups.Member_ID =$values[0] AND EH_Members_Groups.Active =1 AND EH_Members_Ranks.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Ranks.Group_ID = EH_Members_Groups.Group_ID AND EH_Members_Units.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Units.Group_ID = EH_Members_Groups.Group_ID ORDER BY EH_Groups.Group_ID";
+$queryg = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate, EH_Members_Ranks.Rank_ID, EH_Members_Ranks.PromotionDate, EH_Members_Units.Unit_ID, EH_Members_Units.UnitPosition, Group_Concat( EH_Members_Positions.Position_ID SEPARATOR '-' ) FROM EH_Groups, EH_Members_Groups, EH_Members_Ranks, EH_Members_Units, EH_Members_Positions WHERE EH_Members_Groups.Group_ID = EH_Groups.Group_ID AND EH_Members_Groups.Member_ID =$values[0] AND EH_Members_Groups.Active =1 AND EH_Members_Ranks.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Ranks.Group_ID = EH_Members_Groups.Group_ID AND EH_Members_Units.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Units.Group_ID = EH_Members_Groups.Group_ID AND EH_Members_Positions.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Positions.Group_ID = EH_Members_Groups.Group_ID GROUP BY EH_Groups.Group_ID";
 $resultg = mysql_query($queryg, $mysql_link);
 $rowsg = mysql_num_rows($resultg);
 for($i=0; $i<$rowsg; $i++) {
@@ -117,16 +117,7 @@ flush();
         $rankdate = $values1[9];
         $rankname = RankName($rankid);
         echo "Group Rank: $rankname<br />";
-        $posid="";
-        $query3 = "SELECT Position_ID FROM EH_Members_Positions WHERE Member_ID=$values[0] AND Group_ID=$values1[0]";
-        $result3 = mysql_query($query3, $mysql_link);
-        $rows3 = mysql_num_rows($result3);
-        for($w=0; $w<$rows3; $w++) {
-          $values3 = mysql_fetch_row($result3);
-          $posid .= $values3[0];
-          if($w+1<$rows3)
-            $posid.="-";
-          }
+        $posid = $values1[12];
         $posname = PositionName($posid, "<br />\n");
         echo "Group Position(s): $posname<br />";
         $unit= $values1[10];
