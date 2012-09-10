@@ -106,8 +106,9 @@ flush();
         $pri=false;
       $grname = RankAbbrName($pin, $values1[0], 1);
       $grnamen = RankAbbrName($pin, $values1[0], 0);
+      $groupnameheader ="$grname's ".stripslashes($values1[1]);
       if($values2[1]==1) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Group Information</b></p>";
+        echo "<p><b>$groupnameheader Group Information</b></p>";
         //GT_ID=1 = Group Info
         //Info to include:
         echo "<p>ID Line:<br />\n";
@@ -156,7 +157,7 @@ flush();
         echo "</p>\n";
         } // End GT_ID=1
       if($values2[1]==2) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Medals</b></p>";
+        echo "<p><b>$groupnameheader Medals</b></p>";
         //Medals
         if($pri) {
           $mggroup = NGroups($values1[0], $values[0]);
@@ -168,7 +169,7 @@ flush();
         echo "</p>\n";
         } // End GT_ID=2
       if($values2[1]==3) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Competitions Participated in</b></p>";
+        echo "<p><b>$groupnameheader Competitions Participated in</b></p>";
         $ct = 0;
         $query3 = "SELECT Comp_ID, Name FROM EH_Competitions WHERE Group_ID=$values1[0] Order By StartDate";
         $result3 = mysql_query($query3, $mysql_link);
@@ -190,7 +191,7 @@ flush();
           echo $grname." has not participated in any ".stripslashes($values1[1])." Competitions";
         } // End GT_ID=3
       if($values2[1]==4) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Training Completed</b></p>";
+        echo "<p><b>$groupnameheader Training Completed</b></p>";
         //Medals
         if($pri) {
           $mggroup = NGroups($values1[0], $values[0]);
@@ -205,7 +206,7 @@ flush();
       //GT_ID=5 = INPR
         }// End GT_ID=5
       if($values2[1]==6) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Uniform</b></p>";
+        echo "<p><b>$groupnameheader Uniform</b></p>";
           $img="";
         if($values1[5]==1) {
           //upload
@@ -234,7 +235,7 @@ flush();
           }
         } //End GT_ID=6
       if($values2[1]==7) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." History</b></p>";
+        echo "<p><b>$groupnameheader History</b></p>";
         $query3 = "SELECT History_Type, MemberChange, Reason, Occured From EH_Members_History WHERE Member_ID=$values[0] AND Group_ID=$values1[0] Order By Occured";
         $result3 = mysql_query($query3, $mysql_link);
         $rows3 = mysql_num_rows($result3);
@@ -320,7 +321,7 @@ flush();
           }
         } // End GT_ID=7
       if($values2[1]==8) {
-        echo "<p><b>$grname's ".stripslashes($values1[1])." Items</b></p>";
+        echo "<p><b>$groupnameheader Items</b></p>";
         //$values[0] = Member, $values1[0] = Group
         $query3 = "SELECT EH_Items.Name FROM EH_Items, EH_Members_Items WHERE EH_Members_Items.Member_ID=$values[0] AND EH_Members_Items.Group_ID=$values1[0] AND EH_Members_Items.Status=1 AND EH_Members_Items.Item_ID=EH_Items.Item_ID";
         $result3 = mysql_query($query3, $mysql_link);
