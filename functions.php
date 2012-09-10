@@ -790,26 +790,20 @@ if(!isset($mysql_link)) {
     $mysql_link = mysql_connect($db_host, $db_username, $db_password);
     mysql_select_db($db_name, $mysql_link);
     }
-  $query = "select Position_ID, isCS, CSOrder, Group_ID From EH_Positions WHERE Position_ID=$pos";
+  $query = "select EH_Positions.Position_ID, EH_Positions.isCS, EH_Positions.CSOrder, EH_Groups.CSAbbrL1, EH_Groups.CSAbbrL2, EH_Groups.CSAbbrL3 From EH_Positions, EH_Groups WHERE EH_Positions.Position_ID=$pos AND EH_Positions.Group_ID=EH_Groups.Group_ID";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   $unit = "";
   if($rows) {
     $values = mysql_fetch_row($result);
-    $query1 = "select CSAbbrL1, CSAbbrL2, CSAbbrL3 From EH_Groups Where Group_ID=$values[3]";
-    $result1 = mysql_query($query1, $mysql_link);
-    $rows1 = mysql_num_rows($result1);
-    if($rows1) {
-      $values1 = mysql_fetch_row($result1);
-      if($values[1]==1) {
-        $unit=$values1[0]."-".$values[2];
-        }
-      if($values[1]==2) {
-        $unit=$values1[1]."-".$values[2];
-        }
-      if($values[1]==3) {
-        $unit=$values1[2]."-".$values[2];
-        }
+    if($values[1]==1) {
+      $unit=$values[3]."-".$values[2];
+      }
+    if($values[1]==2) {
+      $unit=$values[4]."-".$values[2];
+      }
+    if($values[1]==3) {
+      $unit=$values[5]."-".$values[2];
       }
     }
   return stripslashes($unit);
