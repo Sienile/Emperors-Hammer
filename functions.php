@@ -673,33 +673,6 @@ if(!isset($mysql_link)) {
     }
 }
 
-function Chats($pin) {
-  //format of chat info: chatid:username;chatid2:username2;
-  global $db_host, $db_name, $db_username, $db_password, $mysql_link;
-if(!isset($mysql_link)) {
-    $mysql_link = mysql_connect($db_host, $db_username, $db_password);
-    mysql_select_db($db_name, $mysql_link);
-    }
-  $cht="";
-  $query = "select EH_ChatSystems.Name, EH_ChatSystems.Abbr, EH_ChatSystems.Image, EH_ChatSystems.LinkFormat, EH_Members_ChatProfile.Chat_Handle From EH_ChatSystems, EH_Members_ChatProfile WHERE EH_ChatSystems.Chat_ID=EH_Members_ChatProfile.Chat_ID AND EH_Members_ChatProfile.Member_ID=$pin Order By EH_ChatSystems.Name";
-  $result = mysql_query($query, $mysql_link);
-  $rows = mysql_num_rows($result);
-  for($i=0; $i<$rows; $i++) {
-    $values = mysql_fetch_row($result);
-    $link = str_replace("[username]", $values[4], $values[3]);
-    $cht .= "&nbsp;&nbsp;&nbsp;&nbsp;";
-    if($values[2])
-      $cht.= "<img src=\"images/Icons/".stripslashes($values[2])."\" alt=\"$values[1]\"/>";
-    if($values[3])
-      $cht.= "<a href=\"$link\"><abbr title=\"".stripslashes($values[0])."\">".stripslashes($values[1])."</abbr></a><br />\n";
-    else
-      $cht.= "<abbr title=\"".stripslashes($values[0])."\">".stripslashes($values[1])."</abbr>: ".stripslashes($values[4])."<br />\n";
-    }
-  if($cht=="")
-    $cht = "&nbsp;&nbsp;&nbsp;&nbsp;No Chat Systems selected<br />\n";
-  return $cht;
-}
-
 function IDLine($pin, $group, $isprigroup) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
 if(!isset($mysql_link)) {

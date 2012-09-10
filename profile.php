@@ -75,7 +75,24 @@ flush();
   E-Mail: <img src="emailimg.php?id=<? echo $values[0]; ?>" alt="Member's E-mail Address" border="0" /><br />
   Quote: <? if($values[3]) echo stripslashes($values[3]); ?><br />
   Chat Systems:<br />
-  <?=Chats($values[0]);?>
+  <?
+  $queryc = "select EH_ChatSystems.Name, EH_ChatSystems.Abbr, EH_ChatSystems.Image, EH_ChatSystems.LinkFormat, EH_Members_ChatProfile.Chat_Handle From EH_ChatSystems, EH_Members_ChatProfile WHERE EH_ChatSystems.Chat_ID=EH_Members_ChatProfile.Chat_ID AND EH_Members_ChatProfile.Member_ID=$values[0] Order By EH_ChatSystems.Name";
+  $resultc = mysql_query($queryc, $mysql_link);
+  $rowsc = mysql_num_rows($resultc);
+  for($i=0; $i<$rowsc; $i++) {
+    $values1 = mysql_fetch_row($resultc);
+    $link = str_replace("[username]", $values1[4], $values1[3]);
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+    if($values1[2])
+      echo "<img src=\"images/Icons/".stripslashes($values1[2])."\" alt=\"$values1[1]\"/>";
+    if($values1[3])
+      echo "<a href=\"$link\"><abbr title=\"".stripslashes($values1[0])."\">".stripslashes($values1[1])."</abbr></a><br />\n";
+    else
+      echo "<abbr title=\"".stripslashes($values1[0])."\">".stripslashes($values1[1])."</abbr>: ".stripslashes($values1[4])."<br />\n";
+    }
+  if($rowsc==0)
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;No Chat Systems selected<br />\n";
+?>
   <? if($values[4]) 
     echo "  Homepage: <a href=\"".stripslashes($values[4])."\">".stripslashes($values[4])."</a>";
   ?></p>
