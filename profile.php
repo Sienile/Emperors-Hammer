@@ -500,9 +500,7 @@ flush();
 
 		$("#ehtabs").tabs();
     <?
-$queryg = "SELECT EH_Groups.Abbr, EH_Groups.Name FROM EH_Members_Groups, EH_Groups WHERE EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 AND EH_Members_Groups.Group_ID=EH_Groups.Group_ID";
-$resultg = mysql_query($queryg, $mysql_link);
-$rowsg = mysql_num_rows($resultg);
+mysql_data_seek($resultg, 0);
 for($i=0; $i<$rowsg; $i++) {
   $valuesg = mysql_fetch_row($resultg);
   echo "		$(\"#tabsgroup$valuesg[0]\").tabs();
