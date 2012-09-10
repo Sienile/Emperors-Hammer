@@ -11,7 +11,7 @@ mysql_select_db($db_name, $mysql_link);
 if($_GET['db']=="hf") {
   $groupid=6;
   echo "<p>Beginning Hammer's Fist Data import<br>";
-  $newmysql_link = mysql_connect($db_host, "emperors_hf", "wuqPTqFuELXH", TRUE);
+  $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_fist", $newmysql_link);
 
   //Begin Import: HF_Items_Categories
@@ -1034,7 +1034,7 @@ if($_GET['db']=="hf") {
 if($_GET['db']=="dir") {
   echo "<p>Beginning Directorate Data import<br>";
   $groupid=4;
-  $newmysql_link = mysql_connect($db_host, "emperors_dir", "NqJVZv3SALI1", TRUE);
+  $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_directorate", $newmysql_link);
 
   //Begin Import: medals
@@ -1583,7 +1583,7 @@ if($_GET['db']=="dir") {
 if($_GET['db']=="db") {
   echo "<p>Beginning Dark Brotherhood Data import</p>\n";
   $groupid=3;
-  $newmysql_link = mysql_connect($db_host, "emperors_db", "RTFclXEIiwyD", TRUE);
+  $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_db", $newmysql_link);
 
   //Begin Import: db_medals
@@ -2416,7 +2416,7 @@ $acad = 3;
   }
 if($_GET['db']=="tc") {
   echo "<p>Beginning TIE Corps Data import</p>\n";
-  $newmysql_link = mysql_connect($db_host, "emperors_tc", "27iB1bDPKwaw", TRUE);
+  $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_members", $newmysql_link);
   $groupid=2;
   //Begin Import: TC_medals
@@ -4672,7 +4672,7 @@ if($_GET['db']=="tc") {
 
 if($_GET['db']=="tc2") {
   echo "<p>Beginning TIE Corps Data import</p>\n";
-  $newmysql_link = mysql_connect($db_host, "emperors_tc", "27iB1bDPKwaw", TRUE);
+  $newmysql_link = mysql_connect($db_host, $db_username, $db_password);
   mysql_select_db("emperors_members", $newmysql_link);
   $groupid=2;
 
