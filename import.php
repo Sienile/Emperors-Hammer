@@ -862,6 +862,7 @@ if($_GET['db']=="hf") {
       }
     $query1 = "INSERT INTO EH_Competitions (Name, Admin_ID, Group_ID, StartDate, EndDate, Description) VALUES ('$name', '$admin', '$groupid', '$start', '$end', '$desc')";
     $result1 = mysql_query($query1, $mysql_link);
+    $newid = mysql_insert_id($mysql_link);
     $query1 = "INSERT INTO EH_ConvertInfo (Group_ID, `Table`, OriginalValue, NewValue) VALUES ('$groupid', 'Operation', '$values[0]', '$newid')";
     $result1 = mysql_query($query1, $mysql_link);
     }
