@@ -162,23 +162,16 @@ flush();
       if($values2[1]==3) {
         echo "<p><b>$groupnameheader Competitions Participated in</b></p>";
         $ct = 0;
-        $query3 = "SELECT Comp_ID, Name FROM EH_Competitions WHERE Group_ID=$values1[0] Order By StartDate";
+        $query3 = "SELECT EH_Competitions.Comp_ID, EH_Competitions.Name, EH_Competitions_Participants.Score FROM EH_Competitions, EH_Competitions_Participants WHERE EH_Competitions.Group_ID =$values1[0] AND EH_Competitions.Comp_ID = EH_Competitions_Participants.Comp_ID AND EH_Competitions_Participants.Member_ID =$values[0] ORDER BY EH_Competitions.StartDate";
         $result3 = mysql_query($query3, $mysql_link);
         $rows3 = mysql_num_rows($result3);
         for($k=0; $k<$rows3; $k++) {
           $values3 = mysql_fetch_row($result3);
-          $query4 = "SELECT Score FROM EH_Competitions_Participants WHERE Comp_ID=$values3[0] AND Member_ID=$values[0] LIMIT 1";
-          $result4 = mysql_query($query4, $mysql_link);
-          $rows4 = mysql_num_rows($result4);
-          if($rows4) {
-            $ct++;
-            $values4 = mysql_fetch_row($result4);
-            echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
-            if($values4[0])
-              echo " Score of $values4[0]<br />";
-            }
+          echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
+          if($values3[3])
+              echo " Score of $values3[3]<br />";
           }
-        if($ct==0)
+        if($rows3==0)
           echo $grname." has not participated in any ".stripslashes($values1[1])." Competitions";
         } // End GT_ID=3
       if($values2[1]==4) {
