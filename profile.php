@@ -27,34 +27,36 @@ echo "<form method=\"get\" action=\"profile.php\">\nPIN #: <input type=\"text\" 
 echo "</div>\n";
 if($rows) {
   $values = mysql_fetch_row($result);
-  $query1 = "SELECT SA_ID, Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0]";
+  $query1 = "SELECT SA_ID, Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0] Order By SA_ID";
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
   for($i=0; $i<$rows1; $i++) {
     $values1 = mysql_fetch_row($result1);
-    $sa[][0] = $values1[0];
-    $sa[][1] = stripslashes($values1[1]);
+    $sa[$values1[0]] = stripslashes($values1[1]);
     }
-  foreach($sa as $area) {
-    if($area[0]==1)
-      $fchgpts = $area[1];
-    elseif($area[0]==2)
-      $cr=$area[1];
-    elseif($area[0]==3)
-      $st=$area[1];
-    }
+  if($sa[1])
+    $fchgpts = $sa[1];
+  else
+    $fchgpts = 0;
+  if($sa[2])
+    $cr=$sa[2];
+  else
+    $cr=0;
+  if($sa[3])
+    $st=$sa[3];
+  else
+    $st=0;
 ?>
 <div id="ehtabs">
   <ul>
     <li><a href="#tabsMain">Main</a></li>
     <?
-$queryg = "SELECT EH_Groups.Abbr, EH_Groups.Name FROM EH_Members_Groups, EH_Groups WHERE EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 AND EH_Members_Groups.Group_ID=EH_Groups.Group_ID Order By EH_Groups.Group_ID";
+$queryg = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate FROM EH_Groups, EH_Members_Groups WHERE EH_Members_Groups.Group_ID=EH_Groups.Group_ID AND EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 Order By EH_Groups.Group_ID";
 $resultg = mysql_query($queryg, $mysql_link);
 $rowsg = mysql_num_rows($resultg);
 for($i=0; $i<$rowsg; $i++) {
   $valuesg = mysql_fetch_row($resultg);
-  echo "    <li><a href=\"#tabs$valuesg[0]\">".stripslashes($valuesg[1])." Profile</a></li>
-\n";
+  echo "    <li><a href=\"#tabs$valuesg[1]\">".stripslashes($valuesg[2])." Profile</a></li>\n";
   }
     ?>
     <li><a href="#tabsPlt">Platforms</a></li>
@@ -80,11 +82,9 @@ flush();
   ?></p>
   </div>
   <?
-  $query1 = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate FROM EH_Groups, EH_Members_Groups WHERE EH_Members_Groups.Group_ID=EH_Groups.Group_ID AND EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 Order By EH_Groups.Group_ID";
-  $result1 = mysql_query($query1, $mysql_link);
-  $rows1 = mysql_num_rows($result1);
-  for($i=0; $i<$rows1; $i++) {
-    $values1 = mysql_fetch_row($result1);
+  mysql_data_seek($resultg, 0);
+  for($i=0; $i<$rowsg; $i++) {
+    $values1 = mysql_fetch_row($resultg);
     echo "  <div id=\"tabs$values1[1]\">\n";
     echo "<div id=\"tabsgroup$values1[1]\">\n"; // Begin Group Container
     $gttabs = str_replace(";", " OR GT_ID=", $values1[3]);
