@@ -168,8 +168,9 @@ flush();
         for($k=0; $k<$rows3; $k++) {
           $values3 = mysql_fetch_row($result3);
           echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
-          if($values3[3])
-              echo " Score of $values3[3]<br />";
+          if($values3[2])
+              echo " Score of $values3[2]";
+          echo "<br />\n";
           }
         if($rows3==0)
           echo $grname." has not participated in any ".stripslashes($values1[1])." Competitions";
