@@ -27,26 +27,21 @@ echo "<form method=\"get\" action=\"profile.php\">\nPIN #: <input type=\"text\" 
 echo "</div>\n";
 if($rows) {
   $values = mysql_fetch_row($result);
-  $query1 = "SELECT Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0] AND SA_ID=1";
+  $query1 = "SELECT SA_ID, Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0]";
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
-  if($rows1) {
+  for($i=0; $i<$rows1; $i++) {
     $values1 = mysql_fetch_row($result1);
-    $fchgpts = stripslashes($values1[0]);
+    $sa[][0] = $values1[0];
+    $sa[][1] = stripslashes($values1[1]);
     }
-  $query1 = "SELECT Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0] AND SA_ID=2";
-  $result1 = mysql_query($query1, $mysql_link);
-  $rows1 = mysql_num_rows($result1);
-  if($rows1) {
-    $values1 = mysql_fetch_row($result1);
-    $cr = stripslashes($values1[0]);
-    }
-  $query1 = "SELECT Value FROM EH_Members_Special_Areas WHERE Member_ID=$values[0] AND SA_ID=3";
-  $result1 = mysql_query($query1, $mysql_link);
-  $rows1 = mysql_num_rows($result1);
-  if($rows1) {
-    $values1 = mysql_fetch_row($result1);
-    $st = stripslashes($values1[0]);
+  foreach($sa as $area) {
+    if($area[0]==1)
+      $fchgpts = $area[1];
+    elseif($area[0]==2)
+      $cr=$area[1];
+    elseif($area[0]==3)
+      $st=$area[1];
     }
 ?>
 <div id="ehtabs">
