@@ -97,9 +97,7 @@ flush();
       echo "        <li><a href=\"#$values1[1]$values2[1]\">".stripslashes($values1[1])." ".stripslashes($values2[0])."</a></li>\n";
       }
     echo "      </ul>\n";
-    $query2 = "SELECT Name, GT_ID FROM EH_Groups_Tabs WHERE GT_ID=$gttabs Order By SortOrder";
-    $result2 = mysql_query($query2, $mysql_link);
-    $rows2 = mysql_num_rows($result2);
+    mysql_data_seek($result2, 0);
     for($j=0; $j<$rows2; $j++) {
       $values2 = mysql_fetch_row($result2);
       echo "      <div id=\"$values1[1]$values2[1]\">
