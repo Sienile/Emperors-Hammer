@@ -51,7 +51,7 @@ if($rows) {
 	<ul>
 		<li><a href="#tabsMain">Main</a></li>
 		<?
-		$queryg = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate FROM EH_Groups, EH_Members_Groups WHERE EH_Members_Groups.Group_ID=EH_Groups.Group_ID AND EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 Order By EH_Groups.Group_ID";
+		$queryg = "SELECT EH_Groups.Group_ID, EH_Groups.Abbr, EH_Groups.Name, EH_Groups.ProfileTabs, EH_Groups.RankTypeDisplayName, EH_Groups.UniType, EH_Members_Groups.isPrimary, EH_Members_Groups.JoinDate, EH_Members_Ranks.Rank_ID, EH_Members_Ranks.PromotionDate, EH_Members_Units.Unit_ID, EH_Members_Units.UnitPosition, Group_Concat( EH_Members_Positions.Position_ID SEPARATOR '-' ) FROM EH_Groups, EH_Members_Groups, EH_Members_Ranks, EH_Members_Units, EH_Members_Positions WHERE EH_Members_Groups.Group_ID = EH_Groups.Group_ID AND EH_Members_Groups.Member_ID =$values[0] AND EH_Members_Groups.Active =1 AND EH_Members_Ranks.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Ranks.Group_ID = EH_Members_Groups.Group_ID AND EH_Members_Units.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Units.Group_ID = EH_Members_Groups.Group_ID AND EH_Members_Positions.Member_ID = EH_Members_Groups.Member_ID AND EH_Members_Positions.Group_ID = EH_Members_Groups.Group_ID GROUP BY EH_Groups.Group_ID";
 		$resultg = mysql_query($queryg, $mysql_link);
 		$rowsg = mysql_num_rows($resultg);
 		for($i=0; $i<$rowsg; $i++) {
@@ -129,42 +129,22 @@ if($rows) {
 	            $pri=false;
 	        $grname = RankAbbrName($pin, $values1[0], 1);
 	        $grnamen = RankAbbrName($pin, $values1[0], 0);
+                $groupnameheader ="$grname's ".stripslashes($values1[1]);
 	        if($values2[1]==1) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Group Information</b></p>";
+	            echo "<p><b>$groupnameheader Group Information</b></p>";
 	            //GT_ID=1 = Group Info
 	            //Info to include:
 	            echo "<p>ID Line:<br />\n";
 	            echo IDLine($values[0], $values1[0], $pri)."<br />\n";
-	            $query3 = "SELECT Rank_ID, PromotionDate FROM EH_Members_Ranks WHERE Member_ID=$values[0] AND Group_ID=$values1[0]";
-	            $result3 = mysql_query($query3, $mysql_link);
-	            $rows3 = mysql_num_rows($result3);
-	            if($rows3) {
-	                $values3 = mysql_fetch_row($result3);
-	                $rankid = $values3[0];
-	                $rankdate = $values3[1];
-	            }
+                    $rankid = $values1[8];
+                    $rankdate = $values1[9];
 	            $rankname = RankName($rankid);
 	            echo "Group Rank: $rankname<br />";
-	            $posid="";
-	            $query3 = "SELECT Position_ID FROM EH_Members_Positions WHERE Member_ID=$values[0] AND Group_ID=$values1[0]";
-	            $result3 = mysql_query($query3, $mysql_link);
-	            $rows3 = mysql_num_rows($result3);
-	            for($w=0; $w<$rows3; $w++) {
-	                $values3 = mysql_fetch_row($result3);
-	                $posid .= $values3[0];
-	                if($w+1<$rows3)
-	                    $posid.="-";
-	            }
+                    $posid = $values1[12];
 	            $posname = PositionName($posid, "<br />\n");
 	            echo "Group Position(s): $posname<br />";
-	            $query3 = "SELECT Unit_ID, UnitPosition FROM EH_Members_Units WHERE Member_ID=$values[0] AND Group_ID=$values1[0]";
-	            $result3 = mysql_query($query3, $mysql_link);
-	            $rows3 = mysql_num_rows($result3);
-	            for($w=0; $w<$rows3; $w++) {
-	                $values3 = mysql_fetch_row($result3);
-	                $unit= $values3[0];
-	                $unitpos= $values3[1];
-	            }
+                    $unit= $values1[10];
+                    $unitpos= $values1[11];
 	            $unit = Unit_Display($unit, $unitpos);
 	            echo "Group Unit Position: $unit<br />";
 	            if($values1[7])
@@ -191,7 +171,7 @@ if($rows) {
 	            echo "</p>\n";
 	        } // End GT_ID=1
 	        if($values2[1]==2) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Medals</b></p>";
+	            echo "<p><b>$groupnameheader Medals</b></p>";
 	            //Medals
 	            if($pri) {
 	                $mggroup = NGroups($values1[0], $values[0]);
@@ -203,29 +183,22 @@ if($rows) {
 	            echo "</p>\n";
 	        } // End GT_ID=2
 	        if($values2[1]==3) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Competitions Participated in</b></p>";
-	            $ct = 0;
-	            $query3 = "SELECT Comp_ID, Name FROM EH_Competitions WHERE Group_ID=$values1[0] Order By StartDate";
-	            $result3 = mysql_query($query3, $mysql_link);
-	            $rows3 = mysql_num_rows($result3);
-	            for($k=0; $k<$rows3; $k++) {
-	                $values3 = mysql_fetch_row($result3);
-	                $query4 = "SELECT Score FROM EH_Competitions_Participants WHERE Comp_ID=$values3[0] AND Member_ID=$values[0] LIMIT 1";
-	                $result4 = mysql_query($query4, $mysql_link);
-	                $rows4 = mysql_num_rows($result4);
-	                if($rows4) {
-	                    $ct++;
-	                    $values4 = mysql_fetch_row($result4);
-	                    echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
-	                    if($values4[0])
-	                        echo " Score of $values4[0]<br />";
-	                }
+	          echo "<p><b>$groupnameheader Competitions Participated in</b></p>";
+	          $query3 = "SELECT EH_Competitions.Comp_ID, EH_Competitions.Name, EH_Competitions_Participants.Score FROM EH_Competitions, EH_Competitions_Participants WHERE EH_Competitions.Group_ID =$values1[0] AND EH_Competitions.Comp_ID = EH_Competitions_Participants.Comp_ID AND EH_Competitions_Participants.Member_ID =$values[0] ORDER BY EH_Competitions.StartDate";
+	          $result3 = mysql_query($query3, $mysql_link);
+	          $rows3 = mysql_num_rows($result3);
+	          for($k=0; $k<$rows3; $k++) {
+	            $values3 = mysql_fetch_row($result3);
+	            echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
+	            if($values3[2])
+	              echo " Score of $values3[2]";
+                    echo "<br />\n";
 	            }
-	            if($ct==0)
-	                echo $grname." has not participated in any ".stripslashes($values1[1])." Competitions";
-	        } // End GT_ID=3
+	          if($rows3==0)
+	            echo $grname." has not participated in any ".stripslashes($values1[1])." Competitions";
+	          } // End GT_ID=3
 	        if($values2[1]==4) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Training Completed</b></p>";
+	            echo "<p><b>$groupnameheader Training Completed</b></p>";
 	            //Medals
 	            if($pri) {
 	                $mggroup = NGroups($values1[0], $values[0]);
@@ -240,7 +213,7 @@ if($rows) {
 	            //GT_ID=5 = INPR
 	        }// End GT_ID=5
 	        if($values2[1]==6) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Uniform</b></p>";
+	            echo "<p><b>$groupnameheader Uniform</b></p>";
 	            $img="";
 	            if($values1[5]==1) {
 	                //upload
@@ -269,7 +242,7 @@ if($rows) {
 	            }
 	        } //End GT_ID=6
 	        if($values2[1]==7) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." History</b></p>";
+	            echo "<p><b>$groupnameheader History</b></p>";
 	            $query3 = "SELECT History_Type, MemberChange, Reason, Occured From EH_Members_History WHERE Member_ID=$values[0] AND Group_ID=$values1[0] Order By Occured";
 	            $result3 = mysql_query($query3, $mysql_link);
 	            $rows3 = mysql_num_rows($result3);
@@ -355,7 +328,7 @@ if($rows) {
 	            }
 	        } // End GT_ID=7
 	        if($values2[1]==8) {
-	            echo "<p><b>$grname's ".stripslashes($values1[1])." Items</b></p>";
+	            echo "<p><b>$groupnameheader Items</b></p>";
 	            //$values[0] = Member, $values1[0] = Group
 	            $query3 = "SELECT EH_Items.Name FROM EH_Items, EH_Members_Items WHERE EH_Members_Items.Member_ID=$values[0] AND EH_Members_Items.Group_ID=$values1[0] AND EH_Members_Items.Status=1 AND EH_Members_Items.Item_ID=EH_Items.Item_ID";
 	            $result3 = mysql_query($query3, $mysql_link);
@@ -723,12 +696,10 @@ if($rows) {
 
 		$("#ehtabs").tabs();
     <?
-$queryg = "SELECT EH_Groups.Abbr, EH_Groups.Name FROM EH_Members_Groups, EH_Groups WHERE EH_Members_Groups.Member_ID=$values[0] AND EH_Members_Groups.Active=1 AND EH_Members_Groups.Group_ID=EH_Groups.Group_ID";
-$resultg = mysql_query($queryg, $mysql_link);
-$rowsg = mysql_num_rows($resultg);
+mysql_data_seek($resultg, 0);
 for($i=0; $i<$rowsg; $i++) {
   $valuesg = mysql_fetch_row($resultg);
-  echo "		$(\"#tabsgroup$valuesg[0]\").tabs();
+  echo "		$(\"#tabsgroup$valuesg[1]\").tabs();
 \n";
   }
     ?>
