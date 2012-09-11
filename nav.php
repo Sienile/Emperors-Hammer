@@ -1,5 +1,5 @@
 <?
-if (!array_key_exists("EHID",$_SESSION)){
+if (!isset($_SESSION)){
     session_start();
 }
 include_once("config.php");
@@ -14,7 +14,7 @@ include_once("functions.php");
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" type="text/css" media="screen" href="style/global.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/dark-hive/jquery-ui.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="style/superfish.css" /> 
+  <link rel="stylesheet" type="text/css" media="screen" href="style/superfish.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="style/superfish-navbar.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="style/jquery.autocomplete.css" />
 <?
@@ -25,7 +25,7 @@ if(isset($stats)) {
 ?>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-  <script type="text/javascript" src="js/hoverIntent.js"></script> 
+  <script type="text/javascript" src="js/hoverIntent.js"></script>
   <script type="text/javascript" src="js/superfish.js"></script>
   <script type="text/javascript" src="js/jquery.form.js" ></script>
   <script type="text/javascript" src="js/global.js" ></script>
