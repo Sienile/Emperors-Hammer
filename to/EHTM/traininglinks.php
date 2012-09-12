@@ -1,0 +1,9 @@
+<h3>Academies and Training Manuals:</h3>
+            <p><strong>Emperor's Hammer Central Academy</strong> -   (TBA)  EH Training Manual  (TBA) </p>
+            <p><strong>Shadow Academy (SA)</strong> -   Dark Jedi training grounds <a href="http://db.emperorshammer.org/sa/" title="http://db.emperorshammer.org/sa/" rel="nofollow">http://db.emperorshammer.org/sa/</a> <br>
+            Dark Side Compendium: <a href="http://db.emperorshammer.org/DSC/" title="http://db.emperorshammer.org/DSC/" rel="nofollow">http://db.emperorshammer.org/DSC/</a></p>
+            <p><strong>Director's Academy (DA)</strong> -  Training Center for the Directorate Governors. <a href="http://dir.emperorshammer.org/dir/dga/index.php" title="http://dir.emperorshammer.org/dir/dga/index.php" rel="nofollow">http://dir.emperorshammer.org/dir/dga/index.php</a><br> 
+            Directorate Operations Manual <a href="http://dir.emperorshammer.org/dir/manual/index.php" title="http://dir.emperorshammer.org/dir/manual/index.php" rel="nofollow">http://dir.emperorshammer.org/dir/manual/index.php</a></p>
+            <p><strong>Carrida Stormtrooper Military Academy (CSMA)</strong> -  Home of training for Hammer's Fist troopers. <a href="http://hf.atcontroller.com/CSMA/courses.php" title="http://hf.atcontroller.com/CSMA/courses.php" rel="nofollow">http://hf.atcontroller.com/CSMA/courses.php</a> <br>
+            Hammer's Fist Field Manual <a href="http://hf.atcontroller.com/HFFM/" title="http://hf.atcontroller.com/HFFM/" rel="nofollow">http://hf.atcontroller.com/HFFM/</a></p>
+            <p><strong>Imperial Weapons and Tactics School (IWATS)</strong> -   (TBA)  TIE Corps Pilot Manual  (TBA) </p>
