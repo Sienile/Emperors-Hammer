@@ -1470,22 +1470,7 @@ if(!isset($mysql_link)) {
     $result1 = mysql_query($query1, $mysql_link);
     $rows1 = mysql_num_rows($result1);
     $totcount+=$rows1;
-    $name=$abbr="";
     if($rows1) {
-      if($values[3]) {
-        $query2 = "select Name, Abbr From EH_Medals_Groups Where MG_ID=$values[3]";
-        $result2 = mysql_query($query2, $mysql_link);
-        $rows2 = mysql_num_rows($result2);
-        if($rows2) {
-          $values2 = mysql_fetch_row($result2);
-          $name=$values2[0]." ";
-          $abbr=$values2[1]."-";
-          }
-        }
-      $name.=stripslashes($values[1]);
-      $abbr.=stripslashes($values[2]);
-      $img=stripslashes($values[6]);
-      echo "<span id=\"medal$values[0]$values[7]\">";
       switch($values[4]) {
         case 1:
         //Regular medals, just xnumber
@@ -1547,7 +1532,6 @@ if(!isset($mysql_link)) {
           echo stripslashes($values[1]);
         break;
         }
-      echo "</span>";
       echo "<br />\n";
       }
     }
