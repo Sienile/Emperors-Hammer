@@ -355,7 +355,7 @@ if(!isset($mysql_link)) {
                   </tr>
                   <tr>
                     <td style="width: 15px"></td>
-                    <td style="background-image:url('images/nav/btnbackground.png');background-repeat:no-repeat; padding-left: 15px; height: 27px"><a href="http://www.emperorshammer.org/to/EHTM/index.php">Training Manual</a></td>
+                    <td style="background-image:url('images/nav/btnbackground.png');background-repeat:no-repeat; padding-left: 15px; height: 27px"><a href="http://www.emperorshammer.org/trainingoffice/EHTM/index.php">Training Manual</a></td>
                   </tr>
                   <tr>
                     <td colspan="2" style="height: 17px"></td>
