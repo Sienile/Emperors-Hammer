@@ -1087,125 +1087,118 @@ if(!isset($mysql_link)) {
 
 function Medals_ID_Line($pin, $group, $isprigroup, $sep, $indivbracket, $groupbracket) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
-if(!isset($mysql_link)) {
+  if(!isset($mysql_link)) {
     $mysql_link = mysql_connect($db_host, $db_username, $db_password);
     mysql_select_db($db_name, $mysql_link);
     }
   if(!is_int($group))
-    $group = str_replace(";", " OR Group_ID=", $group);
+    $group = str_replace(";", " OR m.Group_ID=", $group);
   $mgid=0;
-  $totcount =0;
   if(strlen($indivbracket))
     $indivbrackets = str_split($indivbracket, strlen($indivbracket)/2);
   if(strlen($groupbracket))
     $groupbrackets = str_split($groupbracket, strlen($groupbracket)/2);
-  $query = "select Medal_ID, Name, Abbr, MG_ID, MT_ID, ShowOnID, Image From EH_Medals Where Group_ID=$group Order By SortOrder, MG_ID, Name";
+  $query = "select m.Medal_ID, m.Name, m.Abbr, m.MG_ID, m.MT_ID, m.ShowOnID, Count(mc.MC_ID) From EH_Medals_Complete AS mc, EH_Medals AS m Where mc.Medal_ID=m.Medal_ID AND (m.Group_ID=$group) AND mc.Member_ID=$pin AND mc.Status=1 Group By mc.Medal_ID, m.SortOrder, m.MG_ID, m.Name";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    $query1 = "select MC_ID From EH_Medals_Complete Where Medal_ID=$values[0] AND Member_ID=$pin AND Status=1";
-    $result1 = mysql_query($query1, $mysql_link);
-    $rows1 = mysql_num_rows($result1);
-    $totcount+=$rows1;
-    if($rows1) {
-      if($mgid!=0 && $mgid==$values[3]) {
-        $medals=substr($medals, 0, strlen($medals)-strlen($indivbrackets[1])-strlen($sep));
+    if($mgid!=0 && $mgid==$values[3]) {
+      $medals=substr($medals, 0, strlen($medals)-strlen($indivbrackets[1])-strlen($sep));
+      }
+    switch($values[4]) {
+      case 1:
+      //Regular medals, just xnumber
+      if(strlen($indivbracket))
+        $medals.=$indivbrackets[0];
+      $medals.="<abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
+      if($values[6]>1)
+        $medals .= "x$values[6]";
+      if(strlen($indivbracket))
+        $medals.=$indivbrackets[1];
+      $medals.=$sep;
+      break;
+      case 2:
+      //Grouped Medals Group Abbr - 
+      if($mgid!=$values[3]) {
+        $mgid=$values[3];
+        $query1 = "select Abbr, Name From EH_Medals_Groups Where MG_ID=$mgid";
+        $result1 = mysql_query($query1, $mysql_link);
+        $values1 = mysql_fetch_row($result1);
+        if(strlen($indivbracket))
+          $medals.=$indivbrackets[0];
+        $medals.="<abbr title=\"".stripslashes($values1[1])."\">".stripslashes($values1[0])."</abbr>-<abbr title=\"".stripslashes($values1[1])." - ".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
+        if($values[6]>1)
+          $medals.="x$values[6]";
+        if(strlen($indivbracket))
+          $medals.=$indivbrackets[1];
+        $medals.=$sep;
         }
-      switch($values[4]) {
-        case 1:
-        //Regular medals, just xnumber
+      else {
+        $query1 = "select Name From EH_Medals_Groups Where MG_ID=$mgid";
+        $result1 = mysql_query($query1, $mysql_link);
+        $values1 = mysql_fetch_row($result1);
+        $medals.="-<abbr title=\"".stripslashes($values1[0])." - ".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
+        if($values[6]>1)
+          $medals.="x$values[6]";
+        if(strlen($indivbracket))
+          $medals.=$indivbrackets[1];
+        $medals.=$sep;
+        }
+      break;
+      case 3:
+      //Upgrades
+      $query1 = "select Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$values[6] AND Lower <=$values[6]";
+      $result1 = mysql_query($query1, $mysql_link);
+      $rows1 = mysql_num_rows($result1);
+      $values1 = mysql_fetch_row($result1);
+      if($rows1) {
+        if(strlen($indivbracket))
+          $medals.=$indivbrackets[0];
+        $medals.="<abbr title=\"".stripslashes($values1[1])."\">".stripslashes($values1[0])."</abbr>";
+        if(strlen($indivbracket))
+          $medals.=$indivbrackets[1];
+        $medals.=$sep;
+        }
+      else {
         if(strlen($indivbracket))
           $medals.=$indivbrackets[0];
         $medals.="<abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
-        if($rows1>1)
-          $medals .= "x$rows1";
         if(strlen($indivbracket))
           $medals.=$indivbrackets[1];
         $medals.=$sep;
-        break;
-        case 2:
-        //Grouped Medals Group Abbr - 
-        if($mgid!=$values[3]) {
-          $mgid=$values[3];
-          $query2 = "select Abbr, Name From EH_Medals_Groups Where MG_ID=$mgid";
-          $result2 = mysql_query($query2, $mysql_link);
-          $values2 = mysql_fetch_row($result2);
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[0];
-          $medals.="<abbr title=\"".stripslashes($values2[1])."\">".stripslashes($values2[0])."</abbr>-<abbr title=\"".stripslashes($values2[1])." - ".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
-          if($rows1>1)
-            $medals.="x$rows1";
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[1];
-          $medals.=$sep;
-          }
-        else {
-          $query2 = "select Name From EH_Medals_Groups Where MG_ID=$mgid";
-          $result2 = mysql_query($query2, $mysql_link);
-          $values2 = mysql_fetch_row($result2);
-          $medals.="-<abbr title=\"".stripslashes($values2[0])." - ".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
-          if($rows1>1)
-            $medals.="x$rows1";
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[1];
-          $medals.=$sep;
-          }
-        break;
-        case 3:
-        //Upgrades
-        $query2 = "select Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$rows1 AND Lower <=$rows1";
-        $result2 = mysql_query($query2, $mysql_link);
-        $rows2 = mysql_num_rows($result2);
-        $values2 = mysql_fetch_row($result2);
-        if($rows2) {
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[0];
-          $medals.="<abbr title=\"".stripslashes($values2[1])."\">".stripslashes($values2[0])."</abbr>";
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[1];
-          $medals.=$sep;
-          }
-        else {
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[0];
-          $medals.="<abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[1];
-          $medals.=$sep;
-          }
-        break;
-        case 4:
-        //Recursive Upgrades
-        $count = $rows1;
-        $query2 = "select Upper, Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] Order By Upper DESC Limit 1";
-        $result2 = mysql_query($query2, $mysql_link);
-        $values2 = mysql_fetch_row($result2);
-        $maxlim = $values2[0]-1;
-        while($count>$maxlim) {
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[0];
-          $medals.="<abbr title=\"".stripslashes($values2[2])."\">".stripslashes($values2[1])."</abbr>";
-          if(strlen($indivbracket))
-            $medals.=$indivbrackets[1];
-          $medals.=$sep;
-          $count -=$maxlim;
-          }
-        $query2 = "select Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$count AND Lower <=$count";
-        $result2 = mysql_query($query2, $mysql_link);
-        $rows2 = mysql_num_rows($result2);
-        $values2 = mysql_fetch_row($result2);
+        }
+      break;
+      case 4:
+      //Recursive Upgrades
+      $count = $values[6];
+      $query1 = "select Upper, Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] Order By Upper DESC Limit 1";
+      $result1 = mysql_query($query1, $mysql_link);
+      $values1 = mysql_fetch_row($result1);
+      $maxlim = $values1[0]-1;
+      while($count>$maxlim) {
         if(strlen($indivbracket))
           $medals.=$indivbrackets[0];
-        if($rows2)
-          $medals.="<abbr title=\"".stripslashes($values2[1])."\">".stripslashes($values2[0])."</abbr>";
-        else
-          $medals.="<abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
+        $medals.="<abbr title=\"".stripslashes($values1[2])."\">".stripslashes($values1[1])."</abbr>";
         if(strlen($indivbracket))
           $medals.=$indivbrackets[1];
         $medals.=$sep;
-        break;
+        $count -=$maxlim;
         }
+      $query1 = "select Abbr, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$count AND Lower <=$count";
+      $result1 = mysql_query($query1, $mysql_link);
+      $rows1 = mysql_num_rows($result1);
+      $values1 = mysql_fetch_row($result1);
+      if(strlen($indivbracket))
+        $medals.=$indivbrackets[0];
+      if($rows1)
+        $medals.="<abbr title=\"".stripslashes($values1[1])."\">".stripslashes($values1[0])."</abbr>";
+      else
+        $medals.="<abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>";
+      if(strlen($indivbracket))
+        $medals.=$indivbrackets[1];
+      $medals.=$sep;
+      break;
       }
     }
   $medals = substr($medals, 0, strlen($medals)-strlen($sep));
@@ -1450,96 +1443,88 @@ if(!isset($mysql_link)) {
   return $name;
   }
 
-
 function MedalsListingDisplay($pin, $group) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
-if(!isset($mysql_link)) {
+  if(!isset($mysql_link)) {
     $mysql_link = mysql_connect($db_host, $db_username, $db_password);
     mysql_select_db($db_name, $mysql_link);
     }
   if(!is_int($group))
-    $group = str_replace(";", " OR Group_ID=", $group);
+    $group = str_replace(";", " OR m.Group_ID=", $group);
   $mgid=0;
-  $totcount =0;
-  $query = "select Medal_ID, Name, Abbr, MG_ID, MT_ID, ShowOnID, Image, Group_ID From EH_Medals Where Group_ID=$group Order By SortOrder, MG_ID, Name";
+  $query = "select m.Medal_ID, m.Name, m.MG_ID, m.MT_ID, Count(mc.MC_ID) From EH_Medals_Complete AS mc, EH_Medals AS m Where mc.Medal_ID=m.Medal_ID AND (m.Group_ID=$group) AND mc.Member_ID=$pin AND mc.Status=1 Group By mc.Medal_ID, m.SortOrder, m.MG_ID, m.Name";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    $query1 = "select MC_ID, Awarder_ID, DateAwarded, Reason, Group_ID From EH_Medals_Complete Where Medal_ID=$values[0] AND Member_ID=$pin AND Status=1";
-    $result1 = mysql_query($query1, $mysql_link);
-    $rows1 = mysql_num_rows($result1);
-    $totcount+=$rows1;
-    if($rows1) {
-      switch($values[4]) {
-        case 1:
-        //Regular medals, just xnumber
-        echo stripslashes($values[1]);
-        if($rows1>1)
-          echo " x$rows1";
-        break;
-        case 2:
-        //Grouped Medals Group Abbr - 
-        if($mgid!=$values[3]) {
-          $mgid=$values[3];
-          $query2 = "select Name From EH_Medals_Groups Where MG_ID=$mgid";
-          $result2 = mysql_query($query2, $mysql_link);
-          $values2 = mysql_fetch_row($result2);
-          echo stripslashes($values2[0])."<br />";
-          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values[1]);
-          if($rows1>1)
-            echo " x$rows1";
-          }
-        else {
-          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values[1]);
-          if($rows1>1)
-            echo " x$rows1";
-          }
-        break;
-        case 3:
-        //Upgrades
-        $query2 = "select Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$rows1 AND Lower <=$rows1";
-        $result2 = mysql_query($query2, $mysql_link);
-        $rows2 = mysql_num_rows($result2);
-        $values2 = mysql_fetch_row($result2);
-        if($rows2) {
-          echo stripslashes($values2[0])." ($rows1 awards)";
-          }
-        else {
-          echo stripslashes($values[1]);
-          if($rows1>1)
-            echo " ($rows1 awards)";
-          }
-        break;
-        case 4:
-        //Recursive Upgrades
-        $count = $rows1;
-        $query2 = "select Upper, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] Order By Upper DESC Limit 1";
-        $result2 = mysql_query($query2, $mysql_link);
-        $values2 = mysql_fetch_row($result2);
-        $maxlim = $values2[0]-1;
-        while($count>$maxlim) {
-          echo stripslashes($values2[1])."<br />\n";
-          $count -=$maxlim;
-          }
-        $query2 = "select Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$count AND Lower <=$count";
-        $result2 = mysql_query($query2, $mysql_link);
-        $rows2 = mysql_num_rows($result2);
-        $values2 = mysql_fetch_row($result2);
-        if($rows2)
-          echo stripslashes($values2[0]);
-        else
-          echo stripslashes($values[1]);
-        break;
+    switch($values[3]) {
+      case 1:
+      //Regular medals, just xnumber
+      echo stripslashes($values[1]);
+      if($values[4]>1)
+        echo " x$values[4]";
+      break;
+      case 2:
+      //Grouped Medals Group Abbr - 
+      if($mgid!=$values[2]) {
+        $mgid=$values[2];
+        $query1 = "select Name From EH_Medals_Groups Where MG_ID=$mgid";
+        $result1 = mysql_query($query1, $mysql_link);
+        $values1 = mysql_fetch_row($result1);
+        echo stripslashes($values1[0])."<br />";
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values[1]);
+        if($values[4]>1)
+          echo " x$values[4]";
         }
-      echo "<br />\n";
+      else {
+        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".stripslashes($values[1]);
+        if($values[4]>1)
+          echo " x$values[4]";
+        }
+      break;
+      case 3:
+      //Upgrades
+      $query1 = "select Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$values[4] AND Lower <=$values[4]";
+      $result1 = mysql_query($query1, $mysql_link);
+      $rows1 = mysql_num_rows($result1);
+      $values1 = mysql_fetch_row($result1);
+      if($rows1) {
+        echo stripslashes($values1[0])." ($values[4] awards)";
+        }
+      else {
+        echo stripslashes($values[1]);
+        if($values[4]>1)
+          echo " ($values[4] awards)";
+        }
+      break;
+      case 4:
+      //Recursive Upgrades
+      $count = $values[4];
+      $query1 = "select Upper, Name From EH_Medals_Upgrades Where Medal_ID=$values[0] Order By Upper DESC Limit 1";
+      $result1 = mysql_query($query1, $mysql_link);
+      $values1 = mysql_fetch_row($result1);
+      $maxlim = $values1[0]-1;
+      while($count>$maxlim) {
+        echo stripslashes($values1[1])."<br />\n";
+        $count -=$maxlim;
+        }
+      $query1 = "select Name From EH_Medals_Upgrades Where Medal_ID=$values[0] AND Upper>$count AND Lower <=$count";
+      $result1 = mysql_query($query1, $mysql_link);
+      $rows1 = mysql_num_rows($result1);
+      $values1 = mysql_fetch_row($result1);
+      if($rows1)
+        echo stripslashes($values1[0]);
+      else
+        echo stripslashes($values[1]);
+      break;
       }
+    echo "<br />\n";
     }
-  if($totcount==0) {
+  if($rows==0) {
     $rankname = RankAbbrName($pin, $group, 1);
     echo "$rankname has not earned any medals yet.";
     }
-}
+  }
 
 function TrainingListingDisplay($pin, $group) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
