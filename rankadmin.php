@@ -96,8 +96,7 @@ elseif($_GET['edit']) {
   if($rows) {
     $values = mysql_fetch_row($result);
     ?>
-<div id="editDiv" class="ajaxForm" title="Edit Rank">
-    <form id="editForm" method="POST" onSubmit="postEdit(); return false;">
+    <form id="editForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
@@ -139,17 +138,8 @@ elseif($_GET['edit']) {
           <td><label for="uni">Uniform Filename (only if generated due to rank type): </label></td>
           <td><input type="text" name="uni" id="uni" value="<?=stripslashes($values[5])?>"></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-            </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
     }
   }
@@ -246,12 +236,12 @@ else {
   <div id="message" style="color: green;"></div>
   <div id="response"></div>
   <p>
-    <a name="adddialog" onClick="getRankTypes(); $('#add').show()" href="#">
+    <a name="adddialog" onClick="getRankTypes(); $('#add-form').dialog('open');" href="#">
         <span style="color:#6699CC;">Add New Rank</span>
     </a>
   </p>
-  <div class="ajaxForm" style="display:none;" id="add" title="Add New Rank">
-  <form id="addForm" method="POST" onSubmit="postAdd(); return false;">
+  <div id="add-form" title="Add New Rank">
+  <form id="addForm" method="POST">
     <table>
       <tr>
         <td><label for="name">Name: </label></td>
@@ -279,20 +269,13 @@ else {
         <td><input type="text" name="uni" id="uni"></td>
       </tr>
       </tr>
-      <tr>
-        <td colspan="2" align="center">
-          <input type="submit" id="Submit" name="Submit"
-                 value="Submit" onClick="" />
-          <input type="reset" id="Reset" name="Reset" />
-          <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();$('#add').hide();" />
-        </td>
-      </tr>
     </table>
   </form>
   </div>
 
-  <div id="editdialog" title="Edit Rank" refreshOnShow="true">
+  <div id="editArea" title="Edit Rank">
+    <form id="editForm" method="POST">
+    </form>
   </div>
 
   <div id="datatable"></div>
@@ -301,13 +284,10 @@ else {
 
   function getEditForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?edit="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editDiv");
-        $("#editArea").show();
-    },'html');
+      $("#editArea").html(data);
+    },'html').complete(function() {
+      $("#editArea").dialog("open");
+      });
   }
   
   function getRankTypes(){
@@ -323,13 +303,6 @@ else {
 			}
 		}
 	);
-  }
-  
-  function destroyForm(){
-      $("#editArea").hide('fast',function(){
-        $("#editArea").remove();
-        getDataTable();
-      });
   }
 
   function del(id) {
@@ -359,7 +332,6 @@ else {
         success: showSuccess
     }
     $("#addForm").ajaxSubmit(options);
-    $("#Cancel").click();
     return false;
   }
   
@@ -370,7 +342,6 @@ else {
         success: showSuccess
     }
     $("#editForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
   
@@ -380,6 +351,44 @@ else {
         $("#response").html(data);
     },'html');
   }
+
+  $(function() {
+    $("#add-form").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postAdd();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["addForm"].reset();
+          }
+      });
+
+      $("#editArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postEdit();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            document.forms["editForm"].reset();
+            }
+        });
+  });
 
   </script>
   <?php
