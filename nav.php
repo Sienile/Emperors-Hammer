@@ -23,7 +23,7 @@ if(isset($stats)) {
 <?
 }
 ?>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
   <script type="text/javascript" src="js/hoverIntent.js"></script>
   <script type="text/javascript" src="js/superfish.js"></script>
