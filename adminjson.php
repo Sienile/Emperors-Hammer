@@ -92,8 +92,8 @@ function getMedalsByGroup(){
 	
 	$query = "SELECT Medal_ID, Name, MG_ID FROM EH_Medals WHERE";
     if($id!=1)
-      $query.=" Group_ID=".$id." And";
-    $query.=" Active=1 ORDER BY SortOrder";
+      $query.=" Group_ID=".$id;
+    $query.=" ORDER BY SortOrder";
     $result = mysql_query($query);
     if (@mysql_num_rows($result) > 0){
 		while($row = mysql_fetch_assoc($result)){
