@@ -46,25 +46,15 @@ Green highlights: General Recommendation</p>
 elseif($_GET['edit']) {
   $id = mysql_real_escape_string($_GET['edit'], $mysql_link);
 ?>
-<div id="editDiv" class="ajaxForm" title="Deny">
-    <form id="editForm" method="POST" onSubmit="postEdit(); return false;">
+  <form id="editForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
           <td><label for="denyreason">Reason to Deny: </label></td>
           <td><textarea name="denyreason" id="denyreason" style="width:400px; height:120px"></textarea></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-            </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
   }
 elseif($_GET['edit1']) {
@@ -207,7 +197,9 @@ else {
   <div id="message" style="color: green;"></div>
   <div id="response"></div>
 
-  <div id="editdialog" title="Deny" refreshOnShow="true">
+  <div id="editArea" title="Deny Promotion">
+    <form id="editForm" method="POST">
+    </form>
   </div>
 
   <div id="datatable"></div>
@@ -216,19 +208,9 @@ else {
 
   function getEditForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?edit="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editDiv");
-        $("#editArea").show();
-    },'html');
-  }
-  
-  function destroyForm(){
-      $("#editArea").hide('fast',function(){
-        $("#editArea").remove();
-        getDataTable();
+      $("#editArea").html(data);
+    },'html').complete(function() {
+      $("#editArea").dialog("open");
       });
   }
 
@@ -249,7 +231,6 @@ else {
         success: showSuccess
     }
     $("#editForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
   
@@ -260,6 +241,25 @@ else {
     },'html');
   }
 
+  $(function() {
+      $("#editArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postEdit();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            document.forms["editForm"].reset();
+            }
+        });
+  });
   </script>
   <?php
   include_once("footer.php");

@@ -91,25 +91,15 @@ for($q=1; $q<count($scores); $q++)
 elseif($_GET['edit']) {
   $id = mysql_real_escape_string($_GET['edit'], $mysql_link);
 ?>
-<div id="editDiv" class="ajaxForm" title="Deny">
-    <form id="editForm" method="POST" onSubmit="postEdit(); return false;">
+  <form id="editForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
           <td><label for="denyreason">Reason to Deny: </label></td>
           <td><textarea name="denyreason" id="denyreason" style="width:400px; height:120px"></textarea></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-            </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
   }
 elseif($_GET['edit1']) {
@@ -152,8 +142,7 @@ elseif($_GET['edit1']) {
 elseif($_GET['del']) {
   $id = mysql_real_escape_string($_GET['del'], $mysql_link);
 ?>
-<div id="editDiv" class="ajaxForm" title="Approve">
-    <form id="editForm" method="POST" onSubmit="postDel(); return false;">
+  <form id="approveForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
@@ -174,17 +163,8 @@ elseif($_GET['del']) {
     }
 ?></textarea></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-            </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
   }
 elseif($_GET['del1']) {
@@ -361,28 +341,32 @@ else {
   <div id="message" style="color: green;"></div>
   <div id="response"></div>
 
+  <div id="editArea" title="Deny BSF">
+    <form id="editForm" method="POST">
+    </form>
+  </div>
+
+  <div id="approveArea" title="Approve BSF">
+    <form id="approveForm" method="POST">
+    </form>
+  </div>
+
   <script type="text/javascript">
 
   function getEditForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?edit="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editDiv");
-        $("#editArea").show();
-    },'html');
+      $("#editArea").html(data);
+    },'html').complete(function() {
+      $("#editArea").dialog("open");
+      });
   }
   
   function getDelForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?del="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editDiv");
-        $("#editArea").show();
-    },'html');
+      $("#approveArea").html(data);
+    },'html').complete(function() {
+      $("#approveArea").dialog("open");
+      });
   }
 
   function postDel() {
@@ -390,16 +374,8 @@ else {
         url: '<?=$_SERVER['PHP_SELF']?>?del1=true',
         success: showSuccess
     }
-    $("#editForm").ajaxSubmit(options);
-    destroyForm();
+    $("#approveForm").ajaxSubmit(options);
     return false;
-  }
-  
-  function destroyForm(){
-      $("#editArea").hide('fast',function(){
-        $("#editArea").remove();
-        getDataTable();
-      });
   }
 
   function showSuccess(data,status){
@@ -413,10 +389,9 @@ else {
         success: showSuccess
     }
     $("#editForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
-  
+
   function getDataTable() {
     $.get("<?=$_SERVER['PHP_SELF']?>?datatable=1",{},function(data){
         $("#response").html(data);
@@ -424,6 +399,45 @@ else {
   }
 
   $(document).ready(getDataTable);
+
+  $(function() {
+    $("#editArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postEdit();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["editForm"].reset();
+          }
+      });
+
+      $("#approveArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postDel();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+          close: function() {
+            document.forms["approveForm"].reset();
+            }
+        });
+  });
+
   </script>
   <?php
   include_once("footer.php");
