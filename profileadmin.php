@@ -85,25 +85,15 @@ elseif($_GET['edit'] && $_GET['area']==1) {
   if($rows) {
     $values = mysql_fetch_row($result);
     ?>
-<div id="editChatDiv" class="ajaxForm" title="Edit Chat">
-    <form id="editChatForm" method="POST" onSubmit="postChatEdit(); return false;">
+    <form id="editChatForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
           <td><label for="name">Chat Handle (For <?=stripslashes($values[2])?>): </label></td>
           <td><input type="text" name="name" id="name" value="<?=stripslashes($values[1])?>"></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-          </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
     }
   }
@@ -125,25 +115,15 @@ elseif($_GET['edit'] && $_GET['area']==3) {
   if($rows) {
     $values = mysql_fetch_row($result);
     ?>
-<div id="editSkillDiv" class="ajaxForm" title="Edit Skill">
-    <form id="editSkillForm" method="POST" onSubmit="postSkillEdit(); return false;">
+    <form id="editSkillForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
           <td><label for="name">Skill Level (For <?=stripslashes($values[2])?>): </label></td>
           <td><input type="text" name="name" id="name" value="<?=stripslashes($values[1])?>"></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-          </td>
-        </tr>
       </table>
     </form>
-</div>
 <?php
     }
   }
@@ -159,8 +139,7 @@ elseif($_GET['edit1']==3) {
   }
 elseif($_GET['add']==1) {
  ?>
-<div id="addChatDiv" class="ajaxForm" title="Add Chat">
-    <form id="addChatForm" method="POST" onSubmit="postChatAdd(); return false;">
+  <form id="addChatForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
@@ -181,17 +160,8 @@ elseif($_GET['add']==1) {
           <td><label for="name">Chat Handle: </label></td>
           <td><input type="text" name="name" id="name"></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-          </td>
-        </tr>
       </table>
     </form>
-</div>
 <?
   }
 elseif($_GET['add1']==1) {
@@ -206,8 +176,7 @@ elseif($_GET['add1']==1) {
   }
 elseif($_GET['add']==2) {
  ?>
-<div id="addPltDiv" class="ajaxForm" title="Add Platform">
-    <form id="addPltForm" method="POST" onSubmit="postPltAdd(); return false;">
+  <form id="addPltForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
@@ -224,17 +193,8 @@ elseif($_GET['add']==2) {
 ?>
           </select></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-          </td>
-        </tr>
       </table>
     </form>
-</div>
 <?
   }
 elseif($_GET['add1']==2) {
@@ -248,8 +208,7 @@ elseif($_GET['add1']==2) {
   }
 elseif($_GET['add']==3) {
  ?>
-<div id="addSkillDiv" class="ajaxForm" title="Add Chat">
-    <form id="addSkillForm" method="POST" onSubmit="postSkillAdd(); return false;">
+  <form id="addSkillForm" method="POST">
     <input type="hidden" name="id" value="<?=$id?>" />
       <table>
         <tr>
@@ -270,17 +229,8 @@ elseif($_GET['add']==3) {
           <td><label for="name">Skill Level: </label></td>
           <td><input type="text" name="name" id="name"></td>
         </tr>
-        <tr>
-          <td colspan="2" align="center">
-            <input type="submit" id="Submit" name="Submit" value="Submit" />
-            <input type="reset" id="Reset" name="Reset" />
-            <input type="button" id="Cancel" name="Cancel" value="Cancel"
-                 onClick="$('#Reset').click();destroyForm();" />
-          </td>
-        </tr>
       </table>
     </form>
-</div>
 <?
   }
 elseif($_GET['add1']==3) {
@@ -322,7 +272,7 @@ elseif($_GET['del'] && $_GET['area']==3) {
   }
 elseif($_GET['profile']) {
   $member = $_SESSION['EHID'];
-  $query = "SELECT Member_ID, QUote, URL FROM EH_Members WHERE Member_ID=$member";
+  $query = "SELECT Member_ID, Quote, URL, Email FROM EH_Members WHERE Member_ID=$member";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   if($rows) {
@@ -331,8 +281,12 @@ elseif($_GET['profile']) {
   <form id="editprofile" method="POST" onSubmit="postProfileEdit(); return false;">
     <table>
       <tr>
+        <td><label for="email">E-mail Address: </label></td>
+        <td><input type="text" name="email" id="email" value="<?=stripslashes($values[3])?>"></td>
+      </tr>
+      <tr>
         <td><label for="quote">Quote: </label></td>
-        <td><input type="text" name="quote" id="name" value="<?=stripslashes($values[1])?>"></td>
+        <td><input type="text" name="quote" id="quote" value="<?=stripslashes($values[1])?>"></td>
       </tr>
       <tr>
         <td><label for="url">Homepage: </label></td>
@@ -410,7 +364,7 @@ if(isinGroup(6, $member)) {
       <tr>
         <td colspan="2" align="center">
           <input type="submit" id="Submit" name="Submit" value="Submit" />
-          <input type="reset" id="Reset" name="Reset" value="Reset" />
+          <input type="reset" id="Reset" name="Reset" />
         </td>
       </tr>
     </table>
@@ -424,6 +378,7 @@ ship
 */
   $id = mysql_real_escape_string($_SESSION['EHID'], $mysql_link);
   $prigroup = mysql_real_escape_string($_POST['prigroup'], $mysql_link);
+  $email = mysql_real_escape_string($_POST['email'], $mysql_link);
   $quote = mysql_real_escape_string($_POST['quote'], $mysql_link);
   $url = mysql_real_escape_string($_POST['url'], $mysql_link);
   $stid = mysql_real_escape_string($_POST['stid'], $mysql_link);
@@ -450,7 +405,7 @@ ship
       $error= "Passwords do not match";
       }
     }
-  $query = "UPDATE EH_Members Set Quote='$quote', URL='$url'";
+  $query = "UPDATE EH_Members Set Quote='$quote', URL='$url', Email='$email'";
   if($pwc)
     $query.=", UserPassword='$pwc'";
   $query .=" WHERE Member_ID=$id";
@@ -474,25 +429,42 @@ else {
   <div id="message" style="color: green" ></div>
 
   <div id="chatdata"></div>
+  <div id="addChat" title="Add New Chat Handle">
+    <form id="addChatForm" method="POST">
+    </form>
+  </div>
+  <div id="editChatArea" title="Edit Chat Handle">
+    <form id="editChatForm" method="POST">
+    </form>
+  </div>
   <p><a onclick="getChatAddForm(<?=$values[0]?>)"><span style="color:#6699CC;">Add New Chat</span></a></p>
 
   <div id="pltdata"></div>
+  <div id="addPlt" title="Add New Platform">
+    <form id="addPltForm" method="POST">
+    </form>
+  </div>
   <p><a onclick="getPltAddForm(<?=$values[0]?>)"><span style="color:#6699CC;">Add New Platform</span></a></p>
 
   <div id="skilldata"></div>
+  <div id="addSkill" title="Add New Skill">
+    <form id="addSkillForm" method="POST">
+    </form>
+  </div>
+  <div id="editSkillArea" title="Edit Skill">
+    <form id="editSkillForm" method="POST">
+    </form>
+  </div>
   <p><a onclick="getSkillAddForm(<?=$values[0]?>)"><span style="color:#6699CC;">Add New Skill</span></a></p>
   <div id="profileedit"></div>
 
   <script type="text/javascript">
   function getChatAddForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?add=1",{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("addChatDiv");
-        $("#editArea").show();
-    },'html');
+      $("#addChat").html(data);
+    },'html').complete(function() {
+      $("#addChat").dialog("open");
+      });
   }
 
   function postChatAdd() {
@@ -501,19 +473,15 @@ else {
         success: showSuccess
     }
     $("#addChatForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
 
   function getPltAddForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?add=2",{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("addPltDiv");
-        $("#editArea").show();
-    },'html');
+      $("#addPlt").html(data);
+    },'html').complete(function() {
+      $("#addPlt").dialog("open");
+      });
   }
 
   function postPltAdd() {
@@ -522,19 +490,15 @@ else {
         success: showSuccess
     }
     $("#addPltForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
 
   function getSkillAddForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?add=3",{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("addSkillDiv");
-        $("#editArea").show();
-    },'html');
+      $("#addSkill").html(data);
+    },'html').complete(function() {
+      $("#addSkill").dialog("open");
+      });
   }
 
   function postSkillAdd() {
@@ -543,47 +507,32 @@ else {
         success: showSuccess
     }
     $("#addSkillForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
 
   function getChatEditForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?area=1&edit="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editChatDiv");
-        $("#editArea").show();
-    },'html');
-  }
-
-  function destroyForm(){
-      $("#editArea").hide('fast',function(){
-        $("#editArea").remove();
-        getDataTable();
+      $("#editChatArea").html(data);
+    },'html').complete(function() {
+      $("#editChatArea").dialog("open");
       });
   }
-  
+
   function postChatEdit() {
     var options ={
         url: '<?=$_SERVER['PHP_SELF']?>?edit1=1',
         success: showSuccess
     }
     $("#editChatForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
 
   function getSkillEditForm(id) {
     $.get("<?=$_SERVER['PHP_SELF']?>?area=3&edit="+id,{},function(data){
-        if ($("#editArea").length < 1){
-            makeDiv("editArea","editArea","body","display:none;");
-        }
-        $("#editArea").html(data);
-        dressAjaxForm("editSkillDiv");
-        $("#editArea").show();
-    },'html');
+      $("#editSkillArea").html(data);
+    },'html').complete(function() {
+      $("#editSkillArea").dialog("open");
+      });
   }
 
   function postSkillEdit() {
@@ -592,7 +541,6 @@ else {
         success: showSuccess
     }
     $("#editSkillForm").ajaxSubmit(options);
-    destroyForm();
     return false;
   }
 
@@ -648,6 +596,101 @@ else {
   }
 
   $(document).ready(getprofileEdit);
+
+
+  $(function() {
+    $("#addChat").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postChatAdd();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["addChatForm"].reset();
+          }
+      });
+
+    $("#editChatArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postChatEdit();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["editChatForm"].reset();
+          }
+      });
+
+    $("#addPlt").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postPltAdd();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["addPltForm"].reset();
+          }
+      });
+
+    $("#addSkill").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postSkillAdd();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["addSkillForm"].reset();
+          }
+      });
+
+    $("#editSkillArea").dialog({
+        autoOpen: false,
+        width: 550,
+        modal: true,
+        buttons: {
+          "Submit": function() {
+            postSkillEdit();
+            $( this ).dialog( "close" );
+            },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            }
+          },
+        close: function() {
+          document.forms["editSkillForm"].reset();
+          }
+      });
+
+
+  });
 </script>
  <?php
   include_once("footer.php");
