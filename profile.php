@@ -59,6 +59,7 @@ if($rows) {
 		    echo "    <li><a href=\"#tabs$valuesg[1]\">".stripslashes($valuesg[2])." Profile</a></li>\n";
 		}
 		?>
+		<li><a href="#tabsINPR">INPR</a></li>
 		<li><a href="#tabsPlt">Platforms</a></li>
 
 		<li><a href="#tabsSkill">Skills</a></li>
@@ -67,9 +68,6 @@ if($rows) {
 		<li><a href="#tabsCR">Combat Record</a></li>
 
 	</ul>
-	<?
-	flush();
-	?>
 	<div id="tabsMain">
 
 		<p>
@@ -209,9 +207,6 @@ if($rows) {
 	            TrainingListingDisplay($pin, $mggroup);
 	            echo "</p>\n";
 	        }// End GT_ID=4
-	        if($values2[1]==5) {
-	            //GT_ID=5 = INPR
-	        }// End GT_ID=5
 	        if($values2[1]==6) {
 	            echo "<p><b>$groupnameheader Uniform</b></p>";
 	            $img="";
@@ -341,12 +336,29 @@ if($rows) {
 	            }
 	        } // End GT_ID=8
 	        echo "      </div>\n";
-	        flush();
 	    }
 	    echo "    </div>\n"; // End Group Container
 	    echo "  </div>\n"; //End Group Main Tab
 	}
 	?>
+	<div id="tabsINPR">
+		<p>
+			<b><?=stripslashes($values[1])?>'s Imperial Navy Pilot Record</b>
+		</p>
+		<p>
+			<?
+  $query1 = "select EH_Skills.Name, EH_Members_Skills.SkillLevel From EH_Skills, EH_Members_Skills WHERE EH_Skills.Skill_ID=EH_Members_Skills.Skill_ID AND EH_Members_Skills.Member_ID=$pin Order By EH_Skills.Name";
+  $result1 = mysql_query($query1, $mysql_link);
+  $rows1 = mysql_num_rows($result1);
+  for($i=0; $i<$rows1; $i++) {
+    $values1 = mysql_fetch_row($result1);
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values1[0])." At Level: $values1[1]<br />\n";
+    }
+  if($rows1==0)
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;No Skills Selected";
+?>
+		</p>
+	</div>
 	<div id="tabsPlt">
 		<p>
 			<b><?=stripslashes($values[1])?>'s Platforms</b>
@@ -376,7 +388,7 @@ if($rows) {
   $rows1 = mysql_num_rows($result1);
   for($i=0; $i<$rows1; $i++) {
     $values1 = mysql_fetch_row($result1);
-    $plt .= "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values1[0])." At Level: $values1[1]<br />\n";
+    echo "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values1[0])." At Level: $values1[1]<br />\n";
     }
   if($rows1==0)
     echo "&nbsp;&nbsp;&nbsp;&nbsp;No Skills Selected";
@@ -406,9 +418,6 @@ if($rows) {
 			?>
 		</table>
 	</div>
-	<?
-	flush();
-	?>
 	<div id="tabsImg">
 		<p>
 			<b><?=stripslashes($values[1])?>'s Images</b>
@@ -432,9 +441,6 @@ if($rows) {
 			?>
 		</table>
 	</div>
-	<?
-	flush();
-	?>
 	<div id="tabsCR">
 		<p>
 			<b><?=stripslashes($values[1])?>'s Combat Record</b>
