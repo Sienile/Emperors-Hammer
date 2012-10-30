@@ -66,6 +66,7 @@ echo $indent."<a href=\"joinanothergroup.php\">Join another Group</a><br />\n";
 echo $indent."<a href=\"mergeprofiles.php\">Merge Profiles</a><br />\n";
 echo $indent."<a href=\"uniupload.php\">Uniform Upload</a><br />\n";
 echo $indent."<a href=\"profileadmin.php\">Edit Profile</a><br />\n";
+echo $indent."<a href=\"inpradmin.php\">Edit INPR</a><br />\n";
 echo $indent."<a href=\"profile.php?pin=".$_SESSION['EHID']."\">View Profile</a><br />\n";
 echo "</p>\n";
 //End Roster Functions
