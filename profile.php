@@ -203,9 +203,7 @@ if($rows) {
 	            }
 	            else
 	                $mggroup = $values1[0];
-	            echo "<p>";
 	            TrainingListingDisplay($pin, $mggroup);
-	            echo "</p>\n";
 	        }// End GT_ID=4
 	        if($values2[1]==6) {
 	            echo "<p><b>$groupnameheader Uniform</b></p>";
@@ -345,24 +343,172 @@ if($rows) {
 		<p>
 			<b><?=stripslashes($values[1])?>'s Imperial Navy Pilot Record</b>
 		</p>
-		<p>
-			<?
-  $query1 = "select EH_Skills.Name, EH_Members_Skills.SkillLevel From EH_Skills, EH_Members_Skills WHERE EH_Skills.Skill_ID=EH_Members_Skills.Skill_ID AND EH_Members_Skills.Member_ID=$pin Order By EH_Skills.Name";
+<?
+  $query1 = "select UpdateDate, Gender, Species, Birthdate, PlaceBirth, Relationship, Family, Social, SigYouth, SigAdult, AlignAtt, Previous, Hobbies, Traggedies, PhobiaAllergy, View, Enlisting, Comments From EH_Members_INPR WHERE Member_ID=$pin Limit 1";
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
-  for($i=0; $i<$rows1; $i++) {
+  if($rows1) {
     $values1 = mysql_fetch_row($result1);
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;Skill: ".stripslashes($values1[0])." At Level: $values1[1]<br />\n";
-    }
-  if($rows1==0)
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;No Skills Selected";
 ?>
-		</p>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="25%" valign="top"><b>Name</b></td>
+				<td width="75%"><?=stripslashes($values[1])?></td>
+			</tr>
+<?
+if($values1[1]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Gender</b></td>
+				<td width="75%"><?=stripslashes($values1[1])?></td>
+			</tr>
+<?
+}
+if($values1[2]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Species</b></td>
+				<td width="75%"><?=stripslashes($values1[2])?></td>
+			</tr>
+<?
+}
+if($values1[3]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Birthdate</b></td>
+				<td width="75%"><?=stripslashes($values1[3])?></td>
+			</tr>
+<?
+}
+if($values1[4]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Place of Birth</b></td>
+				<td width="75%"><?=stripslashes($values1[4])?></td>
+			</tr>
+<?
+}
+if($values1[5]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Relationship Status</b></td>
+				<td width="75%"><?=stripslashes($values1[5])?></td>
+			</tr>
+<?
+}
+if($values1[6]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Family Status</b></td>
+				<td width="75%"><?=stripslashes($values1[6])?></td>
+			</tr>
+<?
+}
+if($values1[7]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Social Status</b></td>
+				<td width="75%"><?=stripslashes($values1[7])?></td>
+			</tr>
+<?
+}
+if($values1[8]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Significant Youth Events</b></td>
+				<td width="75%"><?=stripslashes($values1[8])?></td>
+			</tr>
+<?
+}
+if($values1[9]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Significant Adult Events</b></td>
+				<td width="75%"><?=stripslashes($values1[9])?></td>
+			</tr>
+<?
+}
+if($values1[10]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>EH Alignment</b></td>
+				<td width="75%"><?=stripslashes($values1[10])?></td>
+			</tr>
+<?
+}
+if($values1[11]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Previous Employment</b></td>
+				<td width="75%"><?=stripslashes($values1[11])?></td>
+			</tr>
+<?
+}
+if($values1[12]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Hobbies</b></td>				<td width="75%"><?=stripslashes($values1[12])?></td>
+			</tr>
+<?
+}
+if($values1[13]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Traggedies</b></td>
+				<td width="75%"><?=stripslashes($values1[13])?></td>
+			</tr>
+<?
+}
+if($values1[14]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Phobias/Allergies</b></td>
+				<td width="75%"><?=stripslashes($values1[14])?></td>
+			</tr>
+<?
+}
+if($values1[15]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Views on the EH</b></td>
+				<td width="75%"><?=stripslashes($values1[15])?></td>
+			</tr>
+<?
+}
+if($values1[16]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Enlisting Reasons</b></td>
+				<td width="75%"><?=stripslashes($values1[16])?></td>
+			</tr>
+<?
+}
+if($values1[17]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Additional Comments</b></td>
+				<td width="75%"><?=stripslashes($values1[17])?></td>
+			</tr>
+<?
+}
+if($values1[0]) {
+?>
+			<tr>
+				<td width="25%" valign="top"><b>Date last updated</b></td>
+				<td width="75%"><?=date("M j, Y", $values1[0])?></td>
+			</tr>
+<?
+}
+?>
+		</table>
+<?
+    }
+  else
+    echo "<p>&nbsp;&nbsp;&nbsp;&nbsp;No INPR entered.</p>";
+?>
 	</div>
 	<div id="tabsPlt">
-		<p>
-			<b><?=stripslashes($values[1])?>'s Platforms</b>
-		</p>
+		<p><b><?=stripslashes($values[1])?>'s Platforms</b></p>
 		<p>
 			<?
   $query1 = "select EH_Platforms.Name From EH_Platforms, EH_Members_Platforms WHERE EH_Platforms.Platform_ID=EH_Members_Platforms.Platform_ID AND EH_Members_Platforms.Member_ID=$values[0] Order By EH_Platforms.Name";
@@ -378,9 +524,7 @@ if($rows) {
 		</p>
 	</div>
 	<div id="tabsSkill">
-		<p>
-			<b><?=stripslashes($values[1])?>'s Skills</b>
-		</p>
+		<p><b><?=stripslashes($values[1])?>'s Skills</b></p>
 		<p>
 			<?
   $query1 = "select EH_Skills.Name, EH_Members_Skills.SkillLevel From EH_Skills, EH_Members_Skills WHERE EH_Skills.Skill_ID=EH_Members_Skills.Skill_ID AND EH_Members_Skills.Member_ID=$pin Order By EH_Skills.Name";
@@ -396,9 +540,7 @@ if($rows) {
 		</p>
 	</div>
 	<div id="tabsFic">
-		<p>
-			<b><?=stripslashes($values[1])?>'s Fiction</b>
-		</p>
+		<p><b><?=stripslashes($values[1])?>'s Fiction</b></p>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td width="75%">Title</td>
@@ -419,9 +561,7 @@ if($rows) {
 		</table>
 	</div>
 	<div id="tabsImg">
-		<p>
-			<b><?=stripslashes($values[1])?>'s Images</b>
-		</p>
+		<p><b><?=stripslashes($values[1])?>'s Images</b></p>
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td width="75%">Title</td>
