@@ -18,7 +18,7 @@ if(isset($_POST['name'])) {
     echo "No matches found";
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    echo "<a href=\"profile.php?pin=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+    echo "<a href=\"/profile/$values[0]\">".stripslashes($values[1])."</a><br />\n";
     }
   echo "</p>";
   echo "<p>&nbsp;</p>\n";

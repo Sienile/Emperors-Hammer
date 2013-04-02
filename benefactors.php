@@ -5,7 +5,7 @@ include_once("functions.php");
 include_once("nav.php");
 $mysql_link = mysql_connect($db_host, $db_username, $db_password);
 mysql_select_db($db_name, $mysql_link);
-echo "<center><img src=\"images/benefact.gif\" alt=\"EH Benefactors\" /></center>\n";
+echo "<center><img src=\"/images/benefact.gif\" alt=\"EH Benefactors\" /></center>\n";
 echo "<p>The Emperor's Hammer would like to thank the following people for their contributions over the years:</p>";
 echo "<p>William P. Call - The Founder<br />\n<br />\nAnd the following others:</p>\n";
 echo "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n";
@@ -22,7 +22,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  <tr>\n";
   echo "    <td width=\"60%\">";
   if($values[0])
-    echo "<a href=\"profile.php?pin=$values[0]\">";
+    echo "<a href=\"/profile/$values[0]\">";
   echo stripslashes($values[1]);
   if($values[0])
     echo "</a>";

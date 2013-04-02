@@ -15,7 +15,7 @@ for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
   echo "<p>Meeting: ".stripslashes($values[1])."<br />";
   echo "Occurs on:".stripslashes($values[2])."<br>
-  <a href=\"meetinglogs.php?id=$values[0]\">Logs</a></p>";
+  <a href=\"/meetinglogs.php?id=$values[0]\">Logs</a></p>";
   }
 include_once("footer.php");
 ?>

@@ -7,7 +7,7 @@ mysql_select_db($db_name, $mysql_link);
 include_once("nav.php");
 ?>
 <p>Merge Profiles</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <p>
 <?
 if($_GET['merge']) {
@@ -20,7 +20,7 @@ if($_GET['merge']) {
     }
   if($rows1) {
     echo "<p>Confirm that you're willing to merge your profile into PIN $to</p>";
-    echo "<p><a href=\"mergeprofiles.php?mergeyes=yes\">Confirmed</a> | <a href=\"mergeprofiles.php?mergeno=$to\">No, I don't want to merge!</a></p>\n";
+    echo "<p><a href=\"/mergeprofiles.php?mergeyes=yes\">Confirmed</a> | <a href=\"/mergeprofiles.php?mergeno=$to\">No, I don't want to merge!</a></p>\n";
     }
   else {
     echo "There appears to be a problem, suggest you contact the IO";
@@ -35,7 +35,7 @@ elseif($_GET['mergeyes']) {
     $to = $values1[0];
     $emp=$values1[1];
     }
-  echo "<p>Your profile is being merged into PIN $to. Please <a href=\"logout.php\">logout</a>, and login using PIN $to.</p>\n<p>Please note: You might have duplicate entries for Skills, Platforms, and Chat Information, please update these as necessary.</p>";
+  echo "<p>Your profile is being merged into PIN $to. Please <a href=\"/logout.php\">logout</a>, and login using PIN $to.</p>\n<p>Please note: You might have duplicate entries for Skills, Platforms, and Chat Information, please update these as necessary.</p>";
   $query1 = "UPDATE EH_Merged_Profiles Set Approved=1 WHERE MP_ID=$emp";
   $result1 = mysql_query($query1, $mysql_link);
   $from = $_SESSION['EHID'];
@@ -220,8 +220,8 @@ elseif($_POST['confirm']) {
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
   if($rows1==0) {
-    echo "<p>Confirm that you're wanting to merge PIN <a href=\"profile.php?pin=".$_POST['confirm']."\">".$_POST['confirm']."</a> into your existing PIN of ".$_SESSION['EHID'] ."</p>";
-    echo "<p><a href=\"mergeprofiles.php?confirmyes=".$_POST['confirm']."\">Confirmed</a> | <a href=\"menu.php\">No, I want to return to the menu</a></p>\n";
+    echo "<p>Confirm that you're wanting to merge PIN <a href=\"/profile/".$_POST['confirm']."\">".$_POST['confirm']."</a> into your existing PIN of ".$_SESSION['EHID'] ."</p>";
+    echo "<p><a href=\"/mergeprofiles.php?confirmyes=".$_POST['confirm']."\">Confirmed</a> | <a href=\"/menu.php\">No, I want to return to the menu</a></p>\n";
     }
   else {
     echo "<p>This profile is already in a request status, Please either have them merge or remove this request, prior to merging.</p>";

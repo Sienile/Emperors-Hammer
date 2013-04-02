@@ -11,10 +11,10 @@ else
   $view=0;
 $id = mysql_real_escape_string($_GET['id'], $mysql_link);
 Unit($id, $view);
-echo "<a href=\"search.php\">Search the Roster</a> | <a href=\"login.php\">Administration</a> | ";
+echo "<a href=\"/search.php\">Search the Roster</a> | <a href=\"/login.php\">Administration</a> | ";
 if($view)
-  echo "<a href=\"unit.php?id=$id&amp;view=0\">View None</a>";
+  echo "<a href=\"/unit.php?id=$id&amp;view=0\">View None</a>";
 else
-  echo "<a href=\"unit.php?id=$id&amp;view=1\">View All</a>";
+  echo "<a href=\"/unit.php?id=$id&amp;view=1\">View All</a>";
 include_once("footer.php");
 ?>

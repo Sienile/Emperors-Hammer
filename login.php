@@ -37,7 +37,7 @@ echo " <label for=\"pw\" >Password</label>: ";
 echo " <input type=\"password\" name=\"pw\" id=\"pw\" /><br />\n";
 echo "<button type=\"submit\" name=\"submit\">Login</button><button name=\"reset\" type=\"reset\">Reset</button>\n";
 echo "</form>\n";
-echo "<p><a href=\"resetpassword.php\">Password Reset</a></p>";
+echo "<p><a href=\"/resetpassword.php\">Password Reset</a></p>";
 //echo "<p>Site login disabled for backup</p>\n";
 include_once("footer.php");
 ?>

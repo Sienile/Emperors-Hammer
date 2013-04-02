@@ -200,7 +200,7 @@ for($k=0; $k<$rows2; $k++) {
   $rows3 = mysql_num_rows($result3);
   if($rows3) {
     $values3 = mysql_fetch_row($result3);
-    echo "<a href=\"profile.php?pin=$values2[1]\"><span style=\"color:#6699CC;\">".stripslashes($values3[0])."</span></a>";
+    echo "<a href=\"/profile/$values2[1]\"><span style=\"color:#6699CC;\">".stripslashes($values3[0])."</span></a>";
     }
   echo " on: ".date("F j, Y", $values2[2]);
   if($_SESSION['EHID'] && ($_SESSION['EHID']==$values2[1] || has_access($_SESSION['EHID'], "linkadmin"))) {

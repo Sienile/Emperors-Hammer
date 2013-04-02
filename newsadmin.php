@@ -86,7 +86,7 @@ elseif($_GET['add']) {
   $body = mysql_real_escape_string($_POST['nbody'], $mysql_link);
   $date=time();
   $member = $_SESSION['EHID'];
-  $membername = RankAbbrName($member, $group, 0);
+  $membername = mysql_real_escape_string(RankAbbrName($member, $group, 0), $mysql_link);
   if(strip_tags($body)==$body)
     $body=nl2br($body);
   $query = "INSERT INTO EH_News
@@ -111,7 +111,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer News Administration</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <form name="selgroupform">
     <label for="selGroup">Select the Group to modify their News</label>
     <?php $ga = implode (" OR Group_ID=", $groupsaccess); ?>

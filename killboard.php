@@ -30,7 +30,7 @@ $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
 for($i = 1; $i <= $rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "$i) <a href=\"profile.php?pin=$values[0]\">".RankAbbrName($values[0], PriGroup($values[0]), 1)."</a> - $values[1]<br />\n";
+  echo "$i) <a href=\"/profile/$values[0]\">".RankAbbrName($values[0], PriGroup($values[0]), 1)."</a> - $values[1]<br />\n";
   }
 echo "<p>Annual Totals are:<br />\n";
 $startdate = mktime(0,0,0,1,1, $year);
@@ -40,7 +40,7 @@ $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
 for($i = 1; $i <= $rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "$i) <a href=\"profile.php?pin=$values[0]\">".RankAbbrName($values[0], PriGroup($values[0]), 1)."</a> - $values[1]<br />\n";
+  echo "$i) <a href=\"/profile/$values[0]\">".RankAbbrName($values[0], PriGroup($values[0]), 1)."</a> - $values[1]<br />\n";
   }
 echo "</p>\n";
 echo "<form method=\"post\" action=\"killboard.php\">\n";

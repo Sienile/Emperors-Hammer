@@ -191,16 +191,16 @@ $user_id = user_add($user_row);
     echo "Welcome to the Emperor's Hammer! You should shortly recieve an e-mail with information necessary to login to the site.";
   }
 else {
-  echo "<p align=\"center\"><img src=\"images/EnlistmentBanner.png\" width=\"600\" height=\"400\"></p>\n";
+  echo "<p align=\"center\"><img src=\"/images/EnlistmentBanner.png\" width=\"600\" height=\"400\"></p>\n";
   echo "<p align=\"left\">&nbsp;</p>\n";
   echo "<p align=\"left\">Welcome to the Emperor's Hammer Strike Fleet: A Star Wars Universe based online club. The Emperor's Hammer was founded in 1994 by Grand Admiral Ronin and is the oldest active Star Wars internet-based club. The Emperor's Hammer is structured along the lines of a traditional Imperial military organization offering a wide variety of activities for you to explore. In order to assign you to the appropriate segment of our fleet it is required that all members complete a brief informational questionnaire before being assigned to active duty within the Emperor's Hammer.</p>\n";
   echo "<p>Incoming Recruits/Applicants must be aware of and agree to follow the Emperor's Hammer Club Regulations:</p>\n";
   echo "<ul>\n";
-  echo "  <li><a href=\"page.php?page=aow\">Articles of War</a></li>\n";
-  echo "  <li><a href=\"page.php?page=bylaws\">Bylaws</a></li>\n";
-  echo "  <li><a href=\"page.php?page=coc\">Code of Conduct</a></li>\n";
-  echo "  <li><a href=\"page.php?page=copyright\">Copyrights/Disclaimers</a></li>\n";
-  echo "  <li><a href=\"page.php?page=privacy\">Privacy Policy</a></li>\n";
+  echo "  <li><a href=\"/page.php?page=aow\">Articles of War</a></li>\n";
+  echo "  <li><a href=\"/page.php?page=bylaws\">Bylaws</a></li>\n";
+  echo "  <li><a href=\"/page.php?page=coc\">Code of Conduct</a></li>\n";
+  echo "  <li><a href=\"/page.php?page=copyright\">Copyrights/Disclaimers</a></li>\n";
+  echo "  <li><a href=\"/page.php?page=privacy\">Privacy Policy</a></li>\n";
   echo "</ul>\n";
   echo "<p>Please fill out the questions below with your best accuracy and detailed description:<br />\n";
   echo "<br />\n";
@@ -246,7 +246,7 @@ else {
   echo "<p>The Emperor's Hammer thanks you for your time on this matter. Please keep in mind that you are only allowed ONE profile for the EH. Your EH profile will include all groups that you decide to join.<br />\n";
   echo "<br />\n";
   echo "Upon review of your information you will be contacted by our <a href=\"mailto:to@emperorshammer.org\">Training Officer</a> regarding your first assignment.</p>\n";
-  echo "<p>For security reasons, please input the image string into the following text-box: <img id=\"captcha\" src=\"securimage/securimage_show.php\" alt=\"CAPTCHA Image\" /><input type=\"text\" name=\"captcha_code\" size=\"10\" maxlength=\"6\" /></p>";
+  echo "<p>For security reasons, please input the image string into the following text-box: <img id=\"captcha\" src=\"/securimage/securimage_show.php\" alt=\"CAPTCHA Image\" /><input type=\"text\" name=\"captcha_code\" size=\"10\" maxlength=\"6\" /></p>";
   echo "<p><button  type=\"submit\" name=\"Submit\">Submit</button>";
   echo "<button name=\"reset\" type=\"reset\">Reset</button></p>\n";
   echo "</form>\n";

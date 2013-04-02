@@ -19,7 +19,7 @@ for($i = 1; $i <= $rows; $i++) {
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
   if($rows1) {
-    echo "<p><a href=\"coursegrads.php?id=$values[0]\">".stripslashes($values[1])."</a> [$rows1 graduate";
+    echo "<p><a href=\"/coursegrads.php?id=$values[0]\">".stripslashes($values[1])."</a> [$rows1 graduate";
     if($rows1>1)
       echo "s";
     echo "]</p>\n";

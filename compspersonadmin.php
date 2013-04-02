@@ -187,7 +187,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer - Manage your Competitions Administration Center</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <form name="selgroupform">
     <label for="selGroup">Select the Group to modify your competitions</label>
     <?php $ga = implode (" OR Group_ID=", $groupsaccess); ?>

@@ -8,7 +8,7 @@ mysql_select_db($db_name, $mysql_link);
 include_once("nav.php");
 ?>
 <p>Emperor's Hammer FCHG/Combat Rating Points Recalculation</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <?
 $query = "SELECT Member_ID, Name From EH_Members WHERE Email!='' Order By Member_ID";
 $result = mysql_query($query, $mysql_link);

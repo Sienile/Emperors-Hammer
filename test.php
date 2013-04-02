@@ -15,7 +15,7 @@ $rows = mysql_num_rows($result);
 if($rows) {
   $values = mysql_fetch_row($result);
   $name = RankAbbrName($_SESSION['EHID'], PriGroup($_SESSION['EHID']), 1);
-  echo "<p>Welcome $name, to the <a href=\"course.php?id=$values[0]\">".stripslashes($values[1])."</a> Course Exam.</p>\n";
+  echo "<p>Welcome $name, to the <a href=\"/course.php?id=$values[0]\">".stripslashes($values[1])."</a> Course Exam.</p>\n";
   echo "<form action=\"test1.php\" method=\"POST\">\n";
   echo "  <input type=\"hidden\" name=\"examid\" value=\"$values[0]\" />\n";
   echo "  <input type=\"hidden\" name=\"userid\" value=\"".$_SESSION['EHID']."\" />\n";

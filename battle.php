@@ -22,7 +22,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  </tr>\n";
   echo "  <tr>\n";
   echo "    <td>Posted By:</td>\n";
-  echo "    <td><a href=\"profile.php?pin=$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
+  echo "    <td><a href=\"/profile/$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
   echo "  </tr>\n";
   if($_SESSION['EHID'] && (has_access($_SESSION['EHID'], "battlesadmin") || $values[1]==$_SESSION['EHID'])) {
     echo "  <tr>\n";
@@ -51,7 +51,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  </tr>\n";
   echo "  <tr>\n";
   echo "    <td>Posted By:</td>\n";
-  echo "    <td><a href=\"profile.php?pin=$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
+  echo "    <td><a href=\"/profile/$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
   echo "  </tr>\n";
   if($_SESSION['EHID'] && (has_access($_SESSION['EHID'], "battlesadmin") || $values[1]==$_SESSION['EHID'])) {
     echo "  <tr>\n";
@@ -273,19 +273,16 @@ echo "<h3 align=\"center\">Emperor's Hammer Battle</h3>\n";
 echo "<div id=\"message\" style=\"color: green\" ></div>\n";
 if($rows) {
   $values = mysql_fetch_row($result);
-echo "<p><a href=\"battlescat.php?cat=$values[3]&amp;plt=$values[1]\">Return to the Battle Category Selection Screen</a></p>\n";
+echo "<p><a href=\"/battlescat.php?cat=$values[3]&amp;plt=$values[1]\">Return to the Battle Category Selection Screen</a></p>\n";
 ?>
 
 
 
 
 <div id="battles">
-
   <ul>
-
     <li><a href="#tabsMain">Information</a></li>
     <li><a href="#tabsRev">Reviews</a></li>
-
     <li><a href="#tabsBugs">Bugs</a></li>
     <li><a href="#tabsHS">High Scores</a></li>
     <li><a href="#tabsStats">Statistics</a></li>
@@ -297,14 +294,14 @@ echo "<p><a href=\"battlescat.php?cat=$values[3]&amp;plt=$values[1]\">Return to 
   <tr>
     <td><b>Battle Name<b>: <?=stripslashes($values[4])?><br>
 <b>Number of Missions</b>: <?=stripslashes($values[20])?><br>
-<b>Battle Creator</b>: <a href="profile.php?pin=<?=$values[15]?>"><?=RankAbbrName($values[15], PriGroup($values[15]), 1)?></a><br>
+<b>Battle Creator</b>: <a href="/profile/<?=$values[15]?>"><?=RankAbbrName($values[15], PriGroup($values[15]), 1)?></a><br>
 <?
 if($values[16])
-  echo "<b>Battle Creator</b>: <a href=\"profile.php?pin=$values[16]\">".RankAbbrName($values[16], PriGroup($values[16]), 1)."</a><br>";
+  echo "<b>Battle Creator</b>: <a href=\"/profile/$values[16]\">".RankAbbrName($values[16], PriGroup($values[16]), 1)."</a><br>";
 if($values[17])
-  echo "<b>Battle Creator</b>: <a href=\"profile.php?pin=$values[17]\">".RankAbbrName($values[17], PriGroup($values[17]), 1)."</a><br>";
+  echo "<b>Battle Creator</b>: <a href=\"/profile/$values[17]\">".RankAbbrName($values[17], PriGroup($values[17]), 1)."</a><br>";
 if($values[18])
-  echo "<b>Battle Creator</b>: <a href=\"profile.php?pin=$values[18]\">".RankAbbrName($values[18], PriGroup($values[18]), 1)."</a><br>";
+  echo "<b>Battle Creator</b>: <a href=\"/profile/$values[18]\">".RankAbbrName($values[18], PriGroup($values[18]), 1)."</a><br>";
 ?>
 <b>Battle Released</b>: <?=date("F j, Y", $values[6])?><br>
 <b>Patches</b>:<br>
@@ -316,13 +313,13 @@ if($rows2==0)
   echo "No Patches Required.";
 for($j=0;$j<$rows2; $j++) {
   $values2 = mysql_fetch_row($result2);
-  echo "<a href=\"patch.php?id=$values2[0]\">".stripslashes($values2[1])."</a><br>\n";
+  echo "<a href=\"/patch.php?id=$values2[0]\">".stripslashes($values2[1])."</a><br>\n";
   }
 ?>
-<b>Wave Pack</b>: <? if($values[12]) echo "<a href=\"http://www.emperorshammer.org/tc/battles/wavpacks/$values[12]\">Download</a>"; else echo "None"; ?><br>
+<b>Wave Pack</b>: <? if($values[12]) echo "<a href=\"/tc/battles/wavpacks/$values[12]\">Download</a>"; else echo "None"; ?><br>
 </td>
 <td style="vertical-align:top">
-<a href="http://www.emperorshammer.org/tc/battles/<?=$values[11]?>"><b>Download</b></a><br/>
+<a href="/tc/battles/<?=$values[11]?>"><b>Download</b></a><br/>
 <b>Medal Name</b>: <?=stripslashes($values[9])?><br/>
 <b>Average Rating</b>: 
 <?
@@ -371,7 +368,7 @@ $result1 = mysql_query($query1, $mysql_link);
 $rows1 = mysql_num_rows($result1);
 if($rows1>1) {
 ?>
-Battle: <?=$values[13]?> by: <a href="profile.php?pin=<?=$values[14]?>"><?=RankAbbrName($values[14], PriGroup($values[14]), 1)?></a><br>
+Battle: <?=$values[13]?> by: <a href="/profile/<?=$values[14]?>"><?=RankAbbrName($values[14], PriGroup($values[14]), 1)?></a><br>
 <?
 }
 for($j=0;$j<$rows1; $j++) {
@@ -379,7 +376,7 @@ for($j=0;$j<$rows1; $j++) {
   echo "Mission $values1[0]";
   if($values1[1])
     echo " ($values1[1])";
-  echo ": $values1[2] by: <a href=\"profile.php?pin=$values1[3]\">".RankAbbrName($values1[3], PriGroup($values1[3]), 1)."</a><br>";
+  echo ": $values1[2] by: <a href=\"/profile/$values1[3]\">".RankAbbrName($values1[3], PriGroup($values1[3]), 1)."</a><br>";
   }
 ?></p>
   </div>
@@ -393,7 +390,7 @@ if($rows1==0)
   echo "No completions yet.";
 for($j=0;$j<$rows1; $j++) {
   $values1 = mysql_fetch_row($result1);
-  echo "<a href=\"profile.php?pin=$values1[1]\">".RankAbbrName($values1[1], PriGroup($values1[1]), 1)."</a>";
+  echo "<a href=\"/profile/$values1[1]\">".RankAbbrName($values1[1], PriGroup($values1[1]), 1)."</a>";
   if($values1[0])
     echo " Completed On: ".date("F j, Y", $values1[0]);
   echo "<br>";

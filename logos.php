@@ -19,7 +19,7 @@ for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
   echo "  <tr>\n";
   echo "    <td width=\"20%\">".stripslashes($values[1])."</td>";
-  echo "    <td width=\"60%\"><img src=\"image.php?id=$values[0]\" alt=\"".stripslashes($values[1])."\" /></td>";
+  echo "    <td width=\"60%\"><img src=\"/image.php?id=$values[0]\" alt=\"".stripslashes($values[1])."\" /></td>";
   echo "    <td width=\"20%\">".date("M j, Y", $values[2])."</td>";
   echo "  </tr>\n";
   }

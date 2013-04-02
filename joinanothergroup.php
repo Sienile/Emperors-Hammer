@@ -10,7 +10,7 @@ include_once("nav.php");
 if($_POST['Groups']) {
 ?>
 <p>Join another Emperor's Hammer Group</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <?
   $query = "SELECT Member_ID, Name, Email FROM EH_Members WHERE Member_ID=".$_SESSION['EHID'];
   $result = mysql_query($query, $mysql_link);
@@ -154,7 +154,7 @@ if($_POST['Groups']) {
 else {
 ?>
 <p>Join another Emperor's Hammer Group</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <p>You are currently a member of the following Groups:<br>
 <?php
 $query = "SELECT EH_Groups.Name, EH_Groups.Group_ID FROM EH_Groups, EH_Members_Groups WHERE EH_Groups.Group_ID=EH_Members_Groups.Group_ID AND EH_Members_Groups.Member_ID=".$_SESSION['EHID']." Order By EH_Groups.Group_ID";

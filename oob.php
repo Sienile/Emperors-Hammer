@@ -50,7 +50,7 @@ for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
   echo "<table style=\"background-color:#344765;color:#000000;width:100%\">\n";
   echo "  <tr>\n";
-  echo "    <td width=\"38px\"><img src=\"images/Icons/ships/scoicon.gif\" width=\"38\" height=\"38\" alt=\"Fleet Icon Image\" /></td>\n";
+  echo "    <td width=\"38px\"><img src=\"/images/Icons/ships/scoicon.gif\" width=\"38\" height=\"38\" alt=\"Fleet Icon Image\" /></td>\n";
   echo "    <td colspan=\"3\"><h1>";
   if($values[3])
     echo "<a href=\"$values[3]\">";
@@ -94,7 +94,7 @@ for($i=0; $i<$rows; $i++) {
         $img = $values3[0];
         }
       echo "  <tr>\n";
-      echo "    <td><img src=\"images/Icons/ships/$img\" alt=\"".VesselTypeAbbr($values2[2], 0)."\" /></td>\n";
+      echo "    <td><img src=\"/images/Icons/ships/$img\" alt=\"".VesselTypeAbbr($values2[2], 0)."\" /></td>\n";
       echo "    <td><h3>";
       if($values2[3])
         echo "<a href=\"$values2[3]\">";
@@ -126,7 +126,7 @@ for($i=0; $i<$rows; $i++) {
         echo "  <tr>\n";
         echo "    <td>";
         for($q=0; $q<count($imgs); $q++)
-          echo "<img src=\"images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
+          echo "<img src=\"/images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
         echo "</td>\n";
         echo "    <td><h3>";
         if($values3[3])
@@ -158,7 +158,7 @@ for($i=0; $i<$rows; $i++) {
           echo "  <tr>\n";
           echo "    <td>";
           for($q=0; $q<count($imgs); $q++)
-            echo "<img src=\"images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
+            echo "<img src=\"/images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
           echo "</td>\n";
           echo "    <td><h3>";
           if($values4[3])
@@ -195,7 +195,7 @@ for($i=0; $i<$rows; $i++) {
         echo "  <tr>\n";
         echo "    <td>";
         for($q=0; $q<count($imgs); $q++)
-          echo "<img src=\"images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
+          echo "<img src=\"/images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
         echo "</td>\n";
         echo "    <td><h3>";
         if($values3[3])
@@ -233,7 +233,7 @@ for($i=0; $i<$rows; $i++) {
         echo "  <tr>\n";
         echo "    <td>";
         for($q=0; $q<count($imgs); $q++)
-          echo "<img src=\"images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
+          echo "<img src=\"/images/Icons/ships/$imgs[$q]\" alt=\"".VesselTypeAbbr($ships[$q], 0)."\" />";
         echo "</td>\n";
         echo "    <td><h3>";
         if($values3[3])

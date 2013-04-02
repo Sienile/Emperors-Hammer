@@ -53,6 +53,6 @@ echo " <label for=\"pin\" >E-Mail Address</label>: ";
 echo " <input type=\"textbox\" name=\"pin\" id=\"pin\"><br />\n";
 echo "<button type=\"submit\" name=\"submit\">Reset Passsword</button><button name=\"reset\" type=\"reset\">Reset Form</button>\n";
 echo "</form>\n";
-echo "<p><a href=\"login.php\">Return to the login page</a></p>";
+echo "<p><a href=\"/login.php\">Return to the login page</a></p>";
 include_once("footer.php");
 ?>

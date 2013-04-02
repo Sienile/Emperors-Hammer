@@ -1,5 +1,4 @@
 <?
-$time_start=microtime(true);
 session_start();
 include_once("config.php");
 include_once("functions.php");
@@ -14,13 +13,13 @@ if($rows==0)
     $pin =0;
 echo "<div align=\"right\">";
 if($rows && array_key_exists("EHID",$_SESSION)) {
-    echo "<a href=\"medalrec.php?memberid=$pin\">Recommend Medal</a>";
+    echo "<a href=\"/medalrec.php?memberid=$pin\">Recommend Medal</a>";
     if(has_access($_SESSION['EHID'], "awardmedal"))
-        echo " | <a href=\"medalaward.php?memberid=$pin\">Award Medal</a>";
+        echo " | <a href=\"/medalaward.php?memberid=$pin\">Award Medal</a>";
     echo " | ";
-    echo "<a href=\"promorec.php?memberid=$pin\">Recommend Promotion</a>";
+    echo "<a href=\"/promorec.php?memberid=$pin\">Recommend Promotion</a>";
     if(has_access($_SESSION['EHID'], "awardpromo"))
-        echo " | <a href=\"promoaward.php?memberid=$pin\">Award Promotion</a>";
+        echo " | <a href=\"/promoaward.php?memberid=$pin\">Award Promotion</a>";
     echo " | ";
 }
 echo "<form method=\"get\" action=\"profile.php\">\nPIN #: <input type=\"text\" name=\"pin\" style=\"width: 30px\" value=\"$pin\" />\n</form>\n";
@@ -61,7 +60,6 @@ if($rows) {
 		?>
 		<li><a href="#tabsINPR">INPR</a></li>
 		<li><a href="#tabsPlt">Platforms</a></li>
-
 		<li><a href="#tabsSkill">Skills</a></li>
 		<li><a href="#tabsFic">Fiction</a></li>
 		<li><a href="#tabsImg">Images</a></li>
@@ -73,7 +71,7 @@ if($rows) {
 		<p>
 			Name:
 			<?=stripslashes($values[1])?>
-			<br /> E-Mail: <img src="emailimg.php?id=<? echo $values[0]; ?>"
+			<br /> E-Mail: <img src="/emailimg.php?id=<? echo $values[0]; ?>"
 				alt="Member's E-mail Address" border="0" /><br /> Quote:
 			<? if($values[3]) echo stripslashes($values[3]); ?>
 			<br /> Chat Systems:<br />
@@ -86,7 +84,7 @@ if($rows) {
     $link = str_replace("[username]", $values1[4], $values1[3]);
     echo "&nbsp;&nbsp;&nbsp;&nbsp;";
     if($values1[2])
-      echo "<img src=\"images/Icons/".stripslashes($values1[2])."\" alt=\"$values1[1]\"/>";
+      echo "<img src=\"/images/Icons/".stripslashes($values1[2])."\" alt=\"$values1[1]\"/>";
     if($values1[3])
       echo "<a href=\"$link\"><abbr title=\"".stripslashes($values1[0])."\">".stripslashes($values1[1])."</abbr></a><br />\n";
     else
@@ -187,7 +185,7 @@ if($rows) {
 	          $rows3 = mysql_num_rows($result3);
 	          for($k=0; $k<$rows3; $k++) {
 	            $values3 = mysql_fetch_row($result3);
-	            echo "<a href=\"compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
+	            echo "<a href=\"/compsstats.php?id=$values3[0]\">".stripslashes($values3[1])."</a>";
 	            if($values3[2])
 	              echo " Score of $values3[2]";
                     echo "<br />\n";
@@ -217,7 +215,7 @@ if($rows) {
 	                    $values3 = mysql_fetch_row($result3);
 	                    $img= $values3[0];
 	                }
-	                echo "<img src=\"images/uniforms/uploaded/$img\" alt=\"$grnamen's Uniform\" />";
+	                echo "<img src=\"/images/uniforms/uploaded/$img\" alt=\"$grnamen's Uniform\" />";
 	            }
 	            elseif($values1[5]==2) {
 	                //Assembled
@@ -230,7 +228,7 @@ if($rows) {
 	                if($rows3) {
 	                    $values3 = mysql_fetch_row($result3);
 	                    $img = $values3[0];
-	                    echo "<img src=\"images/uniforms/rankbased/$img\" alt=\"$grnamen's Uniform\" />";
+	                    echo "<img src=\"/images/uniforms/rankbased/$img\" alt=\"$grnamen's Uniform\" />";
 	                }
 	            }
 	        } //End GT_ID=6
@@ -273,7 +271,7 @@ if($rows) {
 	                    $rows4 = mysql_num_rows($result4);
 	                    if($rows4) {
 	                        $values4 = mysql_fetch_row($result4);
-	                        echo "<a href=\"unit.php?id=$values4[1]\">".stripslashes($values4[0])."</a>";
+	                        echo "<a href=\"/unit.php?id=$values4[1]\">".stripslashes($values4[0])."</a>";
 	                    }
 	                    else {
 	                        echo "No previous unit";
@@ -284,7 +282,7 @@ if($rows) {
 	                    $rows4 = mysql_num_rows($result4);
 	                    if($rows4) {
 	                        $values4 = mysql_fetch_row($result4);
-	                        echo "<a href=\"unit.php?id=$values4[1]\">".stripslashes($values4[0])."</a>";
+	                        echo "<a href=\"/unit.php?id=$values4[1]\">".stripslashes($values4[0])."</a>";
 	                    }
 	                    else {
 	                        echo "Left the unit";
@@ -359,7 +357,7 @@ if($rows) {
 if($values1[1]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Gender</b></td>
+				<td width="25%" valign="top"><b>Gender</b></td>
 				<td width="75%"><?=stripslashes($values1[1])?></td>
 			</tr>
 <?
@@ -367,7 +365,7 @@ if($values1[1]) {
 if($values1[2]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Species</b></td>
+				<td width="25%" valign="top"><b>Species</b></td>
 				<td width="75%"><?=stripslashes($values1[2])?></td>
 			</tr>
 <?
@@ -375,7 +373,7 @@ if($values1[2]) {
 if($values1[3]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Birthdate</b></td>
+				<td width="25%" valign="top"><b>Birthdate</b></td>
 				<td width="75%"><?=stripslashes($values1[3])?></td>
 			</tr>
 <?
@@ -383,7 +381,7 @@ if($values1[3]) {
 if($values1[4]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Place of Birth</b></td>
+				<td width="25%" valign="top"><b>Place of Birth</b></td>
 				<td width="75%"><?=stripslashes($values1[4])?></td>
 			</tr>
 <?
@@ -391,7 +389,7 @@ if($values1[4]) {
 if($values1[5]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Relationship Status</b></td>
+				<td width="25%" valign="top"><b>Relationship Status</b></td>
 				<td width="75%"><?=stripslashes($values1[5])?></td>
 			</tr>
 <?
@@ -399,7 +397,7 @@ if($values1[5]) {
 if($values1[6]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Family Status</b></td>
+				<td width="25%" valign="top"><b>Family Status</b></td>
 				<td width="75%"><?=stripslashes($values1[6])?></td>
 			</tr>
 <?
@@ -407,7 +405,7 @@ if($values1[6]) {
 if($values1[7]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Social Status</b></td>
+				<td width="25%" valign="top"><b>Social Status</b></td>
 				<td width="75%"><?=stripslashes($values1[7])?></td>
 			</tr>
 <?
@@ -415,7 +413,7 @@ if($values1[7]) {
 if($values1[8]) {
 ?>
 			<tr>
-				<td width="25%" valign="top"><b>Significant Youth Events</b></td>
+				<td width="25%" valign="top"><b>Significant Youth Events</b></td>
 				<td width="75%"><?=stripslashes($values1[8])?></td>
 			</tr>
 <?
@@ -553,7 +551,7 @@ if($values1[0]) {
 			for($i=0; $i<$rows1; $i++) {
 			    $values1 = mysql_fetch_row($result1);
 			    echo "      <tr>\n";
-			    echo "        <td width=\"75%\"><a href=\"story.php?id=$values1[0]\">".stripslashes($values1[1])."</td>";
+			    echo "        <td width=\"75%\"><a href=\"/story.php?id=$values1[0]\">".stripslashes($values1[1])."</td>";
 			    echo "        <td width=\"25%\">".date("M j, Y", $values1[2])."</td>";
 			    echo "      </tr>\n";
 			}
@@ -574,7 +572,7 @@ if($values1[0]) {
 			for($i=0; $i<$rows1; $i++) {
 			    $values1 = mysql_fetch_row($result1);
 			    echo "      <tr>\n";
-			    echo "        <td width=\"75%\"><a href=\"image.php?id=$values1[0]\">".stripslashes($values1[1])."</td>";
+			    echo "        <td width=\"75%\"><a href=\"/image.php?id=$values1[0]\">".stripslashes($values1[1])."</td>";
 			    echo "        <td width=\"25%\">".date("M j, Y", $values1[2])."</td>";
 			    echo "      </tr>\n";
 			}
@@ -597,7 +595,7 @@ if($values1[0]) {
 		    $string .= "&nbsp;&nbsp;&nbsp;<abbr title=\"".$row["platform"]."\">".$row["platform_abbr"]."</abbr>-";
 		    $string .= "<abbr title=\"".$row["category"]."\">".$row["category_abbr"]."</abbr>";
 		    $string .= " ".$row["battle_number"].": ";
-		    $string .= "<a href=\"battle.php?id=".$row["battle_id"]."\">".$row["name"]."</a>";
+		    $string .= "<a href=\"/battle.php?id=".$row["battle_id"]."\">".$row["name"]."</a>";
 		    if (!empty($row["reward_name"])){
 		        $string .= " (".stripslashes($row["reward_name"]).")";
 		    }
@@ -688,7 +686,7 @@ if($values1[0]) {
                 $string .= "&nbsp;&nbsp;&nbsp;<abbr title=\"".$bhs_row['platform']."\">".$bhs_row['platform_abbr']."</abbr>-";
                 $string .= "<abbr title=\"".$bhs_row['category']."\">".$bhs_row['category_abbr']."</abbr>";
                 $string .= " ".$bhs_row['battle_number'].": ";
-                $string .= "<a href=\"battle.php?id=".$bhs_row['battle_id']."\">".$bhs_row['name']."</a>";
+                $string .= "<a href=\"/battle.php?id=".$bhs_row['battle_id']."\">".$bhs_row['name']."</a>";
                 $string .= " Score: ".$bhs_row['highscore']."<br />\n";
                 echo $string;
             }
@@ -725,7 +723,7 @@ if($values1[0]) {
                 $string .= "&nbsp;&nbsp;&nbsp;<abbr title=\"".$mhs_row['platform']."\">".$mhs_row['platform_abbr']."</abbr>-";
                 $string .= "<abbr title=\"".$mhs_row['category']."\">".$mhs_row['category_abbr']."</abbr>";
                 $string .= " ".$mhs_row['battle_number']." - Mission ".$mhs_row['mission_number'].": ";
-                $string .= "<a href=\"battle.php?id=".$mhs_row['battle_id']."\">".$mhs_row['name']."</a>";
+                $string .= "<a href=\"/battle.php?id=".$mhs_row['battle_id']."\">".$mhs_row['name']."</a>";
                 $string .= " Score: ".$mhs_row['highscore']."<br />\n";
                 echo $string;
             }
@@ -761,7 +759,7 @@ if($values1[0]) {
                 $string .= "&nbsp;&nbsp;&nbsp;<abbr title=\"".$bc_row['platform']."\">".$bc_row['platform_abbr']."</abbr>-";
                 $string .= "<abbr title=\"".$bc_row['category']."\">".$bc_row['category_abbr']."</abbr>";
                 $string .= " ".$bc_row['battle_number'].": ";
-                $string .= "<a href=\"battle.php?id=".$bc_row['battle_id']."\">".$bc_row['name']."</a><br />\n";
+                $string .= "<a href=\"/battle.php?id=".$bc_row['battle_id']."\">".$bc_row['name']."</a><br />\n";
                 echo $string;
             }
         }
@@ -797,7 +795,7 @@ if($values1[0]) {
                 $string .= '&nbsp;&nbsp;&nbsp;<abbr title="'.$mc_row["platform"].'">'.$mc_row["platform_abbr"].'</abbr>-';
                 $string .= '<abbr title="'.$mc_row["category"].'">'.$mc_row["category_abbr"].'</abbr>';
                 $string .= ' '.$mc_row["battle_number"].": ";
-                $string .= '<a href="battle.php?id='.$mc_row["battle_id"].'">'.$mc_row["name"].'</a><br />';
+                $string .= '<a href="/battle.php?id='.$mc_row["battle_id"].'">'.$mc_row["name"].'</a><br />';
                 echo $string;
             }
         }
@@ -860,6 +858,4 @@ else {
     echo "<p>The page you were looking for does not exist</p>";
 }
 include_once("footer.php");
-$timelen = microtime(true)-$time_start;
-echo"Script executed in $timelen";
 ?>

@@ -18,8 +18,8 @@ for($i=0; $i<$rows; $i++) {
   echo "Groups involved: ".stripslashes($values[5])."<br />\n";
   echo "Awards: ".stripslashes($values[7])."<br />\n";
   echo "Description:<br />\n".stripslashes($values[6])."<br />\n";
-  echo "Comp Admin: <a href=\"profile.php?id=$values[8]\">".RankAbbrName($values[8], $values[2], 1)."</a><br />\n";
-  echo "<a href=\"compsstats.php?id=$values[0]\">Stats</a></p>\n";
+  echo "Comp Admin: <a href=\"/profile/$values[8]\">".RankAbbrName($values[8], $values[2], 1)."</a><br />\n";
+  echo "<a href=\"/compsstats.php?id=$values[0]\">Stats</a></p>\n";
   }
 include_once("footer.php");
 ?>

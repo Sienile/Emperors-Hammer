@@ -18,7 +18,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  </tr>\n";
   echo "  <tr>\n";
   echo "    <td>Posted By:</td>\n";
-  echo "    <td><a href=\"profile.php?pin=$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
+  echo "    <td><a href=\"/profile/$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
   echo "  </tr>\n";
   if($_SESSION['EHID'] && (has_access($_SESSION['EHID'], "patchadmin") || $values[1]==$_SESSION['EHID'])) {
     echo "  <tr>\n";
@@ -43,7 +43,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  </tr>\n";
   echo "  <tr>\n";
   echo "    <td>Posted By:</td>\n";
-  echo "    <td><a href=\"profile.php?pin=$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
+  echo "    <td><a href=\"/profile/$values[1]\">".RankAbbrName($values[1], PriGroup($values[1]), 1)."</a> On ".date("F j, Y", $values[2])."</td>\n";
   echo "  </tr>\n";
   if($_SESSION['EHID'] && (has_access($_SESSION['EHID'], "patchadmin") || $values[1]==$_SESSION['EHID'])) {
     echo "  <tr>\n";
@@ -245,7 +245,7 @@ if($rows) {
     $values1 = mysql_fetch_row($result1);
     $catname=stripslashes($values1[0]);
     }
-echo "<p><a href=\"patcharchive.php?cat=$values[3]&amp;plt=$values[4]\">Return to the Patch Category Selection Screen</a></p>\n";
+echo "<p><a href=\"/patcharchive.php?cat=$values[3]&amp;plt=$values[4]\">Return to the Patch Category Selection Screen</a></p>\n";
 ?>
 
 
@@ -274,7 +274,7 @@ Updated: <?=date("F j, Y", $values[7])?><br>
 <td style="vertical-align:top"><a href="http://sco.emperorshammer.org/patches/<?=stripslashes($values[2])?>">Download</a>
 <?
 if($values[10])
-  echo "<img src=\"images/patches/stripslashes($values[8])\" />";
+  echo "<img src=\"/images/patches/stripslashes($values[8])\" />";
 ?>
 </td>
 </tr>

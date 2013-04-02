@@ -16,7 +16,7 @@ $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
 for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "<a href=\"report.php?id=$values[0]\">".stripslashes($values[1])." - ".stripslashes($values[3])."</a> - Posted on ".date("F j, Y", $values[2])."<br />\n";
+  echo "<a href=\"/report.php?id=$values[0]\">".stripslashes($values[1])." - ".stripslashes($values[3])."</a> - Posted on ".date("F j, Y", $values[2])."<br />\n";
   }
 include_once("footer.php");
 ?>

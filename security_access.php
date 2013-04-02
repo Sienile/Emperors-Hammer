@@ -153,7 +153,7 @@ if (array_key_exists("add_submit",$_POST)){
 				
 				<input type="reset" id="reset" name="reset" value="Reset" />
 				
-				<a href="security_access.php" >Clear Search</a>
+				<a href="/security_access.php" >Clear Search</a>
 			</form>
 		</div>
 		<div id="add-tab">
@@ -240,9 +240,9 @@ if (array_key_exists("add_submit",$_POST)){
 			<hr />
 			<?=nl2br($data["Note"])?>
 			<hr />
-			<a href="security_access.php?edit&id=<?=$access_id?>">Edit Entry</a>
+			<a href="/security_access.php?edit&id=<?=$access_id?>">Edit Entry</a>
 			|
-			<a href="security_access.php">Back to List</a>
+			<a href="/security_access.php">Back to List</a>
 		</div>
 	<?php 
 	}else{ 

@@ -22,7 +22,7 @@ for($i=0; $i<$rows; $i++) {
   echo "    <td width=\"25%\">".stripslashes($values[0])."</td>";
   echo "    <td width=\"25%\">";
   if($values[1])
-    echo "<a href=\"profile.php?pin=$values[1]\">";
+    echo "<a href=\"/profile/$values[1]\">";
   echo stripslashes($values[2]);
   if($values[1])
     echo "</a>";

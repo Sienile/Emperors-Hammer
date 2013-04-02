@@ -9,7 +9,7 @@ mysql_select_db($db_name, $mysql_link);
 include_once("nav.php");
 ?>
 <p>Emperor's Hammer Promotion Award</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <p>
 <?
 if($_POST['memberid']) {

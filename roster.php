@@ -35,11 +35,11 @@ if($rows) {
   echo $rows;
   echo "</p>";
   Roster($id, 0,0,$view);
-  echo "<a href=\"search.php\">Search the Roster</a> | <a href=\"login.php\">Administration</a> | ";
+  echo "<a href=\"/search.php\">Search the Roster</a> | <a href=\"/login.php\">Administration</a> | ";
   if ($view)
-    echo "<a href=\"roster.php?view=0&amp;group=$id\">View None</a>";
+    echo "<a href=\"/roster.php?view=0&amp;group=$id\">View None</a>";
   else
-    echo "<a href=\"roster.php?view=1&amp;group=$id\">View All</a>";
+    echo "<a href=\"/roster.php?view=1&amp;group=$id\">View All</a>";
   }
 else {
   echo "<p>The page you were looking for does not exist</p>";

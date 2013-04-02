@@ -14,13 +14,13 @@ $query1 = "SELECT Position_ID, Name, isCS From EH_Positions Where Position_ID=$v
 $result1 = mysql_query($query1, $mysql_link);
 $values1 = mysql_fetch_row($result1);
 if($values1[2])
-  echo "For: <a href=\"posreports.php?id=$values1[0]\">".stripslashes($values1[1])."</a><br />\n";
+  echo "For: <a href=\"/posreports.php?id=$values1[0]\">".stripslashes($values1[1])."</a><br />\n";
 else {
   $name = UnitType($values[5]);;
-  echo "For: <a href=\"unit.php?id=$values2[0]\">".stripslashes($name)."'s</a><br />";
+  echo "For: <a href=\"/unit.php?id=$values2[0]\">".stripslashes($name)."'s</a><br />";
   }
 if($values[7]) {
-  echo "Posted By: <a href=\"profile.php?pin=$values[7]\">". stripslashes(RankAbbrName($values[7], $values[8], 1))."</a><br />\n";
+  echo "Posted By: <a href=\"/profile/$values[7]\">". stripslashes(RankAbbrName($values[7], $values[8], 1))."</a><br />\n";
   }
 echo "Posted On: ". date("F j, Y", $values[2]) ."<br />\n<br />\n";
 echo stripslashes($values[4])."</p>";

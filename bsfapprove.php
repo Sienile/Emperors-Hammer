@@ -29,9 +29,9 @@ if($rows) {
     $values = mysql_fetch_row($result);
     ?>
     <tr>
-      <td width="10%" style="vertical-align:top;"><a href="profile.php?pin=<?=$values[3]?>" target="_blank"><? echo RankAbbrName($values[3], PriGroup($values[3]),1); ?></a></td>
+      <td width="10%" style="vertical-align:top;"><a href="/profile/<?=$values[3]?>" target="_blank"><? echo RankAbbrName($values[3], PriGroup($values[3]),1); ?></a></td>
       <td width="10%" style="vertical-align:top;"><? echo RankAbbrName($values[6], PriGroup($values[6]),1); ?></td>
-      <td width="10%" style="vertical-align:top;"><a href="battle.php?id=<?=$values[1]?>" target="_blank"><?=BattleName($values[1], 1); ?></a></td>
+      <td width="10%" style="vertical-align:top;"><a href="/battle.php?id=<?=$values[1]?>" target="_blank"><?=BattleName($values[1], 1); ?></a></td>
       <td width="10%" style="vertical-align:top;"><?
     $body="";
     $errorbin = decbin($values[5]);
@@ -74,7 +74,7 @@ echo "Battle Score: $scores[0]<br>\n";
 for($q=1; $q<count($scores); $q++)
   echo "Mission $q: $scores[$q]<br>\n";
 ?></td>
-      <td width="30%" style="vertical-align:top;"><a href="plts/<?=$values[2];?>">Download Pilot File</a></td>
+      <td width="30%" style="vertical-align:top;"><a href="/plts/<?=$values[2];?>">Download Pilot File</a></td>
       <td width="10%" style="vertical-align:top;"><a href="#" id="del" onclick="getDelForm(<? echo $values[0]?>)"><span style="color:#6699CC;">Approve</span></a></td>
       <td width="10%" style="vertical-align:top;"><a href="#" id="edit" onclick="getEditForm(<? echo $values[0]?>);"><span style="color:#6699CC;">Deny</span></a></td>
     </tr>
@@ -337,7 +337,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer BSF Approval</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <div id="message" style="color: green;"></div>
   <div id="response"></div>
 

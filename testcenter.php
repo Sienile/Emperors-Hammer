@@ -9,7 +9,7 @@ if(!$mysql_link) {
   mysql_select_db($db_name, $mysql_link);
   }
 if($_SESSION['EHID']) {
-  echo "<p><a href=\"menu.php\">Return to the Main Administration Menu</a></p>\n";
+  echo "<p><a href=\"/menu.php\">Return to the Main Administration Menu</a></p>\n";
   echo "<p>Saved/InProgress Tests:<br />\n";
   $count=0;
   $query = "SELECT Training_ID, Name FROM EH_Training";
@@ -22,7 +22,7 @@ if($_SESSION['EHID']) {
     $rows1 = mysql_num_rows($result1);
     if($rows1) {
       $count++;
-      echo "<a href=\"test.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+      echo "<a href=\"/test.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
       }
     }
   if($count==0)
@@ -40,7 +40,7 @@ if($_SESSION['EHID']) {
     $rows1 = mysql_num_rows($result1);
     if($rows1) {
       $count++;
-      echo "<a href=\"viewtest.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+      echo "<a href=\"/viewtest.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
       }
     }
   if($count==0)
@@ -58,7 +58,7 @@ if($_SESSION['EHID']) {
     $rows1 = mysql_num_rows($result1);
     if($rows1) {
       $count++;
-      echo "<a href=\"viewtest.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+      echo "<a href=\"/viewtest.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
       }
     }
   if($count==0)

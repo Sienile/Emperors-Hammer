@@ -16,7 +16,7 @@ for($i=0; $i<$rows; $i++) {
     echo " - <font color=\"#FF0000\">Inactive</font>";
   echo "<br />\n";
   if($values[4])
-    echo "<img src=\"images/".stripslashes($values[4])."\" alt=\"".stripslashes($values[0])." Banner\" /><br />";
+    echo "<img src=\"/images/".stripslashes($values[4])."\" alt=\"".stripslashes($values[0])." Banner\" /><br />";
   echo stripslashes($values[2])."</p>";
   }
 include_once("footer.php");

@@ -31,7 +31,7 @@ if($_GET['cat'] && $_GET['plt']) {
   $rows = mysql_num_rows($result);
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    echo "<a href=\"battle.php?id=$values[0]\">".BattleName($values[0], 1)."</a><br />\n";
+    echo "<a href=\"/battle.php?id=$values[0]\">".BattleName($values[0], 1)."</a><br />\n";
     }
   }
 include_once("footer.php");

@@ -159,7 +159,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer Training Awards Administration</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <form name="selgroupform">
     <label for="selAcad">Select the Academy to modify their Training</label>
     <?php $ga = implode (" OR Group_ID=", $groupsaccess); ?>

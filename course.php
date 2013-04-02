@@ -23,7 +23,7 @@ if($values[4]) {
   $query1 = "SELECT Training_ID, Name FROM EH_Training WHERE Training_ID=$values[4]";
   $result1 = mysql_query($query1, $mysql_link);
   $values1 = mysql_fetch_row($result1);
-  echo "  <li>Minimum Certification: <a href=\"course.php?id=$values1[0]\">".stripslashes($values1[1])."</a></li>\n";
+  echo "  <li>Minimum Certification: <a href=\"/course.php?id=$values1[0]\">".stripslashes($values1[1])."</a></li>\n";
   $mincert=$values1[0];
   $reqs++;
   }
@@ -65,7 +65,7 @@ $query1 = "SELECT TN_ID FROM EH_Training_Notes WHERE Training_ID=$values[0]";
 $result1 = mysql_query($query1, $mysql_link);
 $rows1 = mysql_num_rows($result1);
 if($rows1) {
-  echo "To view the online version of the course materials click <font color=\"#cc1000\">&gt;<a href=\"notes.php?id=$values[0]\">HERE</a>&lt;</font>";
+  echo "To view the online version of the course materials click <font color=\"#cc1000\">&gt;<a href=\"/notes.php?id=$values[0]\">HERE</a>&lt;</font>";
   }
 else {
   echo "All course materials can be downloaded from <font color=\"#cc1000\">&gt;<a href=\"$values[10]\">HERE</a>&lt;</font>\n";
@@ -175,7 +175,7 @@ if($_SESSION['EHID']) {
       $query1 = "SELECT Training_ID, Name FROM EH_Training WHERE Training_ID=$mincert";
       $result1 = mysql_query($query1, $mysql_link);
       $values1 = mysql_fetch_row($result1);
-      $error .= "Minimum Training Certification required: <a href=\"course.php?$values1[0]\">".stripslashes($values1[1])."</a>.<br />\n";
+      $error .= "Minimum Training Certification required: <a href=\"/course.php?$values1[0]\">".stripslashes($values1[1])."</a>.<br />\n";
       }
     }
   $query1 = "SELECT Min(JoinDate) FROM EH_Members_Groups WHERE Member_ID=".$_SESSION['EHID'];
@@ -191,7 +191,7 @@ if($_SESSION['EHID']) {
   $rows1 = mysql_num_rows($result1);
   if($rows1) {
     $allow=false;
-    $error .= "You have already completed this course. To view your answers, if stored, click <font color=\"#cc1000\">&gt;<a href=\"viewtest.php?id=$values[0]\">HERE</a>&lt;</font>.<br />\n";
+    $error .= "You have already completed this course. To view your answers, if stored, click <font color=\"#cc1000\">&gt;<a href=\"/viewtest.php?id=$values[0]\">HERE</a>&lt;</font>.<br />\n";
     }
   $query1 = "SELECT Status FROM EH_Training_Exams_Complete WHERE Training_ID=$values[0] AND Member_ID=".$_SESSION['EHID'];
   $result1 = mysql_query($query1, $mysql_link);
@@ -199,10 +199,10 @@ if($_SESSION['EHID']) {
   $values1 = mysql_fetch_row($result1);
   if($values1[0]==2) {
     $allow=false;
-    $error.="You have already submited this course and is awaiting grading. To view your answers click <font color=\"#cc1000\">&gt;<a href=\"viewtest.php?id=$values[0]\">HERE</a>&lt;</font>.<br />\n";
+    $error.="You have already submited this course and is awaiting grading. To view your answers click <font color=\"#cc1000\">&gt;<a href=\"/viewtest.php?id=$values[0]\">HERE</a>&lt;</font>.<br />\n";
     }
   if($allow)
-    echo "<a href=\"test.php?id=$values[0]\">Take Test</a>.";
+    echo "<a href=\"/test.php?id=$values[0]\">Take Test</a>.";
   else
     echo "The following errors need to be resolved before taking this test:<br />\n$error";
   }
@@ -210,5 +210,5 @@ else {
   echo "You need to be logged in to take the test.";
   }
 echo "</p>\n";
-echo "<p><a href=\"coursegrads.php?id=$values[0]\">Course Graduates</a></p>\n";
+echo "<p><a href=\"/coursegrads.php?id=$values[0]\">Course Graduates</a></p>\n";
 include_once("footer.php"); ?>

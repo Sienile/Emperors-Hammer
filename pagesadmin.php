@@ -21,7 +21,7 @@ if($_GET['datatable']) {
     $values = mysql_fetch_row($result);
 ?>
       <tr>
-        <td width="80%"><a href="page.php?page=<?=$values[2]?>" target="_blank"><?=stripslashes($values[1])?></a></td>
+        <td width="80%"><a href="/page.php?page=<?=$values[2]?>" target="_blank"><?=stripslashes($values[1])?></a></td>
         <td width="10%"><a id="edit" onclick="getEditForm(<?=$values[0]?>)"><span style="color:#6699CC;">Edit</span></a></td>
         <td width="10%"><a id="del" onclick="del(<?=$values[0]?>)"><span style="color:#6699CC;">Delete</span></a></td>
       </tr>
@@ -91,7 +91,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer Page Administration</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <div id="message" style="color: green" ></div>
   <div id="response"></div>
   <p>

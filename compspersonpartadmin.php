@@ -146,7 +146,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer Adminstration to Manage your Competition Participants</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
     <label for="selGroup">Select the Competition to modify their Participants</label>
   <select name="selGroup" id="selGroup" onChange="getDataTable()">
    <option value="0">No Competition</option>

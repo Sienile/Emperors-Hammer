@@ -31,7 +31,7 @@ for($i=0; $i<$rows; $i++) {
     $result2 = mysql_query($query2, $mysql_link);
     $rows2 = mysql_num_rows($result2);
     if($rows2) {
-      echo "<a href=\"battlescat.php?cat=$values1[0]&amp;plt=$values[0]\"><abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>-<abbr title=\"".stripslashes($values1[1])."\">".stripslashes($values1[2])."</abbr> ($rows2 ";
+      echo "<a href=\"/battlescat.php?cat=$values1[0]&amp;plt=$values[0]\"><abbr title=\"".stripslashes($values[1])."\">".stripslashes($values[2])."</abbr>-<abbr title=\"".stripslashes($values1[1])."\">".stripslashes($values1[2])."</abbr> ($rows2 ";
       if($values1[0]==11)
         echo "Mission";
       else
@@ -49,8 +49,8 @@ echo"<br />
 <b><font color=\"yellow\">Important:</font></b>
 <ul>
   <li>In TIE Fighter, pilots are given points for hitting something with their lasers. To prevent pilots from endlessly firing lasers at friendly ships, the scores for TIE Fighter are recalculated before they are processed, the so-called \"laserless scoring\". Laserless scoring applies to all high scores and competitions. <font color=\"#EEEEEE\">Laser-less Score = Total Score - (Laser Hits * 3)</font></li>
-  <li>In order to fly the Emperor's Hammer custom missions for TIE Fighter, X-wing vs. TIE Fighter, Balance of Power and X-wing Alliance, you need to have the <font color=\"#EEEEEE\">Emperor's Hammer Battle Launcher</font> installed to decrypt the missions. The Battle Launcher is only available to members of the Emperor's Hammer. <a href=\"http://www.emperorshammer.org/tc/downloads/EHBL-win.zip\">Download the EHBL here</a>.</li>
+  <li>In order to fly the Emperor's Hammer custom missions for TIE Fighter, X-wing vs. TIE Fighter, Balance of Power and X-wing Alliance, you need to have the <font color=\"#EEEEEE\">Emperor's Hammer Battle Launcher</font> installed to decrypt the missions. The Battle Launcher is only available to members of the Emperor's Hammer. <a href=\"/tc/downloads/EHBL-win.zip\">Download the EHBL here</a>.</li>
 </ul>
-<p>The Emperor's Hammer Battle Center, Mission Compendium, FCHG list, Pilot kill board and Squadron citations list are maintained by the Emperor's Hammer Tactical Officer. Currently, the Tactical Officer is <a href=\"profile.php?pin=382\">HA Anahorn Dempsey</a>.</p>\n";
+<p>The Emperor's Hammer Battle Center, Mission Compendium, FCHG list, Pilot kill board and Squadron citations list are maintained by the Emperor's Hammer Tactical Officer. Currently, the Tactical Officer is <a href=\"/profile/382\">HA Anahorn Dempsey</a>.</p>\n";
 include_once("footer.php");
 ?>

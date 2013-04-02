@@ -19,7 +19,7 @@ for($i=0; $i<$rows; $i++) {
   echo "  <tr>\n";
   echo "    <td width=\"25%\">";
   if($values[0])
-    echo "<a href=\"profile.php?pin=$values[0]\">";
+    echo "<a href=\"/profile/$values[0]\">";
   echo stripslashes($values[1]);
   if($values[0])
     echo "</a>";

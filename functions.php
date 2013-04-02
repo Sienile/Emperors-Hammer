@@ -353,7 +353,7 @@ if(!isset($mysql_link)) {
     else
       $mb = "No dedicated message board.";
     if($values[6])
-      $banner =  "<img src=\"$values[6]\" />";
+      $banner =  "<img src=\"/$values[6]\" />";
     else
       $banner = "No Banner yet.";
     if($values[7])
@@ -368,14 +368,14 @@ if(!isset($mysql_link)) {
       $MR = stripslashes($values[9]);
     else
       $MR = "No mission roll yet";
-    $reports = "<a href=\"unitreports.php?id=$values[0]\">Unit Reports</a>";
+    $reports = "<a href=\"/unitreports.php?id=$values[0]\">Unit Reports</a>";
     $query1 = "SELECT Report_ID FROM EH_Reports WHERE Unit_ID=$values[0]";
     $result1 = mysql_query($query1, $mysql_link);
     $rows1 = mysql_num_rows($result1);
     if($rows1>0)
       $reports.= " ($rows1)";
-    $bc = "<a href=\"unitbattlecerts.php?unit=$values[0]\">Battle Certs</a>";
-    $tc = "<a href=\"unittraincerts.php?unit=$values[0]\">Training Certs</a>";
+    $bc = "<a href=\"/unitbattlecerts.php?unit=$values[0]\">Battle Certs</a>";
+    $tc = "<a href=\"/unittraincerts.php?unit=$values[0]\">Training Certs</a>";
     //Everything replaced using STR Replace
     $display = $values[10];
 //TrainingCerts - @TC@, BattleCerts - @BC@
@@ -496,7 +496,7 @@ if(!isset($mysql_link)) {
     $values = mysql_fetch_row($result);
     for($varCounter = 0; $varCounter< ($indent + 1); $varCounter++)
       echo "&nbsp;&nbsp;&nbsp;";
-    echo "<a href=\"unit.php?id=$values[0]\">".UnitType($values[0])."</a>";
+    echo "<a href=\"/unit.php?id=$values[0]\">".UnitType($values[0])."</a>";
     if($values[2]==0)
       echo " - <font color=\"#FF0000\">Inactive</font>";
     echo "<br />\n";
@@ -526,7 +526,7 @@ if(!isset($mysql_link)) {
     for($q=1; $q<=$maxunitsize; $q++) {
       echo $q.") ";
       if($people[$count][2]==$q) {
-        echo "<abbr title=\"".stripslashes($people[$count][4])."\">".stripslashes($people[$count][3])."</abbr> <a href=\"profile.php?pin=".stripslashes($people[$count][1])."\"><abbr title=\"".stripslashes($people[$count][6])."\">".stripslashes($people[$count][5])."</abbr> ".stripslashes($people[$count][0])."</a><br>\n";
+        echo "<abbr title=\"".stripslashes($people[$count][4])."\">".stripslashes($people[$count][3])."</abbr> <a href=\"/profile/".stripslashes($people[$count][1])."\"><abbr title=\"".stripslashes($people[$count][6])."\">".stripslashes($people[$count][5])."</abbr> ".stripslashes($people[$count][0])."</a><br>\n";
         $count++;
         }
       else {
@@ -537,7 +537,7 @@ if(!isset($mysql_link)) {
   else {
     //Actually more complicated due to the fact that it relies on first sort by positionsort, followed by Rank, folled by name
     for($i=0; $i<count($people); $i++) {
-      echo "<abbr title=\"".stripslashes($people[$i][4])."\">".stripslashes($people[$i][3])."</abbr> <a href=\"profile.php?pin=".stripslashes($people[$i][1])."\"><abbr title=\"".stripslashes($people[$i][6])."\">".stripslashes($people[$i][5])."</abbr> ".stripslashes($people[$i][0])."</a><br>\n";
+      echo "<abbr title=\"".stripslashes($people[$i][4])."\">".stripslashes($people[$i][3])."</abbr> <a href=\"/profile/".stripslashes($people[$i][1])."\"><abbr title=\"".stripslashes($people[$i][6])."\">".stripslashes($people[$i][5])."</abbr> ".stripslashes($people[$i][0])."</a><br>\n";
       }
     }
   }
@@ -583,7 +583,7 @@ if(!isset($mysql_link)) {
   $rows = mysql_num_rows($result);
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    $mem .="<a href=\"$site_host/profile.php?pin=$values[0]\">".RankAbbrName($values[0], $group, 1)."</a>".$sep;
+    $mem .="<a href=\"/profile/$values[0]\">".RankAbbrName($values[0], $group, 1)."</a>".$sep;
     }
   return $mem;
 }
@@ -854,13 +854,13 @@ if(!isset($mysql_link)) {
     }
   $returnval = "";
   if($values[2]==0) {
-    $returnval = "<a href=\"unit.php?id=$values[0]\">$name";
+    $returnval = "<a href=\"/unit.php?id=$values[0]\">$name";
     if($unitpos)
       $returnval.="-".$unitpos;
     $returnval.="</a>";
     }
   else {
-    $returnval = "<a href=\"unit.php?id=$values[0]\">".$name;
+    $returnval = "<a href=\"/unit.php?id=$values[0]\">".$name;
     if($unitpos)
       $returnval.="-".$unitpos;
     $returnval.="</a>".$unitsep.UnitsRec_ID_Line($master, $unitsep);
@@ -896,9 +896,9 @@ if(!isset($mysql_link)) {
     }
   $returnval = "";
   if($values[2]==0)
-    $returnval = "<a href=\"unit.php?id=$values[0]\">$name</a>";
+    $returnval = "<a href=\"/unit.php?id=$values[0]\">$name</a>";
   else {
-    $returnval = "<a href=\"unit.php?id=$values[0]\">".$name."</a>".$unitsep.UnitsRec_ID_Line($master, $unitsep);
+    $returnval = "<a href=\"/unit.php?id=$values[0]\">".$name."</a>".$unitsep.UnitsRec_ID_Line($master, $unitsep);
     }
   return $returnval;
 }
@@ -934,7 +934,7 @@ if(!isset($mysql_link)) {
     $unitpos = $unitspos;
   else
     $unitpos=0;
-  $returnval = "<a href=\"unit.php?id=$values[0]\">$name";
+  $returnval = "<a href=\"/unit.php?id=$values[0]\">$name";
   if($unitpos)
     $returnval.="-".$unitpos;
   $returnval.="</a>";
@@ -1284,7 +1284,7 @@ if(!isset($mysql_link)) {
   $rows = mysql_num_rows($result);
   if($rows) {
     $values = mysql_fetch_row($result);
-    $abbr .= "<img src=\"images/fchg/".stripslashes($values[0])."\" alt=\"".stripslashes($values[1])."\" width=\"180\" height=\"68\" />";
+    $abbr .= "<img src=\"/images/fchg/".stripslashes($values[0])."\" alt=\"".stripslashes($values[1])."\" width=\"180\" height=\"68\" />";
     }
   return $abbr;
   }

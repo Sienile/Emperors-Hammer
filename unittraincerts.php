@@ -8,7 +8,7 @@ mysql_select_db($db_name, $mysql_link);
 $id = mysql_real_escape_string($_GET['unit'], $mysql_link);
 $name = UnitType($id);
 $subunits = SubUnitList($id);
-echo "<a href=\"unit.php?id=$values1[0]\">".$name."'s</a> Training Certificates<br />";
+echo "<a href=\"/unit.php?id=$values1[0]\">".$name."'s</a> Training Certificates<br />";
 $units = implode(" OR Unit_ID=", $subunits);
 $member = array();
 $query = "SELECT Member_ID FROM EH_Members_Units WHERE Unit_ID=$units";
@@ -31,7 +31,7 @@ for($i=0; $i<$rows; $i++) {
   $rows1 = mysql_num_rows($result1);
   if($rows1>$unitmembers/2) {
     $percent = round($unitmembers/$rows1*100, 1);
-    echo $indentspace."<a href=\"training/course.php?id=$values[0]\">".stripslashes($values[1])."</a> ($percent%)<br>\n";
+    echo $indentspace."<a href=\"/training/course.php?id=$values[0]\">".stripslashes($values[1])."</a> ($percent%)<br>\n";
     }
 }
 include_once("footer.php");

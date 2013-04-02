@@ -30,7 +30,7 @@ for($q=1; $q<=$daysback; $q++) {
     $values = mysql_fetch_row($result);
     echo "<p><b>".stripslashes($values[1])."</b><br />\n";
     if($values[3]) {
-      echo "Posted By: <a href=\"profile.php?pin=$values[3]\">";
+      echo "Posted By: <a href=\"/profile/$values[3]\">";
       if($values[2])
         echo stripslashes($values[2]);
       else

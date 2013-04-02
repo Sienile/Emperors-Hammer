@@ -4,7 +4,7 @@ include_once("config.php");
 include_once("functions.php");
 include_once("nav.php");
 $pin=mysql_real_escape_string($_GET['pin']);
-echo "<a href=\"menu.php\">Return to the Administration Menu</a><br />\n";
+echo "<a href=\"/menu.php\">Return to the Administration Menu</a><br />\n";
 if($pin)
   echo "PIN: $pin new FCHG Points: ".CalculateFCHG($pin) ."<br />\n";
 echo "<form method=\"GET\" action=\"".$_SERVER['PHP_SELF']."\">\n";

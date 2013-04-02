@@ -28,7 +28,7 @@ if(isset($_POST['medal'])) {
     }
   echo "<p>Your search for ".$name. " revealed the following results:<br />\n";
   if($img)
-    echo "<img src=\"images/medals/$img\" alt=\"$name Image\" /><br />\n";
+    echo "<img src=\"/images/medals/$img\" alt=\"$name Image\" /><br />\n";
   $query = "SELECT EH_Medals_Complete.Member_ID, Count(EH_Medals_Complete.MC_ID) As MCount, EH_Medals_Complete.Group_ID FROM EH_Medals_Complete, EH_Members WHERE EH_Medals_Complete.Medal_ID=$val AND EH_Medals_Complete.Member_ID=EH_Members.Member_ID Group By EH_Medals_Complete.Member_ID Order By MCount DESC, EH_Members.Name";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
@@ -40,7 +40,7 @@ if(isset($_POST['medal'])) {
       $group = $values[2];
     else
       $group = PriGroup($values[0]);
-    echo "<a href=\"profile.php?pin=$values[0]\">".RankAbbrName($values[0], $group, 1)."</a> x$values[1]<br />\n";
+    echo "<a href=\"/profile/$values[0]\">".RankAbbrName($values[0], $group, 1)."</a> x$values[1]<br />\n";
     }
   echo "</p>";
   echo "<p>&nbsp;</p>\n";

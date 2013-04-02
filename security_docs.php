@@ -291,7 +291,7 @@ if (!empty($_POST)){
 		}
 	</style>
 	<div id="SODocument">
-		<span class="title">Dossier for:</span> [<a href="profile.php?pin=<?php echo $DOC->Member_ID; ?>"><?php echo $DOC->Name; ?></a>]
+		<span class="title">Dossier for:</span> [<a href="/profile/<?php echo $DOC->Member_ID; ?>"><?php echo $DOC->Name; ?></a>]
 		<br />
 		<br />
 		<span class="title">Submitted By:</span> <?php echo $DOC->Submitter_Name;?>
@@ -333,7 +333,7 @@ if (!empty($_POST)){
 			<br />
 			<span class="title">Profile:</span>
 			
-			[<a href="profile.php?pin=<?php echo $profile["Member_ID"]; ?>"><?php echo $profile["Name"]?></a>]
+			[<a href="/profile/<?php echo $profile["Member_ID"]; ?>"><?php echo $profile["Name"]?></a>]
 			<br />
 			<span class="title">Date Added:</span> <?php echo $profile["Date_Added"]?>
 			<br />

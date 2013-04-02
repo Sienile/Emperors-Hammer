@@ -30,7 +30,7 @@ if($rows)
   echo "<p>Sub Categories:</p>\n";
 for($i = 1; $i <= $rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "<p><a href=\"courses.php?cat=$values[0]&id=$acad\">".stripslashes($values[1])."</a><br>\n";
+  echo "<p><a href=\"/courses.php?cat=$values[0]&id=$acad\">".stripslashes($values[1])."</a><br>\n";
   echo stripslashes($values[2])."</p>\n";
   }
 echo "<p>Courses in ".stripslashes($name).":</p>\n";
@@ -39,7 +39,7 @@ $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
 for($i = 1; $i <= $rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "<p><a href=\"course.php?id=$values[0]\">".stripslashes($values[1])."</a>";
+  echo "<p><a href=\"/course.php?id=$values[0]\">".stripslashes($values[1])."</a>";
   if($_SESSION['EHID']) {
     $query1 = "SELECT CT_ID FROM EH_Training_Complete WHERE Training_ID=$values[0] AND Member_ID=".$_SESSION['EHID'];
     $result1 = mysql_query($query1, $mysql_link);

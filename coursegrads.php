@@ -29,7 +29,7 @@ if($rows) {
     $values1 = mysql_fetch_row($result1);
     if(!isinGroup($group, $values1[2]))
       $group  = PriGroup($values1[2]);
-    echo "<a href=\"$site_host/profile.php?pin=$values1[2]\">".RankAbbrName($values1[2], $group, 1)."</a>";
+    echo "<a href=\"/profile/$values1[2]\">".RankAbbrName($values1[2], $group, 1)."</a>";
     if($values1[0])
       echo " completed on ".date("F j, Y", $values1[0]);
     if($values1[1])

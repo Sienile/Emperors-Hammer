@@ -476,7 +476,7 @@ Bits to check
   }
 ?>
 <p>Emperor's Hammer Battle Completion Submission Form</p>
-<p><a href="menu.php">Return to the administration menu</a></p>
+<p><a href="/menu.php">Return to the administration menu</a></p>
 <form method="POST" enctype="multipart/form-data" action="<?=$_SERVER['PHP_SELF']?>">
   <table>
     <tr>

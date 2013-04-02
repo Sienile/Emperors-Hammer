@@ -11,7 +11,7 @@ $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
 for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "<a href=\"posreports.php?id=$values[0]\">".stripslashes($values[1])." Reports</a>";
+  echo "<a href=\"/posreports.php?id=$values[0]\">".stripslashes($values[1])." Reports</a>";
   $query1 = "select Report_ID From EH_Reports Where Position_ID=$values[0]";
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);
@@ -19,7 +19,7 @@ for($i=0; $i<$rows; $i++) {
     echo " ($rows1)";
   echo "<br />\n";
   }
-echo "<a href=\"posreports.php?id=68\">Owner/Founder Reports</a><br />\n";
+echo "<a href=\"/posreports.php?id=68\">Owner/Founder Reports</a><br />\n";
 $query = "select Group_ID, Name From EH_Groups WHERE Active=1";
 $result = mysql_query($query, $mysql_link);
 $rows = mysql_num_rows($result);
@@ -31,7 +31,7 @@ for($i=0; $i<$rows; $i++) {
   $rows1 = mysql_num_rows($result1);
   for($j=0; $j<$rows1; $j++) {
     $values1 = mysql_fetch_row($result1);
-    echo "<a href=\"posreports.php?id=$values1[0]\">".stripslashes($values1[1])." Reports</a>";
+    echo "<a href=\"/posreports.php?id=$values1[0]\">".stripslashes($values1[1])." Reports</a>";
     $query2 = "select Report_ID From EH_Reports Where Position_ID=$values1[0]";
     $result2 = mysql_query($query2, $mysql_link);
     $rows2 = mysql_num_rows($result2);

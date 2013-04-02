@@ -6,7 +6,7 @@ include_once("nav.php");
 $mysql_link = mysql_connect($db_host, $db_username, $db_password);
 mysql_select_db($db_name, $mysql_link);
 $log = mysql_real_escape_string($_GET['log'], $mysql_link);
-echo "<p><a href=\"meetings.php\">Return to Meetings</a></p>\n";
+echo "<p><a href=\"/meetings.php\">Return to Meetings</a></p>\n";
 if($log) {
   $query = "SELECT ML_ID, Name, DateofLog, Log FROM EH_Meetings_Logs WHERE ML_ID=$log";
   $result = mysql_query($query, $mysql_link);
@@ -32,7 +32,7 @@ if($rows==0) {
   }
 for($i=0; $i<$rows; $i++) {
   $values = mysql_fetch_row($result);
-  echo "<p>Log from: ".date("F j, Y", $values[2])." <a href=\"meetinglogs.php?id=$id&amp;log=$values[0]\">".stripslashes($values[1])."</a></p>";
+  echo "<p>Log from: ".date("F j, Y", $values[2])." <a href=\"/meetinglogs.php?id=$id&amp;log=$values[0]\">".stripslashes($values[1])."</a></p>";
   }
 include_once("footer.php");
 ?>

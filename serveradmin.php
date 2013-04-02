@@ -121,7 +121,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer Server Administration</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <div id="message" style="color: green" ></div>
   <div id="response"></div>
   <p>

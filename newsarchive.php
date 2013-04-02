@@ -17,7 +17,7 @@ if($start) {
     echo "<p><b>".stripslashes($values[1])."</b><br />\n";
     echo "Posted on: ". date("F j, Y", $values[4]) ."<br>\n";
     if($values[3])
-      echo "Posted By: <a href=\"profile.php?pin=$values[3]\">".stripslashes($values[2])."</a><br />\n";
+      echo "Posted By: <a href=\"/profile/$values[3]\">".stripslashes($values[2])."</a><br />\n";
     else
       echo "Posted By: ".stripslashes($values[2])."<br />\n";
     echo stripslashes($values[5])."<br />\n</p>\n";

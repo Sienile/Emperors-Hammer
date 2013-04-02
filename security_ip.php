@@ -62,7 +62,7 @@ mysql_select_db($db_name, $mysql_link);
 			$tbl->showPagedTable($data, $max_rows ,$col_order);
 			?>
 			<?php if (isset($_GET["search"])){?>
-				<br /><a href="security_ip.php" >Clear Search</a>
+				<br /><a href="/security_ip.php" >Clear Search</a>
 			<?php } ?>
 		</div>
 		<?php 
@@ -82,7 +82,7 @@ mysql_select_db($db_name, $mysql_link);
 				
 				<input type="reset" id="reset" name="reset" value="Reset" />
 				
-				<a href="security_ip.php" >Clear Search</a>
+				<a href="/security_ip.php" >Clear Search</a>
 			</form>
 		</div>
 	</div>

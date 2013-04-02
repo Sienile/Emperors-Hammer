@@ -121,7 +121,7 @@ else {
   include_once("nav.php");
   ?>
   <p>Emperor's Hammer Medals Upgrades Administration</p>
-  <p><a href="menu.php">Return to the administration menu</a></p>
+  <p><a href="/menu.php">Return to the administration menu</a></p>
   <form name="selgroupform">
     <label for="selGroup">Select the Group to modify their Upgrades</label>
     <?php $ga = implode (" OR Group_ID=", $groupsaccess); ?>

@@ -16,7 +16,7 @@ if($rows) {
   $totalscore=0;
   $values = mysql_fetch_row($result);
   $name = RankAbbrName($_SESSION['EHID'], PriGroup($_SESSION['EHID']), 1);
-  echo "<p>Welcome $name, to the <a href=\"course.php?id=$values[0]\">".stripslashes($values[1])."</a> Course Test viewer.</p>\n";
+  echo "<p>Welcome $name, to the <a href=\"/course.php?id=$values[0]\">".stripslashes($values[1])."</a> Course Test viewer.</p>\n";
   $query1 = "SELECT TE_ID, Question, Type, Choices, Points FROM EH_Training_Exams WHERE Training_ID=$values[0] Order By SortOrder, TE_ID";
   $result1 = mysql_query($query1, $mysql_link);
   $rows1 = mysql_num_rows($result1);

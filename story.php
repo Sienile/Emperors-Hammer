@@ -12,7 +12,7 @@ $rows = mysql_num_rows($result);
 if($rows) {
   $values = mysql_fetch_row($result);
   echo "<h2>".stripslashes($values[2])."</h2>\n";
-  echo "<h5>Written by: <a href=\"profile.php?pin=$values[0]\">".stripslashes($values[1])."</a> and posted on: ".date("M j, Y", $values[4])."</h5>\n";
+  echo "<h5>Written by: <a href=\"/profile/$values[0]\">".stripslashes($values[1])."</a> and posted on: ".date("M j, Y", $values[4])."</h5>\n";
   echo stripslashes($values[3]);
   }
 else {

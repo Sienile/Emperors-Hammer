@@ -30,7 +30,7 @@ if($_GET['cat'] && $_GET['plt']) {
   $rows = mysql_num_rows($result);
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
-    echo "<a href=\"patch.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+    echo "<a href=\"/patch.php?id=$values[0]\">".stripslashes($values[1])."</a><br />\n";
     }
   }
 echo "<p>Select a Category, and Game to find available patches.</p>\n";
@@ -49,7 +49,7 @@ for($i=0; $i<$rows; $i++) {
     $result2 = mysql_query($query2, $mysql_link);
     $rows2 = mysql_num_rows($result2);
     if($rows2) {
-      echo "<a href=\"patcharchive.php?cat=$values[0]&amp;plt=$values1[0]\">".stripslashes($values1[1])."</a><br />\n";
+      echo "<a href=\"/patcharchive.php?cat=$values[0]&amp;plt=$values1[0]\">".stripslashes($values1[1])."</a><br />\n";
       }
     }
   echo "</p>";

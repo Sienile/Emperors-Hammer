@@ -21,9 +21,9 @@ for($i=0; $i<$rows; $i++) {
   echo "  <tr>\n";
   echo "    <td width=\"50%\">".stripslashes($values[0])."</td>";
   echo "    <td width=\"10%\">".date("m.d.y",$values[3])."</td>";
-  echo "    <td width=\"20%\"><a href=\"nls/$values[1]\">".stripslashes($values[1])."</a></td>";
+  echo "    <td width=\"20%\"><a href=\"/nls/$values[1]\">".stripslashes($values[1])."</a></td>";
   if($values[2])
-    echo "    <td width=\"20%\"><a href=\"nls/$values[2]\">".stripslashes($values[2])."</a></td>";
+    echo "    <td width=\"20%\"><a href=\"/nls/$values[2]\">".stripslashes($values[2])."</a></td>";
   else
     echo "    <td width=\"20%\">Not yet upgraded</td>";
   echo "  </tr>\n";
