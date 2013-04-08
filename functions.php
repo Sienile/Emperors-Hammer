@@ -151,11 +151,24 @@ if(!isset($mysql_link)) {
   $query = "SELECT EH_Members.Member_ID, EH_Members.Email, EH_Units.Master_ID, EH_Positions.SortOrder From EH_Members, EH_Members_Positions, EH_Members_Units, EH_Positions, EH_Units WHERE EH_Members.Member_ID=EH_Members_Positions.Member_ID AND EH_Members_Units.Member_ID=EH_Members.Member_ID AND EH_Members_Positions.Position_ID=EH_Positions.Position_ID AND EH_Units.Unit_ID=EH_Members_Units.Unit_ID AND EH_Units.Unit_ID=$unit AND EH_Positions.Group_ID=$group AND EH_Positions.SortOrder>$so AND EH_Units.UT_ID!=3 AND EH_Units.UT_ID!=2 AND EH_Units.UT_ID!=1";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
+  if($rows==0) {
+    $query1 = "SELECT EH_Members.Member_ID, EH_Members.Email, EH_Units.Master_ID, EH_Positions.SortOrder From EH_Members, EH_Members_Positions, EH_Members_Units, EH_Positions, EH_Units WHERE EH_Members.Member_ID=EH_Members_Positions.Member_ID AND EH_Members_Units.Member_ID=EH_Members.Member_ID AND EH_Members_Positions.Position_ID=EH_Positions.Position_ID AND EH_Units.Unit_ID=EH_Members_Units.Unit_ID AND EH_Units.Unit_ID=$unit AND EH_Positions.Group_ID=$group AND EH_Positions.SortOrder=$so AND EH_Units.UT_ID!=3 AND EH_Units.UT_ID!=2 AND EH_Units.UT_ID!=1";
+    $result1 = mysql_query($query1, $mysql_link);
+    $rows1 = mysql_num_rows($result1);
+      for($i=0; $i<$rows1; $i++) {
+      $values1 = mysql_fetch_row($result1);
+      if($values1[2]!=0) {
+        $so=$values1[3];
+        $coc = array_merge($coc, CoCRecursive($group, $so, $values1[2]));
+        }
+      }
+    }
   for($i=0; $i<$rows; $i++) {
     $values = mysql_fetch_row($result);
     $so=$values[3];
     $coc[] = RankAbbrName($values[0], $group, 0)." <$values[1]>";
-    $coc = array_merge($coc, CoCRecursive($group, $so, $values[2]));
+    if($values1[2]!=0)
+      $coc = array_merge($coc, CoCRecursive($group, $so, $values[2]));
     }
   $query = "SELECT EH_Members.Member_ID, EH_Members.Email, EH_Units.Master_ID From EH_Members, EH_Members_Positions, EH_Members_Units, EH_Positions, EH_Units WHERE EH_Members.Member_ID=EH_Members_Positions.Member_ID AND EH_Members_Units.Member_ID=EH_Members.Member_ID AND EH_Members_Positions.Position_ID=EH_Positions.Position_ID AND EH_Units.Unit_ID=EH_Members_Units.Unit_ID AND EH_Units.Master_ID=$unit AND EH_Positions.Group_ID=$group AND EH_Positions.SortOrder>$so AND EH_Units.UT_ID!=3 AND EH_Units.UT_ID!=2 AND EH_Units.UT_ID!=1";
   $result = mysql_query($query, $mysql_link);

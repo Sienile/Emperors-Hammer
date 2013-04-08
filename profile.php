@@ -803,7 +803,7 @@ if($values1[0]) {
 		echo "</p>\n<hr style=\"width:50%\" />";
 		echo "<p><h4 style=\"text-align: center\">Completed Combat Engangements</h4><hr style=\"width: 50%\" />\n";
         
-        if ($battle_count < 1){
+        if ($overall_count < 1){
             echo "&nbsp;&nbsp;&nbsp;No Battles / Missions Completed<br />\n";
         }else{
             $cur_platform = null;

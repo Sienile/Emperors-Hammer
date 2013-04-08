@@ -13,7 +13,7 @@ include_once("functions.php");
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
   <link rel="stylesheet" type="text/css" media="screen" href="/style/global.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/themes/dark-hive/jquery-ui.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.2/themes/dark-hive/jquery-ui.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/style/superfish.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/style/superfish-navbar.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="/style/jquery.autocomplete.css" />
@@ -23,8 +23,9 @@ if(isset($stats)) {
 <?
 }
 ?>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>
-  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.1/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+  <script>$.uiBackCompat = false;</script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.2/jquery-ui.min.js"></script>
   <script type="text/javascript" src="/js/hoverIntent.js"></script>
   <script type="text/javascript" src="/js/superfish.js"></script>
   <script type="text/javascript" src="/js/jquery.form.js" ></script>
