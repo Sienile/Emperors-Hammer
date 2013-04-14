@@ -90,7 +90,7 @@ elseif($_GET['down']) {
   }
 elseif($_GET['edit']) {
   $id = mysql_real_escape_string($_GET['edit'], $mysql_link);
-  $query = "SELECT Training_ID, Name, Abbr, TC_ID, Available, Description, Min_Training_ID, Min_Rank_ID, Min_Pos_ID, Min_Time, MinPoints, MaxPoints, NotesFile, Rewards, Grader, Ribbon, TAc_ID FROM EH_Training WHERE Training_ID=$id";
+  $query = "SELECT Training_ID, Name, Abbr, TC_ID, Available, Description, Min_Training_ID, Min_Rank_ID, Min_Pos_ID, Min_Time, MinPoints, MaxPoints, NotesFile, Rewards, Grader, Ribbon, TAc_ID, NotesType FROM EH_Training WHERE Training_ID=$id";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   if($rows) {
@@ -268,6 +268,26 @@ elseif($_GET['edit']) {
           <td><label for="ribbon">Ribbon Image:</label></td>
           <td><input type="text" name="ribbon" id="ribbon" value="<?=stripslashes($values[15])?>"></td>
         </tr>
+        <tr>
+          <td><label for="notestype">Notes Display Type:</label></td>
+          <td>
+    <select name="notestype" id="notestype">
+      <option value="0"
+<?
+    if($values[17]==0)
+      echo " selected=\"selected\"";
+    echo ">Single Page, list</option>";
+    echo "      <option value=\"1\"";
+    if($values[17]==1)
+      echo " selected=\"selected\"";
+    echo ">Single Page, tabs for sections</option>";
+    echo "      <option value=\"2\"";
+    if($values[17]==2)
+      echo " selected=\"selected\"";
+    echo ">Page per section</option>";
+?>
+    </select></td>
+        </tr>
       </table>
     </form>
 <?php
@@ -296,7 +316,8 @@ elseif($_GET['edit1']) {
   $ribbon = mysql_real_escape_string($_POST['ribbon'], $mysql_link);
   $acad = mysql_real_escape_string($_POST['acad'], $mysql_link);
   $orgacad = mysql_real_escape_string($_POST['orgacad'], $mysql_link);
-  $query = "UPDATE EH_Training Set Name='$name', Abbr='$abbr', TC_ID='$tcid', Available='$avail', Description='$desc', Min_Training_ID='$minTrain', Min_Rank_ID='$minRank', Min_Pos_ID='$minPos', Min_Time='$minTime', MinPoints='$minPoints', MaxPoints='$maxPoints', NotesFile='$notesFile', Rewards='$Rewards', Grader='$grader', Ribbon='$ribbon'";
+  $notestype = mysql_real_escape_string($_POST['notestype'], $mysql_link);
+  $query = "UPDATE EH_Training Set Name='$name', Abbr='$abbr', TC_ID='$tcid', Available='$avail', Description='$desc', Min_Training_ID='$minTrain', Min_Rank_ID='$minRank', Min_Pos_ID='$minPos', Min_Time='$minTime', MinPoints='$minPoints', MaxPoints='$maxPoints', NotesFile='$notesFile', Rewards='$Rewards', Grader='$grader', Ribbon='$ribbon', NotesType='$notestype'";
   if($acad!=$orgacad) {
     $query1 = "SELECT MAX(SortOrder) FROM EH_Training WHERE TAc_ID=$acad";
     $result = mysql_query($query1, $mysql_link);
@@ -339,6 +360,7 @@ elseif($_GET['add']) {
   $maxPoints = mysql_real_escape_string($_POST['maxPoints'], $mysql_link);
   $grader = mysql_real_escape_string($_POST['grader'], $mysql_link);
   $ribbon = mysql_real_escape_string($_POST['ribbon'], $mysql_link);
+  $notestype = mysql_real_escape_string($_POST['notestype'], $mysql_link);
   $query = "SELECT MAX(SortOrder) FROM EH_Training WHERE TAc_ID=$group";
   $result = mysql_query($query, $mysql_link);
   $rows = @mysql_num_rows($result);
@@ -352,11 +374,12 @@ elseif($_GET['add']) {
   $query = "INSERT INTO EH_Training
                 (Name, Abbr, TC_ID, Available, Description, Min_Training_ID,
                  Min_Rank_ID, Min_Pos_ID, Min_Time, MinPoints, MaxPoints,
-                 NotesFile, Rewards, Grader, Ribbon, SortOrder, TAc_ID)
+                 NotesFile, Rewards, Grader, Ribbon, SortOrder, TAc_ID, NotesType)
                 VALUES(
                  '$name', '$abbr', '$tcid', '$avail', '$desc', '$minTrain',
                  '$minRank', '$minPos', '$minTime', '$minPoints', '$maxPoints',
-                 '$notesFile', '$Rewards', '$grader', '$ribbon', '$so', '$group')";
+                 '$notesFile', '$Rewards', '$grader', '$ribbon', '$so', '$group',
+                 '$notestype')";
   $result = mysql_query($query, $mysql_link);
   if($result)
     echo "<p>".stripslashes($name)." inserted successfully!</p>\n";
@@ -537,6 +560,14 @@ else {
         <td><label for="ribbon">Ribbon Image:</label></td>
         <td>
             <input type="text" name="ribbon" id="ribbon">
+        </td>
+      </tr>
+      <tr>
+        <td><label for="notestype">Notes Display Type:</label></td>
+        <td><select name="notestype" id="notestype">
+          <option value="0">Single Page, list</option>
+          <option value="1">Single Page, tabs for sections</option>
+          <option value="2">Page per section</option></select>
         </td>
       </tr>
     </table>

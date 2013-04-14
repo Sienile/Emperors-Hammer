@@ -1,4 +1,4 @@
-<?
+e<?
 session_start();
 include_once("config.php");
 include_once("functions.php");
@@ -9,9 +9,11 @@ if(!$mysql_link) {
   mysql_select_db($db_name, $mysql_link);
   }
 $id = mysql_real_escape_string($_GET['id'], $mysql_link);
-$query = "SELECT Training_ID, Name FROM EH_Training WHERE Training_ID=$id";
+$page = mysql_real_escape_string($_GET['page'], $mysql_link);
+$query = "SELECT Training_ID, Name, NotesType FROM EH_Training WHERE Training_ID=$id";
 $result = mysql_query($query, $mysql_link);
 $values = mysql_fetch_row($result);
+$type = $values[2];
 echo "<p>Course Notes for: <a href=\"/course.php?id=$values[0]\">".stripslashes($values[1])."</a></p>\n";
 if($_SESSION['EHID']) {
 $query = "SELECT Training_ID, Name, Abbr, Description, Min_Training_ID, Min_Rank_ID, Min_Pos_ID, Min_Time, MinPoints, MaxPoints, NotesFile, Ribbon, Grader, TAc_ID FROM EH_Training WHERE Training_ID=$id";
@@ -150,21 +152,70 @@ if($values[7]) {
   else
     echo "The following errors need to be resolved before taking this test:<br />\n$error";
   }
-echo "<p>Sections:<br />\n";
-$query = "SELECT TN_ID, SectionName FROM EH_Training_Notes WHERE Training_ID=$id Order By SortOrder";
-$result = mysql_query($query,$mysql_link);
-$rows = mysql_num_rows($result);
-for($i = 1; $i <= $rows; $i++) {
-  $values = mysql_fetch_row($result);
-  echo "<a href=\"#$values[0]\">".stripslashes($values[1])."</a><br />\n";
+if($type==0) {
+  echo "<p>Sections:<br />\n";
+  $query = "SELECT TN_ID, SectionName, SectionText FROM EH_Training_Notes WHERE Training_ID=$id Order By SortOrder";
+  $result = mysql_query($query,$mysql_link);
+  $rows = mysql_num_rows($result);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    echo "<a href=\"#$values[0]\">".stripslashes($values[1])."</a><br />\n";
+    }
+  echo "</p>\n<hr>\n<br />\n";
+  mysql_data_seek($result, 0);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    echo "<p align=\"center\"><b><a name=\"$values[0]\">".stripslashes($values[1])."</a></b></p>\n";
+    echo "<p>".stripslashes($values[2])."</p>\n";
+    }
   }
-echo "</p>\n<hr>\n<br />\n";
-$query = "SELECT TN_ID, SectionName, SectionText FROM EH_Training_Notes WHERE Training_ID=$id Order By SortOrder";
-$result = mysql_query($query, $mysql_link);
-$rows = mysql_num_rows($result);
-for($i = 1; $i <= $rows; $i++) {
-  $values = mysql_fetch_row($result);
-  echo "<p align=\"center\"><b><a name=\"$values[0]\">".stripslashes($values[1])."</a></b></p>\n";
-  echo "<p>".stripslashes($values[2])."</p>\n";
-}
+elseif($type==1) {
+  echo "<div id=\"notestabs\">\n  <ul>\n";
+  $query = "SELECT TN_ID, SectionName, SectionText FROM EH_Training_Notes WHERE Training_ID=$id Order By SortOrder";
+  $result = mysql_query($query,$mysql_link);
+  $rows = mysql_num_rows($result);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    echo "<li><a href=\"#section$i\">".stripslashes($values[1])."</a></li>\n";
+    }
+  echo "</ul>\n";
+  mysql_data_seek($result, 0);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    echo "<div id=\"section$i\">\n";
+    echo "<p>".stripslashes($values[2])."</p>\n</div>\n";
+    }
+  echo "</div>\n";
+  echo "  <script>
+  $(function() {
+    $( \"#notestabs\" ).tabs();
+  });
+  </script>";
+  }
+elseif($type==2) {
+  echo "<p>Sections:<br />\n";
+  $query = "SELECT TN_ID, SectionName, SectionText FROM EH_Training_Notes WHERE Training_ID=$id Order By SortOrder";
+  $result = mysql_query($query,$mysql_link);
+  $rows = mysql_num_rows($result);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    if($values[0]==$page)
+      echo stripslashes($values[1])."<br />\n";
+    else
+      echo "<a href=\"/notes.php?id=$id&amp;page=$values[0]\">".stripslashes($values[1])."</a><br />\n";
+    }
+  echo "</p>\n<hr>\n<br />\n";
+  $query = "SELECT TN_ID, SectionName, SectionText FROM EH_Training_Notes WHERE Training_ID=$id";
+  if(isset($page))
+    $query.=" AND TN_ID=$page";
+  $query.=" Order By SortOrder";
+  if(!isset($page))
+    $query.=" LIMIT 1";
+  $result = mysql_query($query,$mysql_link);
+  $rows = mysql_num_rows($result);
+  for($i = 1; $i <= $rows; $i++) {
+    $values = mysql_fetch_row($result);
+    echo "<p>".stripslashes($values[2])."</p>\n";
+    }
+  }
 include_once("footer.php"); ?>
