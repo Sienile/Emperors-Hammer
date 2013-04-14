@@ -35,6 +35,7 @@ if(isset($stats)) {
   <script type="text/javascript" src="/js/jquery.bgiframe.min.js"></script>
   <script type="text/javascript" src="/js/xhtml.js"></script>
   <script type="text/javascript" src="/js/htmlbox.min.js"></script>
+  <script type="text/javascript" src="/js/CKEditor/ckeditor.js"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
