@@ -109,6 +109,7 @@ if(!isset($mysql_link)) {
 <?
 }
 ?>
+            <li><a href="/searchcourse.php">Course Search</a></li>
           </ul>
         </li>
         <li><a href="#">Archives</a>
