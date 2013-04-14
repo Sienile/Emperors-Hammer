@@ -50,14 +50,14 @@ elseif($status==2) {
   $query = "SELECT Email FROM EH_Members WHERE Member_ID=$grader";
   $result = mysql_query($query, $mysql_link);
   $values = mysql_fetch_row($result);
-  $recipient = RankAbbrName($grader, PriGroup($grader))." <".stripslashes($values[0]).">";
+  $recipient = RankAbbrName($grader, PriGroup($grader), 0)." <".stripslashes($values[0]).">";
   $recipient .="EH Training Officer <to@emperorshammer.org>";
   $query = "SELECT EH_Members.Member_ID, EH_Members.Email FROM EH_Training_Academies, EH_Members, EH_Members_Positions WHERE (EH_Training_Academies.Leader=EH_Members_Positions.Position_ID OR EH_Training_Academies.Deputy=EH_Members_Positions.Position_ID) AND EH_Members.Member_ID=EH_Members_Positions.Member_ID AND EH_Training_Academies.TAc_ID=$acadid";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   for($i = 1; $i <= $rows; $i++) {
     $values = mysql_fetch_row($result);
-    $recipient .=", ". RankAbbrName($values[0], PriGroup($values[0])) ." <".stripslashes($values[1]).">";
+    $recipient .=", ". RankAbbrName($values[0], PriGroup($values[0]), 0) ." <".stripslashes($values[1]).">";
     }
   $subject = "EH Academy Test Submission: $testname";
   $body = "$username has submitted a test for $testname. Please login to the site to grade it.";
