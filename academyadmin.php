@@ -470,38 +470,7 @@ else {
         width: 650,
         modal: true,
         open: function () {
-          $("#edesc").htmlbox({
-             skin:"blue",about:false,
-             toolbars:[[
-		// Cut, Copy, Paste
-		"separator","cut","copy","paste",
-		// Undo, Redo
-		"separator","undo","redo",
-		// Bold, Italic, Underline, Strikethrough, Sup, Sub
-		"separator","bold","italic","underline","strike","sup","sub",
-		// Left, Right, Center, Justify
-		"separator","justify","left","center","right",
-		// Ordered List, Unordered List, Indent, Outdent
-		"separator","ol","ul","indent","outdent",
-		// Hyperlink, Remove Hyperlink, Image
-		"separator","link","unlink","image"		
-		],
-		[
-          // Show code
-		"separator","code",
-        // Formats, Font size, Font family, Font color, Font, Background
-        "separator","formats","fontsize","fontfamily",
-		"separator","fontcolor","highlight",
-		],
-		[
-		//Strip tags
-		"separator","removeformat","striptags","hr","paragraph",
-		// Styles, Source code syntax buttons
-		"separator","quote","styles","syntax"
-		]],
-              icons:"silk",
-              idir:"http://www.emperorshammer.org/js/images/"
-             });
+          CKEDITOR.replace( 'edesc' );
           },
         buttons: {
           "Submit": function() {
@@ -517,40 +486,8 @@ else {
             }
         });
   });
-$(function(){
-          $("#adesc").htmlbox({
-             skin:"blue",about:false,
-             toolbars:[[
-		// Cut, Copy, Paste
-		"separator","cut","copy","paste",
-		// Undo, Redo
-		"separator","undo","redo",
-		// Bold, Italic, Underline, Strikethrough, Sup, Sub
-		"separator","bold","italic","underline","strike","sup","sub",
-		// Left, Right, Center, Justify
-		"separator","justify","left","center","right",
-		// Ordered List, Unordered List, Indent, Outdent
-		"separator","ol","ul","indent","outdent",
-		// Hyperlink, Remove Hyperlink, Image
-		"separator","link","unlink","image"		
-		],
-		[
-          // Show code
-		"separator","code",
-        // Formats, Font size, Font family, Font color, Font, Background
-        "separator","formats","fontsize","fontfamily",
-		"separator","fontcolor","highlight",
-		],
-		[
-		//Strip tags
-		"separator","removeformat","striptags","hr","paragraph",
-		// Styles, Source code syntax buttons
-		"separator","quote","styles","syntax"
-		]],
-              icons:"silk",
-              idir:"http://www.emperorshammer.org/js/images/"
-             });
-});
+
+CKEDITOR.replace( 'adesc' );
 </script>
  <?php
   include_once("footer.php");
