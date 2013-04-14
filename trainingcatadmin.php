@@ -283,11 +283,11 @@ else {
   <div id="message" style="color: green;"></div>
   <div id="response"></div>
   <p>
-      <a onClick="$('#add-form').dialog('open');" href="#">
+      <a onClick="$('#add-form').dialog('open');getTrainCat();" href="#">
         <span style="color:#6699CC;">Add New Category</span>
     </a>
   </p>
-  <div id="add-form" title="Add New Category>
+  <div id="add-form" title="Add New Category">
   <form id="addForm" method="POST">
     <table>
       <tr>
@@ -386,7 +386,7 @@ else {
         url: '<?=$_SERVER['PHP_SELF']?>?add=true&group='+group,
         success: showSuccess
     }
-    $("#Cancel").click();
+    $("#addForm").ajaxSubmit(options);
     return false;
   }
   
