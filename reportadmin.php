@@ -253,12 +253,19 @@ else {
         autoOpen: false,
         width: 600,
         modal: true,
+        open: function () {
+          $('#areport').ckeditor();
+          },
         buttons: {
           "Submit": function() {
             postAdd();
             $( this ).dialog( "close" );
             },
           Cancel: function() {
+          var editor = CKEDITOR.instances['areport'];
+          if(editor) {
+            editor.destroy(true);
+            }
             $( this ).dialog( "close" );
             }
           },
@@ -271,7 +278,7 @@ else {
         width: 600,
         modal: true,
         open: function () {
-          CKEDITOR.replace( 'ereport' );
+          $('#ereport').ckeditor();
           },
         buttons: {
           "Submit": function() {
@@ -283,12 +290,14 @@ else {
             }
           },
           close: function() {
+          var editor = CKEDITOR.instances['ereport'];
+          if(editor) {
+            editor.destroy(true);
+            }
             document.forms["editForm"].reset();
             }
         });
   });
-
-          CKEDITOR.replace( 'areport' );
   </script>
   <?php
   include_once("footer.php");

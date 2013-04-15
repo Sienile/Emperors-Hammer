@@ -213,6 +213,9 @@ else {
         autoOpen: false,
         width: 600,
         modal: true,
+        open: function () {
+          $('#nbody').ckeditor();
+          },
         buttons: {
           "Submit": function() {
             postAdd();
@@ -223,6 +226,10 @@ else {
             }
           },
         close: function() {
+          var editor = CKEDITOR.instances['nbody'];
+          if(editor) {
+            editor.destroy(true);
+            }
           document.forms["addForm"].reset();
           }
       });
@@ -231,7 +238,7 @@ else {
         width: 600,
         modal: true,
         open: function () {
-          CKEDITOR.replace( 'ebody' );
+          $('#ebody').ckeditor();
           },
         buttons: {
           "Submit": function() {
@@ -243,11 +250,15 @@ else {
             }
           },
           close: function() {
+          var editor = CKEDITOR.instances['ebody'];
+          if(editor) {
+            editor.destroy(true);
+            }
+
             document.forms["editForm"].reset();
             }
         });
   });
-CKEDITOR.replace('nbody');
   </script>
   <?php
   include_once("footer.php");

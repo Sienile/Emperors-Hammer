@@ -33,7 +33,8 @@ if(isset($stats)) {
   <script type="text/javascript" src="/js/wtooltip.min.js"></script>
   <script type="text/javascript" src="/js/jquery.autocomplete.js"></script>
   <script type="text/javascript" src="/js/jquery.bgiframe.min.js"></script>
-  <script type="text/javascript" src="/js/CKEditor/ckeditor.js"></script>
+  <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="/js/ckeditor/adapters/jquery.js"></script>
 <script type="text/javascript">
 
   var _gaq = _gaq || [];

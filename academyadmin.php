@@ -451,6 +451,9 @@ else {
         autoOpen: false,
         width: 650,
         modal: true,
+        open: function () {
+          $('#adesc').ckeditor();
+          },
         buttons: {
           "Submit": function() {
             postAdd();
@@ -461,16 +464,19 @@ else {
             }
           },
         close: function() {
+          var editor = CKEDITOR.instances['adesc'];
+          if(editor) {
+            editor.destroy(true);
+            }
           document.forms["addForm"].reset();
           }
       });
-
       $("#editArea").dialog({
         autoOpen: false,
         width: 650,
         modal: true,
         open: function () {
-          CKEDITOR.replace( 'edesc' );
+          $('#edesc').ckeditor();
           },
         buttons: {
           "Submit": function() {
@@ -482,12 +488,14 @@ else {
             }
           },
           close: function() {
+          var editor = CKEDITOR.instances['edesc'];
+          if(editor) {
+            editor.destroy(true);
+            }
             document.forms["editForm"].reset();
             }
         });
   });
-
-CKEDITOR.replace( 'adesc' );
 </script>
  <?php
   include_once("footer.php");
