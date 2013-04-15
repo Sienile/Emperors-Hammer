@@ -138,7 +138,7 @@ echo "</p>\n";
 //End Battle Functions
 //Begin Works Functions
 echo "<p>Created Works Functions<br />\n";
-echo $indent."Personal Fiction Admin<br />\n";
+echo $indent."<a href=\"/fictionadmin.php\">Personal Fiction Admin</a><br />\n";
 if(has_access($_SESSION['EHID'], "fictionadmin",true))
   echo $indent."Global Fiction Admin<br />\n";
 if(has_access($_SESSION['EHID'], "filesadmin",true))
