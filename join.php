@@ -131,7 +131,7 @@ if(isset($name) && $name!="" && $_POST['age']==0) {
     }
 //Begin Add to phpBB
 define('IN_PHPBB', true);
-define('ROOT_PATH', "messageboard");
+define('ROOT_PATH', "messageboard.old");
 
 if (!defined('IN_PHPBB') || !defined('ROOT_PATH')) {
 exit();

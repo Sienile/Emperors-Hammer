@@ -172,7 +172,7 @@ if(!isset($mysql_link)) {
                   </tr>
                   <tr>
                     <td style="width: 15px"></td>
-                    <td style="background-image:url('/images/nav/btnbackground.png');background-repeat:no-repeat; padding-left: 15px; height: 27px"><a href="/messageboard" target="_blank">Message Boards</a></td>
+                    <td style="background-image:url('/images/nav/btnbackground.png');background-repeat:no-repeat; padding-left: 15px; height: 27px"><a href="http://mb.emperorshammer.org" target="_blank">Message Boards</a></td>
                   </tr>
                   <tr>
                     <td colspan="2" style="height: 5px"></td>
