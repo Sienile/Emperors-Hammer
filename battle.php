@@ -316,10 +316,10 @@ for($j=0;$j<$rows2; $j++) {
   echo "<a href=\"/patch.php?id=$values2[0]\">".stripslashes($values2[1])."</a><br>\n";
   }
 ?>
-<b>Wave Pack</b>: <? if($values[12]) echo "<a href=\"/tc/battles/wavpacks/$values[12]\">Download</a>"; else echo "None"; ?><br>
+<b>Wave Pack</b>: <? if($values[12]) echo "<a href=\"http://www.tc.emperorshammer.org/downloads/wavpacks/$values[12]\">Download</a>"; else echo "None"; ?><br>
 </td>
 <td style="vertical-align:top">
-<a href="/tc/battles/<?=$values[11]?>"><b>Download</b></a><br/>
+<a href="http://www.tc.emperorshammer.org/downloads/battles/<?=$values[11]?>"><b>Download</b></a><br/>
 <b>Medal Name</b>: <?=stripslashes($values[9])?><br/>
 <b>Average Rating</b>: 
 <?
