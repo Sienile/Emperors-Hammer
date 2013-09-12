@@ -271,10 +271,10 @@ Creator(s): <?=stripslashes($values[5])?><br>
 Released: <?=date("F j, Y", $values[6])?><br>
 Updated: <?=date("F j, Y", $values[7])?><br>
 </td>
-<td style="vertical-align:top"><a href="http://sco.emperorshammer.org/patches/<?=stripslashes($values[2])?>">Download</a>
+<td style="vertical-align:top"><a href="http://www.tc.emperorshammer.org/downloads/patch/<?=stripslashes($values[2])?>">Download</a>
 <?
-if($values[10])
-  echo "<img src=\"/images/patches/stripslashes($values[8])\" />";
+if(strlen($values[8]) >= 1 && file_exists("http://www.tc.emperorshammer.org/images/scopatch/".$values[8]))
+  echo "<img src=\"http://www.tc.emperorshammer.org/images/scopatch/".stripslashes($values[8])."\" />";
 ?>
 </td>
 </tr>

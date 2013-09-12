@@ -22,7 +22,7 @@ if($rows && array_key_exists("EHID",$_SESSION)) {
         echo " | <a href=\"/promoaward.php?memberid=$pin\">Award Promotion</a>";
     echo " | ";
 }
-echo "<form method=\"get\" action=\"profile.php\">\nPIN #: <input type=\"text\" name=\"pin\" style=\"width: 30px\" value=\"$pin\" />\n</form>\n";
+echo "<form method=\"get\" action=\"/profile.php\">\nPIN #: <input type=\"text\" name=\"pin\" style=\"width: 30px\" value=\"$pin\" />\n</form>\n";
 echo "</div>\n";
 if($rows) {
     $values = mysql_fetch_row($result);
