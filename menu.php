@@ -120,6 +120,8 @@ if(has_access($_SESSION['EHID'], "bsfsubmit",true))
   echo $indent."<a href=\"/bsfsubmit.php\">BSF Submit</a><br />\n";
 if(has_access($_SESSION['EHID'], "bsfapprove",true))
   echo $indent."<a href=\"/bsfapprove.php\">BSF Approval</a><br />\n";
+if(has_access($_SESSION['EHID'], "battlehistoryadmin",true))
+  echo $indent."<a href=\"/battlehistoryadmin.php\">Battle History Admin</a><br />\n";
 if(has_access($_SESSION['EHID'], "combatrateadmin",true))
   echo $indent."<a href=\"/cradmin.php\">Combat Ratings Admin</a><br />\n";
 if(has_access($_SESSION['EHID'], "fchgadmin",true))
