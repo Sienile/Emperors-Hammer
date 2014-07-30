@@ -626,6 +626,15 @@ if(!isset($mysql_link)) {
     $values = mysql_fetch_row($result);
     return $values[0];
     }
+  else {
+    $query = "select Group_ID From EH_Members_Groups WHERE Member_ID=$pin Order By Group_ID LIMIT 1";
+    $result = mysql_query($query, $mysql_link);
+    $rows = mysql_num_rows($result);
+    if($rows) {
+      $values = mysql_fetch_row($result);
+      return $values[0];
+      }
+    }
 }
 
 function Professor($academy, $grader) {
