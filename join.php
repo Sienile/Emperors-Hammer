@@ -27,9 +27,10 @@ if(isset($name) && $name!="" && $_POST['age']==0) {
   $body .= "To login to the Emperor's Hammer site located at ".$site_host.", you will need both your pin and password\n";
   $body .= "Your pin # is: ".$newpin."\n";
   $body .= "Your requested password is: ".$pw."\n\n";
-  $body .= "You can also login to the message boards located at http://www.emperorshammer.org/messageboard with the following login information:\n";
-  $body .= "Username: ".mysql_real_escape_string($_POST['username'], $mysql_link)."\n";
-  $body .= "Password: $pw\n\n";
+  $body .= "At this time the automated message board join is not working, Please feel join at http://www.emperorshammer.org/messageboard.\n";
+//  $body .= "You can also login to the message boards located at http://www.emperorshammer.org/messageboard with the following login information:\n";
+//  $body .= "Username: ".mysql_real_escape_string($_POST['username'], $mysql_link)."\n";
+//  $body .= "Password: $pw\n\n";
   $time=time();
   foreach($_POST['Groups'] as $group) {
     $query = "SELECT Group_ID, Name, Abbr, GroupJoinContact, JoinMailBlurb FROM EH_Groups WHERE Group_ID=$group";
@@ -129,6 +130,7 @@ if(isset($name) && $name!="" && $_POST['age']==0) {
       $cotos.=stripslashes($values1[0])." <$values1[1]>, ";
       }
     }
+/*
 //Begin Add to phpBB
 define('IN_PHPBB', true);
 define('ROOT_PATH', "messageboard.old");
@@ -165,6 +167,7 @@ $user_row = array(
 $user_id = user_add($user_row);
 }
 // End Add to phpBB
+*/
   $cotos = substr($cotos, 0, strlen($cotos)-2);
   $cotos = explode(", ", $cotos);
   $cotos = array_unique($cotos);
