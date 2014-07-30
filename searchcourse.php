@@ -11,7 +11,7 @@ if(!$mysql_link) {
 if(isset($_POST['name'])) {
   $val = mysql_real_escape_string($_POST['name'], $mysql_link);
   echo "<p>Your search for ".$val. " revealed the following results:<br />\n";
-  $query = "SELECT Training_ID, Name From EH_Training WHERE Name LIKE '%". $val ."%' OR Description LIKE '%".$val."%' Order By Name";
+  $query = "SELECT Training_ID, Name From EH_Training WHERE (Name LIKE '%". $val ."%' OR Description LIKE '%".$val."%') AND Available=1 Order By Name";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
   if($rows==0)
