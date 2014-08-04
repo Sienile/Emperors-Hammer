@@ -111,6 +111,7 @@ if($_POST['Groups']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $mailit = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $group=1;
   $query = "SELECT Position_ID FROM EH_Positions WHERE Group_ID=$group AND (Position_ID=$groupjoinpos OR Position_ID=51 OR Position_ID=60 OR SortOrder=(SELECT MAX(SortOrder) FROM EH_Positions WHERE Group_ID=$group) OR SortOrder=(SELECT MAX(SortOrder) FROM EH_Positions WHERE Group_ID=$group)-1)";
   $result = mysql_query($query, $mysql_link);
@@ -147,6 +148,7 @@ if($_POST['Groups']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $mailit = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
 ?>
 <p>You should be contacted shortly with regards to group information.</p>
 <?

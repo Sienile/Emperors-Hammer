@@ -165,6 +165,7 @@ elseif($_GET['add']) {
     $headers .= "Return-Path: $postmaster\n";  // Return path for errors
     //Mail it!
     $grade = mail($recipient, $subject, $body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     if($result)
       echo "<p>".stripslashes($name)." submitted sucessfully for approval.</p>\n";
     else

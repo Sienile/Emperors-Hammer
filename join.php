@@ -116,6 +116,7 @@ if(isset($name) && $name!="" && $_POST['age']==0) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $mailit = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $group=1;
   $query = "SELECT Position_ID FROM EH_Positions WHERE Group_ID=$group AND (Position_ID=$groupjoinpos OR Position_ID=51 OR Position_ID=60 OR SortOrder=(SELECT MAX(SortOrder) FROM EH_Positions WHERE Group_ID=$group) OR SortOrder=(SELECT MAX(SortOrder) FROM EH_Positions WHERE Group_ID=$group)-1)";
   $result = mysql_query($query, $mysql_link);
@@ -190,6 +191,7 @@ $user_id = user_add($user_row);
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $mailit = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   if($mailit)
     echo "Welcome to the Emperor's Hammer! You should shortly recieve an e-mail with information necessary to login to the site.";
   }

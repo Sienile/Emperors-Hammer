@@ -272,6 +272,7 @@ elseif($_GET['edit1']) {
     $headers .= "X-Mailer: PHP\n"; // mailer
     //Send!
     $mail = mail($to, $Subject, $Body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     }
   else { //Failed
     $query1 = "UPDATE EH_Training_Exams_Complete Set Status=0 WHERE Training_ID=$id AND Member_ID=$member";
@@ -288,6 +289,7 @@ elseif($_GET['edit1']) {
     $headers .= "X-Mailer: PHP\n"; // mailer
     //Send!
     $mail = mail($to, $Subject, $Body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     }
   if($result)
     echo "<p>Exam graded!</p>\n";

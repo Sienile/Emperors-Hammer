@@ -371,6 +371,7 @@ Bits to check
     $headers .= "Return-Path: $postmaster\n";  // Return path for errors
     //Mail it!
     $grade = mail($to, $subject, $body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     }
   else {
     //If errors, and E-mail TAC only, for analysis
@@ -426,6 +427,7 @@ Bits to check
     $headers .= "Return-Path: $postmaster\n";  // Return path for errors
     //Mail it!
     $grade = mail($to, $subject, $body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     $to = "Tactical Office <tac@emperorshammer.org>";
     $subject = "BSF Submitted requires Analysis";
     $body = RankAbbrName($recid, PriGroup($recid), 0) ." has submitted a BSF for battle: $battlename for ".RankAbbrName($memberid, PriGroup($memberid),0).".\n";
@@ -468,6 +470,7 @@ Bits to check
     $headers .= "Return-Path: $postmaster\n";  // Return path for errors
     //Mail it!
     $grade = mail($to, $subject, $body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     }
   if($error)
     echo "<p>$error</p>\n";
