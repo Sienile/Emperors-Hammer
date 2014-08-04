@@ -103,6 +103,7 @@ elseif($_GET['edit1']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $query = "UPDATE EH_Medals_Complete Set Status=2, RejectReason='$reason' WHERE MC_ID=$id";
   $result = mysql_query($query, $mysql_link);
   if($result)
@@ -160,6 +161,7 @@ elseif($_GET['del']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $query = "Update EH_Medals_Complete Set Status=1, DateAwarded='$time' WHERE MC_ID=$id";
   $result = mysql_query($query, $mysql_link);
   if($result)

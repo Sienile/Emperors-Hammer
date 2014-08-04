@@ -4,7 +4,7 @@
  * Description: Class to help the SO in their duties
  * 
  */
-
+include_once("functions.php");
 class Security{
 	/**
 	 * @var database connection
@@ -243,7 +243,6 @@ class Security{
 	 */
 	private function sendMail($subject, $message, $recipient){
 		$backtrace = debug_backtrace();
-		
 		if (count($backtrace) > 2 && $backtrace[3]["function"] =="test"){
 			print "Sending mail to : ". $recipient."<br />";
 			print "Subject : ".$subject."<br />";
@@ -256,6 +255,7 @@ class Security{
 		$headers .= "From: $postmaster\n";
 		$headers .= "X-Mailer: PHP\n"; // mailer
 		$headers .= "Return-Path: $postmaster\n";  // Return path for errors
+		storeEmail($recipient, '', '', $subject, $message);
 		mail($recipient, $subject, $message, $headers);
 		
 		return true;

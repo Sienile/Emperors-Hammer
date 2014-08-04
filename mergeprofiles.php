@@ -248,6 +248,7 @@ elseif($_GET['confirmyes']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   }
 else {
 ?>

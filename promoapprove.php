@@ -86,6 +86,7 @@ elseif($_GET['edit1']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $query = "DELETE FROM EH_Promotion_Recs WHERE PR_ID=$id";
   $result = mysql_query($query, $mysql_link);
   if($result)
@@ -162,6 +163,7 @@ elseif($_GET['del']) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   $query = "DELETE FROM EH_Promotion_Recs WHERE PR_ID=$id";
   $result = mysql_query($query, $mysql_link);
   if($result)

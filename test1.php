@@ -71,6 +71,7 @@ elseif($status==2) {
   $headers .= "Return-Path: $postmaster\n";  // Return path for errors
   //Mail it!
   $grade = mail($recipient, $subject, $body, $headers);
+  storeEmail($recipient, '', '', $subject, $body);
   echo "Test has been submitted to the Staff for grading. To view your submitted test and get a copy of what you submitted, click <font color=\"#cc1000\">&gt;<a href=\"/viewtest.php?id=$test\">HERE</a>&lt;</font>";
   }
 include_once("footer.php");
