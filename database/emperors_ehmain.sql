@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: mysql.emperorshammer.org
--- Generation Time: Sep 10, 2012 at 11:10 AM
+-- Generation Time: Aug 03, 2014 at 06:25 PM
 -- Server version: 5.1.56
--- PHP Version: 5.3.13
+-- PHP Version: 5.3.27
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `emperors_ehmain`
@@ -107,6 +101,26 @@ CREATE TABLE IF NOT EXISTS `EH_Bases` (
   KEY `BT_ID` (`BT_ID`),
   KEY `Master_ID` (`Master_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `EH_Bases_History`
+--
+
+DROP TABLE IF EXISTS `EH_Bases_History`;
+CREATE TABLE IF NOT EXISTS `EH_Bases_History` (
+  `History_ID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `Title` tinytext NOT NULL,
+  `Base_ID` smallint(5) unsigned NOT NULL,
+  `Body` longtext NOT NULL,
+  `Member_ID` mediumint(8) unsigned NOT NULL,
+  `Approved` tinyint(1) unsigned NOT NULL,
+  `DateApproved` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`History_ID`),
+  KEY `Member_ID` (`Member_ID`),
+  KEY `Base_ID` (`Base_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -409,6 +423,27 @@ CREATE TABLE IF NOT EXISTS `EH_ConvertInfo` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `EH_Emails`
+--
+
+DROP TABLE IF EXISTS `EH_Emails`;
+CREATE TABLE IF NOT EXISTS `EH_Emails` (
+  `Email_ID` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `To` text NOT NULL,
+  `From` text NOT NULL,
+  `Subject` text NOT NULL,
+  `Body` longtext NOT NULL,
+  `NumRecipients` smallint(5) unsigned NOT NULL,
+  `Secure` tinyint(1) NOT NULL,
+  `Sent` tinyint(1) NOT NULL,
+  `DateSubmitted` int(10) unsigned NOT NULL,
+  `DateSent` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`Email_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `EH_FCHG`
 --
 
@@ -542,26 +577,6 @@ CREATE TABLE IF NOT EXISTS `EH_Heroes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `EH_History`
---
-
-DROP TABLE IF EXISTS `EH_History`;
-CREATE TABLE IF NOT EXISTS `EH_History` (
-  `History_ID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `Title` tinytext NOT NULL,
-  `Base_ID` smallint(5) unsigned NOT NULL,
-  `Body` longtext NOT NULL,
-  `Member_ID` mediumint(8) unsigned NOT NULL,
-  `Approved` tinyint(1) unsigned NOT NULL,
-  `DateApproved` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`History_ID`),
-  KEY `Member_ID` (`Member_ID`),
-  KEY `Base_ID` (`Base_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `EH_Images`
 --
 
@@ -593,7 +608,7 @@ CREATE TABLE IF NOT EXISTS `EH_Images_Categories` (
   `Display` tinyint(3) unsigned NOT NULL COMMENT '1',
   `SortOrder` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`IC_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -736,6 +751,26 @@ CREATE TABLE IF NOT EXISTS `EH_Links_Comments` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `EH_Mails`
+--
+
+DROP TABLE IF EXISTS `EH_Mails`;
+CREATE TABLE IF NOT EXISTS `EH_Mails` (
+  `Mail_ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `To` longtext NOT NULL,
+  `CC` longtext NOT NULL,
+  `BCC` longtext NOT NULL,
+  `NumRecipients` smallint(5) unsigned NOT NULL,
+  `Subject` longtext NOT NULL,
+  `Body` longtext NOT NULL,
+  `Date_Created` bigint(20) unsigned NOT NULL,
+  `Date_Sent` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`Mail_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `EH_Medals`
 --
 
@@ -821,7 +856,7 @@ CREATE TABLE IF NOT EXISTS `EH_Medals_Upgrades` (
   `MU_ID` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `Medal_ID` smallint(5) unsigned NOT NULL,
   `Name` varchar(75) NOT NULL,
-  `Abbr` varchar(10) NOT NULL,
+  `Abbr` varchar(50) NOT NULL,
   `Group_ID` tinyint(3) unsigned NOT NULL,
   `Lower` mediumint(8) unsigned NOT NULL,
   `Upper` mediumint(8) unsigned NOT NULL,
@@ -1582,7 +1617,7 @@ CREATE TABLE IF NOT EXISTS `EH_Skills` (
   `Abbr` varchar(10) NOT NULL,
   `Icon` varchar(255) NOT NULL,
   PRIMARY KEY (`Skill_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1640,6 +1675,7 @@ CREATE TABLE IF NOT EXISTS `EH_Training` (
   `Rewards` text NOT NULL,
   `Grader` mediumint(8) unsigned NOT NULL,
   `Ribbon` varchar(50) NOT NULL,
+  `NotesType` tinyint(3) unsigned NOT NULL COMMENT '0-Single Page List, 1 - Tabs, 2 - Separate Pages',
   PRIMARY KEY (`Training_ID`),
   KEY `TC_ID` (`TC_ID`),
   KEY `TAc_ID` (`TAc_ID`),
