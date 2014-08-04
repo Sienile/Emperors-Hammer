@@ -1,6 +1,32 @@
 <?
 include_once("config.php");
 
+function storeEmail($to, $cc, $bcc, $subj, $body) {
+  global $db_host, $db_name, $db_username, $db_password, $mysql_link;
+  if(!isset($mysql_link)) {
+    $mysql_link = mysql_connect($db_host, $db_username, $db_password);
+    mysql_select_db($db_name, $mysql_link);
+    }
+  $to = mysql_real_escape_string($to, $mysql_link);
+  $cc = mysql_real_escape_string($cc, $mysql_link);
+  $bcc = mysql_real_escape_string($bcc, $mysql_link);
+  $numrecipients = 0;
+  if($to) {
+    $numrecipients += substr_count($to, '@');
+    }
+  if($cc) {
+    $numrecipients += substr_count($cc, '@');
+    }
+  if($bcc) {
+    $numrecipients += substr_count($bcc, '@');
+    }
+  $subj = mysql_real_escape_string($subj, $mysql_link);
+  $body = mysql_real_escape_string($body, $mysql_link);
+  $datecreated = time();
+  $query = "INSERT INTO EH_Mails (To, CC, BCC, NumRecipients, Subject, Body, Date_Created) VALUES('$to', '$cc', '$bcc', '$numrecipients', '$subj', '$body', '$datecreated')";
+  $result = mysql_query($query, $mysql_link);
+}
+
 function CalculateFCHG($member) {
   global $db_host, $db_name, $db_username, $db_password, $mysql_link;
 if(!isset($mysql_link)) {
