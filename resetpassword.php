@@ -34,11 +34,8 @@ if(isset($_POST['pin'])) {
     $body = "Your password was reset to: $pw\n";
     $body .= "Your pin is: $pin";
     $body .= "\n\nThis message was generated as an automatic e-mail, if you did not request your password to be reset contact the Security Officer.";
-    $headers = "From: $postmaster\n";
-    $headers .= "X-Mailer: PHP\n"; // mailer
-    $headers .= "Return-Path: $postmaster\n";  // Return path for errors
-    //Mail it!
     $grade = mail($recipient, $subject, $body, $headers);
+    storeEmail($recipient, '', '', $subject, $body);
     }
   if($rows==0) {
     $error = "<p>E-mail address not found.</p>\n";

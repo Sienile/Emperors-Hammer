@@ -23,7 +23,7 @@ function storeEmail($to, $cc, $bcc, $subj, $body) {
   $subj = mysql_real_escape_string($subj, $mysql_link);
   $body = mysql_real_escape_string($body, $mysql_link);
   $datecreated = time();
-  $query = "INSERT INTO EH_Mails (To, CC, BCC, NumRecipients, Subject, Body, Date_Created) VALUES('$to', '$cc', '$bcc', '$numrecipients', '$subj', '$body', '$datecreated')";
+  $query = "INSERT INTO EH_Mails (`To`, `CC`, `BCC`, `NumRecipients`, `Subject`, `Body`, `Date_Created`) VALUES('$to', '$cc', '$bcc', '$numrecipients', '$subj', '$body', '$datecreated')";
   $result = mysql_query($query, $mysql_link);
 }
 
