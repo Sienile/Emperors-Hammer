@@ -7,8 +7,8 @@ if(!$mysql_link) {
   mysql_select_db($db_name, $mysql_link);
   }
 if(isset($_POST['pin'])) {
-   $SO->addIP("Password Reset");
   $id = mysql_real_escape_string($_POST['pin'], $mysql_link);
+  $SO->addIP("Password Reset, for E-mail: $id");
   $query = "select Member_ID, Email, Name From EH_Members WHERE Email='$id'";
   $result = mysql_query($query, $mysql_link);
   $rows = mysql_num_rows($result);
